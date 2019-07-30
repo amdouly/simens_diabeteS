@@ -682,7 +682,6 @@ class PersonnelController extends AbstractActionController {
  		if($donneesComplement){ $formPersonnel->bind($donneesComplement); }
  		if($donneesAffectation){ $formPersonnel->bind($donneesAffectation); }
  		
- 		
  		$formPersonnel->populateValues($data);
  		
  		//var_dump($id_personne); exit();

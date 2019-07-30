@@ -2,7 +2,8 @@
 return array(
     'modules' => array(
     		'Admin',
-    		'Personnel'
+    		'Personnel',
+            'Consultation'
     ),
 
     'module_listener_options' => array(
