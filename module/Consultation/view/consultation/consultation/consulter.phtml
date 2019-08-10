@@ -242,6 +242,7 @@ $(window).load(function () {
            <?php echo $this->formHidden($form->get('idpatient'));?>
            <?php echo $this->formHidden($form->get('idmedecin'));?>
            <?php echo $this->formHidden($form->get('idinfirmier'));?>
+           <?php echo $this->formHidden($form->get('idadmission'));?>
            <?php echo $this->formHidden($form->get('idcons'));?>
            <?php echo $this->formHidden($form->get('date'));?>
            <?php echo $this->formHidden($form->get('heure'));?>
@@ -411,7 +412,7 @@ $(window).load(function () {
      <!--*4*-->
      
      <div style='font-family: police2;font-size: 17px; font-weight: bold;'>Ant&eacute;c&eacute;dents et Historiques</div>  
-     <div style=' max-height: 500px;'>
+     <div style='max-height: 500px;'>
   
          <div id="tabsAntecedents">
              <ul>
@@ -450,22 +451,22 @@ $(window).load(function () {
 		                <tr style="width:100%;">
 		                     <td style="width:25%;">
 		                        <div>    
-		                            <img class="image1_AP" style='cursor: pointer; width: 100%;' src='<?php echo $this->basepath().'/images_icons/image1_AP.png'?>' style=''/>
+		                            <img class="image1_AP" style='cursor: pointer; width: 100%;' src='<?php echo $this->basepath().'/images_icons/image1c_AP.png'?>' style=''/>
 		                        </div>
 		                     </td>
 		                     <td style="width:25%;">
 		                        <div>    
-		                            <img class="image4_AP" style='cursor: pointer; width: 100%;' src='<?php echo $this->basepath().'/images_icons/image4_AP.png'?>' style=''/>
+		                            <img class="image4_AP" style='cursor: pointer; width: 100%;' src='<?php echo $this->basepath().'/images_icons/image4c_AP.png'?>' style=''/>
 		                        </div>
 		                     </td>
 		                     <td style="width:25%;">
 		                        <div>    
-		                            <img class="image2_AP" style='cursor: pointer; width: 100%;' src='<?php echo $this->basepath().'/images_icons/image2_AP.png'?>' style=''/>
+		                            <img class="image2_AP" style='cursor: pointer; width: 100%;' src='<?php echo $this->basepath().'/images_icons/image2c_AP.png'?>' style=''/>
 		                        </div>
 		                     </td>
 		                     <td style="width:25%;">
 		                        <div>    
-		                            <img class="image3_AP" style='cursor: pointer; width: 100%;' src='<?php echo $this->basepath().'/images_icons/image3_AP.png'?>' style=''/>
+		                            <img class="image3_AP" style='cursor: pointer; width: 100%;' src='<?php echo $this->basepath().'/images_icons/image3c_AP.png'?>' style=''/>
 		                        </div>
 		                     </td>
 		                 </tr>
@@ -490,7 +491,7 @@ $(window).load(function () {
 
                 		 <tr style="width:100%;">
                      		 <td style="width:25%; padding-right: 30px; vertical-align: top;" class="designStyleLabel">
-		                         <label style="width: 100%; height:30px; text-align:left; margin-top: 7px;">
+		                         <label style="width: 100%; height:30px; text-align:left; margin-top: 7px; margin-bottom: 7px;">
 		                           <span style='font-size: 14px;'>&#10045; </span><span style='font-weight: bold;'>Diab&eacute;tique connu</span> 
 		                           <?php echo $this->formRow($form->get('diabetique_connu')); ?> 
 		                         </label>
@@ -500,7 +501,7 @@ $(window).load(function () {
                          
                          <tr style="width:100%; display: none;" id="contenuDiabeteConnuSiOui">
                      		 <td style="width:25%; vertical-align: top;" colspan="2" >
-                     		   <div style="width: 100%; padding: 3px; padding-bottom: 0px;">
+                     		   <div style="width: 100%; padding: 3px; padding-bottom: 1px;">
                      		     <table style="width: 100%;" >
                      		        <tr style="width: 100%" class="designStyleLabel">
                      		        
@@ -636,7 +637,7 @@ $(window).load(function () {
                      		        <tr style="width: 100%" class="designStyleLabel">
                      		        
                      		           <td style="width: 75%;">
-				                         <label style="width: 100%; height:30px; text-align:left; margin-top: 7px;">
+				                         <label style="width: 100%; height:30px; text-align:left; margin-top: 7px; margin-bottom: 7px;">
 				                           <span style='font-size: 14px;'>&#10045; </span><span style='font-weight: bold;'>Autre terrain connu</span> 
 				                           <?php echo $this->formRow($form->get('autre_terrain_connu')); ?> 
 				                         </label>
@@ -653,7 +654,7 @@ $(window).load(function () {
                 		 <tr style="width:100%;">
                      		 <td colspan="2" style="width:100%; vertical-align: top;" class="zoneContenuObmre">
 		                        
-                               <div style="width: 100%; padding: 3px; padding-bottom: 0px;">
+                               <div style="width: 100%; padding: 3px; padding-bottom: 1px;">
                      		     
                      		     <table style="width: 100%;" >
                      		        <tr style="width: 100%" class="designStyleLabel">
@@ -666,8 +667,8 @@ $(window).load(function () {
                      		           </td>
                      		           
                      		           <td class="colTraitement1" style="width: 30%; padding-right: 25px; display: none;">
-                     		              <label style="width: 100%; height:30px; text-align:left;">
-		                           		    <span style='font-size: 11px;'>  </span><span>Traitement</span> 
+                     		              <label style="width: 100%; height:30px; text-align:right; font-style: italic;">
+		                           		    <span style='font-size: 11px;'>  </span><span>Traitement&nbsp;</span> 
 		                                    <?php echo $this->formRow($form->get('hta_traitement')); ?> 
 		                                  </label>
                      		           </td>
@@ -680,8 +681,8 @@ $(window).load(function () {
                      		           </td>
                      		           
                      		           <td class="colTraitement2" style="width: 35%;  padding-right: 25px; display: none;">
-                     		              <label style="width: 100%; height:30px; padding-right: 10px; text-align:left;">
-		                           		    <span style='font-size: 11px;'>  </span><span>Traitement</span> 
+                     		              <label style="width: 100%; height:30px; padding-right: 10px; text-align:right; font-style: italic;">
+		                           		    <span style='font-size: 11px;'>  </span><span>Traitement&nbsp;</span> 
 		                                    <?php echo $this->formRow($form->get('dyslipidemie_traitement')); ?> 
 		                                  </label>
                      		           </td>
@@ -749,6 +750,164 @@ $(window).load(function () {
 	 			   
 	 			   
 	 			   
+	 			   <!--****** ================== ANTECEDENTS MEDICAUX ================== ****** -->
+             	   <!--****** ================== ANTECEDENTS MEDICAUX ================== ****** -->
+                   <table id="ContenuAntecedentsMedicaux" style="width:100%; display: none;">
+                         
+                         <tr style="width:100%;">
+                  			 <td colspan="4">
+                               <div style="width: 100%; font-family: Tempus Sans ITC;  color: green; font-size: 20px; padding-bottom: 10px;" >&#10049; Les ant&eacute;c&eacute;dents m&eacute;dicaux </div>
+                  			 </td>
+                		 </tr>
+                		 
+                		 
+                     	 <tr style="width: 100%" class="designStyleLabel">
+                     		        
+                     	   <td style="width: 98%;">
+	                         <label style="width: 100%; height:30px; text-align:left; margin-top: 7px; margin-bottom: 7px;">
+	                           <span style='font-size: 14px;'>&#10045; </span><span style='font-weight: bold;'>Les ant&eacute;c&eacute;dents notables</span> 
+	                           <?php echo $this->formRow($form->get('antecedents_medicaux_notable')); ?> 
+	                         </label>
+	                       </td>
+	                       <td style="width: 2%;"></td>
+	                       
+	                     </tr>
+				                 
+                		 
+                		 <tr style="width:100%;">
+                     		 <td colspan="2" style="width:100%; vertical-align: top;" class="zoneContenuObmre">
+		                        
+                               <div style="width: 100%; padding: 3px; padding-bottom: 1px;">
+                     		     
+                     		     <table style="width: 100%;" >
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		        
+                     		           <td style="width: 30%; padding-right: 25px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Anciennes hospitalisations</span> 
+		                                    <?php echo $this->formRow($form->get('anciennes_hospitalisations')); ?> 
+		                                  </label>
+                     		           </td>
+                     		        
+                     		           <td style="width: 70%; padding-right: 25px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span>Traitements en cours <span style="font-style: italic; font-size: 13px;">(mol&eacute;cules)</span> 
+		                                    <?php echo $this->formRow($form->get('traitements_en_cours')); ?> 
+		                                  </label>
+                     		           </td>
+                     		        
+                     		        </tr>
+                     		        
+	 			                 </table>
+	 			                 
+	 			               </div>
+	 			               
+	 			             </td>
+	 			         </tr>
+	 			   
+	 			   
+	 			   
+	 			         <tr style="width:100%;">
+                            <td class="TerminerAntecedentsMedicaux styleBouton" style='width:100%; padding-bottom: 5px; padding-top: 25px;' colspan="4"> </td>
+                         </tr>
+	 			   
+	 			   </table>
+	 			   
+	 			   
+	 			   
+	 			   
+	 			   
+	 			   <!--****** ================== ANTECEDENTS CHIRURGICAUX ================== ****** -->
+             	   <!--****** ================== ANTECEDENTS CHIRURGICAUX ================== ****** -->
+                   <table id="ContenuAntecedentsChirurgicaux" style="width:100%; display: none;">
+                         
+                         <tr style="width:100%;">
+                  			 <td colspan="4">
+                               <div style="width: 100%; font-family: Tempus Sans ITC;  color: green; font-size: 20px; padding-bottom: 10px;" >&#10049; Les ant&eacute;c&eacute;dents chirurgicaux </div>
+                  			 </td>
+                		 </tr>
+                		 
+                		 
+                     	 <tr style="width: 100%" class="designStyleLabel ">
+                     		        
+                     	   <td style="width: 98%;">
+	                         <label style="width: 100%; height:30px; text-align:left; margin-top: 7px; margin-bottom: 7px;">
+	                           <span style='font-size: 14px;'>&#10045; </span><span style='font-weight: bold;'>Les ant&eacute;c&eacute;dents notables</span> 
+	                           <?php echo $this->formRow($form->get('antecedents_chirurgicaux')); ?> 
+	                         </label>
+	                       </td>
+	                       <td style="width: 2%;"></td>
+	                       
+	                     </tr>
+	 			   
+	 			   
+	 			   		 <tr style="width:100%;">
+                     		 <td colspan="2" style="width:100%; vertical-align: top;" class="zoneContenuObmre">
+		                        
+                               <div style="width: 100%; padding: 3px; padding-bottom: 1px;">
+                     		     
+                     		     <table style="width: 100%;" >
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		        
+                     		           <td style="width: 55%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Chirurgie en rapport avec son diab&egrave;te</span> 
+		                                    <?php echo $this->formRow($form->get('chirurgie_rapport_avec_diabete')); ?> 
+		                                  </label>
+                     		           </td>
+                     		        
+                     		           <td style="width: 45%; padding-right: 25px;">
+                     		              <label id="labelChirurgieRapportAvecDiabete" style="width: 100%; height:30px; text-align:left; display: none;">
+		                           		    <span style='font-size: 11px;'> </span>  
+		                                    <?php echo $this->formRow($form->get('liste_chirurgie_des_membres')); ?> 
+		                                  </label>
+                     		           </td>
+                     		        
+                     		        </tr>
+                     		        
+                     		        
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		        
+                     		           <td style="width: 55%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Chirurgie sans rapport avec le diab&egrave;te</span> 
+		                                    <?php echo $this->formRow($form->get('chirurgie_sans_rapport_avec_diabete')); ?> 
+		                                  </label>
+                     		           </td>
+                     		        
+                     		           <td style="width: 45%; padding-right: 25px;">
+                     		              <label id="labelChirurgieSansRapportAvecDiabete" style="width: 100%; height:30px; text-align:left; display: none;">
+		                           		    <span style='font-size: 11px;'> </span>  
+		                                  </label>
+                     		           </td>
+                     		        
+                     		        </tr>
+                     		        
+                     		        
+	 			                 </table>
+	 			                 
+	 			               </div>
+	 			               
+	 			             </td>
+	 			         </tr>
+	 			   
+	 			   
+	 			   
+			 			 <tr style="width:100%;">
+                            <td class="TerminerAntecedentsChirurgicaux styleBouton" style='width:100%; padding-bottom: 5px; padding-top: 25px;' colspan="4"> </td>
+                         </tr>
+	 			   
+	 			   </table>
+	 			   
+	 			   
+	 			   
+	 			   
+	 			   
+	 			   
+	 			   
+	 			   
+	 			   
+	 			   
 	 			   
 	 			   
 	 			   <!--****** ================== ANTECEDENTS FAMILIAUX ================== ****** -->
@@ -787,23 +946,23 @@ $(window).load(function () {
                    <tr style="width:100%;">
                      <td style="width:25%;">
                         <div>    
-                            <img class="image1" style='cursor: pointer; width: 100%; height:200px;' src='<?php echo $this->basepath().'/images_icons/Consultant_logo.jpg'?>' />
+                            <img class="image1" style='cursor: pointer; width: 100%; height:200px;' src='<?php echo $this->basepath().'/images_icons/Consultant_logo1.png'?>' />
                         </div>
                      </td>
                      <td style="width:25%;">
                         <div>    
-                            <img class="image2" style='cursor: pointer; width: 100%; height:200px;' src='<?php echo $this->basepath().'/images_icons/hospitalisatione.jpg'?>'  />
+                            <img class="image2" style='cursor: pointer; width: 100%; height:200px;' src='<?php echo $this->basepath().'/images_icons/hospitalisation1.png'?>'  />
                         </div>
                      </td>
                      <td style="width:25%;">
                         <div>    
-                            <img class="image3" style='cursor: pointer; width: 100%; height:200px;' src='<?php echo $this->basepath().'/images_icons/examens.jpg'?>'  />
+                            <img class="image3" style='cursor: pointer; width: 100%; height:200px;' src='<?php echo $this->basepath().'/images_icons/examens1.png'?>'  />
                         </div>
                      </td>
                      <td style="width:25%;">
-                        <div>    
-                            <img class="image4" style='cursor: pointer; width: 100%; height:200px;' src='<?php echo $this->basepath().'/images_icons/Autres.jpg'?>'  />
-                        </div>
+                        <!-- div>    
+                            <img class="image4" style='cursor: pointer; width: 100%; height:200px;' src='<?php /* echo $this->basepath().'/images_icons/Autres.jpg'*/ ?>'  />
+                        </div-->
                      </td>
                    </tr>
                  </table>
@@ -865,17 +1024,656 @@ $(window).load(function () {
      </div>
   
   
-     <!-- ********************Examen complementaire (examen et analyse)******************-->
-     <!-- ********************Examen complementaire (examen et analyse)******************-->
-     <!-- ********************Examen complementaire (examen et analyse)******************-->
+     <!-- ******************** Examen général ******************-->
+     <!-- ******************** Examen général ******************-->
+     <!-- ******************** Examen général ******************-->
     
      <!--*4*-->
-     <div style='font-family: police2;font-size: 17px; font-weight: bold;' class='examenComplementaireDelpiantAlert' >Examens compl&eacute;mentaires</div>
-     <div style='max-height: 800px;'>
+     <div style='font-family: police2;font-size: 17px; font-weight: bold;' class='ExamenGeneral' >Examen g&eacute;n&eacute;ral</div>
+     <div style='max-height: 350px;'>
      
-     
+                   <table style="width:100%;" >
+                         
+	 			   		 <tr style="width:100%;">
+                     		 <td  style="width:100%; vertical-align: top;" class="zoneContenuObmre">
+		                        
+                               <div style="width: 100%; padding: 3px; padding-bottom: 1px;">
+                     		     
+                     		     <table style="width: 100%;" >
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		        
+                     		           <td style="width: 100%; padding-right: 23px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Etat g&eacute;n&eacute;ral </span> 
+		                                    <?php echo $this->formRow($form->get('etat_general')); ?> 
+		                                    <span style='font-style: italic; font-size: 17px; font-style: italic; float: right;'> Activit&eacute;&nbsp;  </span>
+		                                  </label>
+                     		           </td>
+                     		        
+                     		        </tr>
+	 			                 </table>
+	 			                 
+	 			                 
+	 			                 <table style="width: 100%;" >
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		        
+                     		           <td style="width: 28%; padding-right: 25px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Muqueuses</span> 
+		                                    <?php echo $this->formRow($form->get('muqueuses')); ?> 
+		                                  </label>
+                     		           </td>
+                     		        
+                     		           <td style="width: 22%; padding-right: 25px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>D&eacute;shydratation</span> 
+		                                    <?php echo $this->formRow($form->get('deshydratation')); ?> 
+		                                  </label>
+                     		           </td>
+                     		        
+                     		           <td style="width: 35%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Oed&egrave;me des membres inf&eacute;rieurs</span> 
+		                                    <?php echo $this->formRow($form->get('oedeme_membres_inferieurs')); ?> 
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 15%; padding-right: 23px;">
+                     		              <label style="width: 100%; height:30px; text-align:left; display: none;">
+		                           		    <span style='font-size: 11px;'> </span>  
+		                                  </label>
+                     		           </td>
+                     		           
+                     		        </tr>
+	 			                 </table>
+	 			                 
+	 			               </div>
+	 			                 
+	 			               
+	 			             </td>
+	 			             
+	 			         </tr>
+	 			         
+	 			         <tr style="width:100%;">  
+	 			             <td style="width:100%; vertical-align: top;" class="zoneContenuObmre">
+                               <div style="width: 100%; margin-top: 5px; padding: 3px; padding-bottom: 1px;">
+	 			             
+	 			                 <table style="width: 100%;" >
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		           <td style="width: 25%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>T.A(mmHG)</span> 
+		                           		    <?php echo $this->formRow($form->get('tension_arterielle_max')); ?>
+		                                    <?php echo $this->formRow($form->get('tension_arterielle_min')); ?> 
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 14%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:right; font-style: italic;">
+		                           		    <span style='font-size: 11px;'> </span><span>Couch&eacute;&nbsp;</span> 
+		                                    <?php echo $this->formRow($form->get('coucheTA')); ?> 
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 14%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:right; font-style: italic;">
+		                           		    <span style='font-size: 11px;'> </span><span>Debout&nbsp;</span> 
+		                                    <?php echo $this->formRow($form->get('deboutTA')); ?> 
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 12%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:right; font-style: italic;">
+		                           		    <span style='font-size: 11px;'> </span><span>IPS&nbsp;</span> 
+		                                    <?php echo $this->formRow($form->get('ipsTA')); ?> 
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 17%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:right; font-style: italic;">
+		                           		    <span style='font-size: 11px;'> </span><span>Pied gauche&nbsp;</span> 
+		                                    <?php echo $this->formRow($form->get('piedgaucheTA')); ?> 
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 18%; padding-right: 23px;">
+                     		              <label style="width: 100%; height:30px; text-align:right; font-style: italic;">
+		                           		    <span style='font-size: 11px;'> </span><span>Pied droit&nbsp;</span> 
+		                                    <?php echo $this->formRow($form->get('pieddroitTA')); ?> 
+		                                  </label>
+                     		           </td>
+                     		           
+                     		        </tr>
+                     		     </table>
+	 			             
+	 			               </div>
+	 			             </td>
+	 			           </tr>  
+	 			           
+	 			           
+	 			           <tr style="width:100%;">  
+	 			             <td style="width:100%; vertical-align: top;" class="zoneContenuObmre">
+                               <div style="width: 100%; margin-top: 5px; padding: 3px; padding-bottom: 1px;">
+	 			             
+	 			                 <table style="width: 100%;" >
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		           <td style="width: 23%; padding-right: 25px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Pouls (bat./min)</span> 
+		                           		    <?php echo $this->formRow($form->get('poulsBatMin')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 37%; padding-right: 25px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Fr&eacute;quence respiratoire (cycles/min)</span> 
+		                           		    <?php echo $this->formRow($form->get('frequence_respiratoire_cycles_min')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 22%; padding-right: 23px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Diur&egrave;se horaire</span> 
+		                           		    <?php echo $this->formRow($form->get('diurese_horaire')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 18%; padding-right: 23px;"> </td>
+                     		           
+                     		           
+                     		        </tr>
+                     		     </table>
+                     		     
+                     		   </div>
+                     	     </td>
+                     	   </tr>   
+                     	   
+                     	   
+                     	   <tr style="width:100%;">  
+	 			             <td style="width:100%; vertical-align: top;" class="zoneContenuObmre">
+                               <div style="width: 100%; margin-top: 5px; padding: 3px; padding-bottom: 1px;">
+	 			             
+	 			                 <table style="width: 100%;" >
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		           <td style="width: 18%; padding-right: 25px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Poids (kg)</span> 
+		                           		    <?php echo $this->formRow($form->get('poids')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 20%; padding-right: 25px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Taille (cm)</span> 
+		                           		    <?php echo $this->formRow($form->get('taille')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 22%; padding-right: 25px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Tour taille (cm)</span> 
+		                           		    <?php echo $this->formRow($form->get('tour_taille')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 15%; padding-right: 25px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>IMC</span> 
+		                           		    <?php echo $this->formRow($form->get('imc_constante')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 25%; padding-right: 23px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Glyc&eacute;mie capillaire</span> 
+		                           		    <?php echo $this->formRow($form->get('glycemie_capillaire')); ?>
+		                                  </label>
+                     		           </td>
+                     	           
+                     	            </tr>
+                     		     </table>
+                     		     
+                     		     
+                     		     <table style="width: 100%;" >
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		           <td style="width: 35%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span>Bandelette urinaire <span style="position: absolute;  font-style: italic; left: 27%;">Sucre&nbsp;</span> 
+		                           		    <?php echo $this->formRow($form->get('sucre')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 20%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:right;  font-style: italic;">
+		                           		    <span style='font-size: 11px;'> </span><span>Corps c&eacute;tonique&nbsp;</span> 
+		                           		    <?php echo $this->formRow($form->get('corps_cetonique')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 20%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:right; font-style: italic;">
+		                           		    <span style='font-size: 11px;'> </span><span>Prot&eacute;ines&nbsp;</span> 
+		                           		    <?php echo $this->formRow($form->get('proteines')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 20%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:right; font-style: italic;">
+		                           		    <span style='font-size: 11px;'> </span><span>H&eacute;maties&nbsp;</span> 
+		                           		    <?php echo $this->formRow($form->get('hematies')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 5%; padding-right: 15px;"></td>
+                     		           
+                     		        </tr>   
+                     		     </table>
+                     		     
+                     		     
+                     		   </div>
+                     	     </td>
+                     	   </tr>   
+                     	           
+                     	           
+	 			   
+	 			   </table>
      
      </div>
+     
+     
+     
+     <!-- ******************** Examen physique ******************-->
+     <!-- ******************** Examen physique ******************-->
+     <!-- ******************** Examen physique ******************-->
+    
+     <!--*4*-->
+     <div style='font-family: police2;font-size: 17px; font-weight: bold;' class='ExamenGeneral' >Examen physique</div>
+     <div style='max-height: 500px;'>
+     
+                   <table style="width:100%;" class="champsAjoutAppareilSysteme champsAjoutAppareilSysteme_1">
+                         
+                         <tr style="width: 100%" class="designStyleLabel RadiusLabel">
+                     	   <td style="width: 59%;">
+	                         <label style="width: 98%; height:30px; text-align:left; margin-bottom: 7px;" class="champInputAppSys_1" >
+	                           <span style='font-size: 14px;'>&#10045; </span><span style='font-weight: bold; font-style: italic;'>Appareil d'appel ou syst&egrave;me - 1 </span> 
+	                           <?php echo $this->formRow($form->get('appareil_appel_systeme_1')); ?>
+	                           <input type="hidden" id="valueChampInputAppSysSelect_1">
+	                           
+	                         </label>
+	                       </td>
+	                       
+	                       <td rowspan="2" style="width:41%; vertical-align: top;">
+	 			               <div style="width: 95%; padding: 3px; padding-bottom: 1px; margin-left: 22px; display: none;" class="examenPhysiqueInfos1 zoneContenuObmrePikaImg">
+                     		     <table style="width: 100%;" >
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		           <td style="width: 20%; padding-right: 23px; vertical-align: top;">
+                     		              <label style="width: 100%; height:15px; text-align:left; line-height: 0.7em;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Iconographie</span> 
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td rowspan="2" style="width: 80%; padding-right: 23px;" id="zonePikaImage1">
+                     		           
+                     		               <!-- PIKACHOOSE -->
+                                           <!-- PIKACHOOSE -->
+                                           <div id="pika" style="margin-top: 5px; margin-bottom: -15px;">
+                                             <div id="pika2" align="center">
+                                                <!-- EMPLACEMENT DES IMAGES -->
+                                                <!-- EMPLACEMENT DES IMAGES -->
+                                                <!-- EMPLACEMENT DES IMAGES -->
+                                             </div>
+                                           </div>
+                                           <div id="AjoutImage" style="position: relative; bottom: 25px; left: 15px; float: right;">
+                                                  <input type='file' name="fichier" />
+			                                      <!-- RECUPERER L'IMAGE -->
+			                                      <input type='hidden' id="fichier_tmp" name="fichier_tmp" />
+			                                      <!-- FICHIER TAMPON POUR RECUPERER L'IMAGE DANS LE CONTROLLER -->
+                                           </div>
+                     		           
+                     		               <script> setTimeout(function(){ $("#zonePikaImage1").hover(function(){ temoinSupprImagePika2 = 1;}); }); </script>
+                                             
+                     		           </td>
+                     		        </tr>
+                     		        
+                     		        <tr style="width: 100%; height: 197px;">
+                     		           <td style="width: 20%; padding-right: 23px;" id="imageWaiting"></td>
+                     		        </tr>
+                     		        
+                    		     </table>
+                     		   
+                     		     <!-- POP UP pour Confirmation Suppression -->
+				                 <div id="confirmation" title="Confirmation de la suppression" style="display:none;">
+				                   <p style="font-size: 14px;">
+				                      <span style="float:left; margin:0 0px 20px 0; ">
+				                      <img src="<?php echo $this->basePath().'/images_icons/warning_16.png';?>" />
+				                      Etes-vous s&ucirc;r de vouloir supprimer l'image n&deg;<span id="nbImgPosAppSys1"> </span> <br> (Appareil ou systeme - 1) ?</span>
+				                   </p>
+				                 </div>
+                 
+                 
+                     		     <script type="text/javascript">getimagesExamensMorphologiques();</script>
+                     		   </div>
+	 			             </td>
+	                     </tr>
+                         
+	 			   		 <tr style="width:100%;">
+                     		 <td style="width:59%; vertical-align: top;" class="zoneContenuObmre">
+		                        
+                               <div style="width: 100%; padding: 3px; padding-bottom: 1px; display: none;" class="examenPhysiqueInfos1">
+                     		     
+                     		     <table style="width: 100%;" >
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		           <td style="width: 100%; padding-right: 23px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Inspection </span> 
+		                                    <input  type='Text' style='float:right; width: 80%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;'> 
+		                                  </label>
+                     		           </td>
+                     		        </tr>
+                     		        
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		           <td style="width: 100%; padding-right: 23px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Palpitation  </span> 
+		                                    <input  type='Text' style='float:right; width: 80%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;'> 
+		                                  </label>
+                     		           </td>
+                     		        </tr>
+                     		        
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		           <td style="width: 100%; padding-right: 23px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Percussion   </span> 
+		                                    <input  type='Text' style='float:right; width: 80%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;'> 
+		                                  </label>
+                     		           </td>
+                     		        </tr>
+                     		        
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		           <td style="width: 100%; padding-right: 23px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Auscultation    </span> 
+		                                    <input  type='Text' style='float:right; width: 80%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;'> 
+		                                  </label>
+                     		           </td>
+                     		        </tr>
+                     		        
+	 			                 </table>
+	 			                 
+	 			               </div>
+	 			               
+	 			             </td>
+	 			             
+	 			             
+	 			         </tr>
+	 			   
+	 			   </table>
+	 			   
+	 			   
+	 			   
+	 			   <table style="width:100%;" >
+                      <tr style="width: 100%">
+                         <td style="width: 20%;">
+	 			           <div id='examen_physique_moins' class='examen_physique_pm' onclick='enleverExamenPhysiqueAppareilSysteme();'> &minus; </div> 
+	 			           <div id='examen_physique_plus' class='examen_physique_pm' onclick='ajouterExamenPhysiqueAppareilSysteme();' style='display: none;'> + </div>
+	 			         </td>
+	 			         <td style="width: 80%;" ></td>
+	 			      </tr>
+	 			   </table>
+     
+     </div>
+     
+     
+     
+     <!-- ******************** Examens biologiques ******************-->
+     <!-- ******************** Examens biologiques ******************-->
+     <!-- ******************** Examens biologiques ******************-->
+    
+     <!--*4*-->
+     <div style='font-family: police2;font-size: 17px; font-weight: bold;' >Examens biologiques</div>
+     <div style='max-height: 300px;'>
+     
+        <table style="width:100%;" >
+                         
+           <tr style="width: 100%" >
+              <td style="width: 59%; vertical-align: top;" class="zoneContenuObmre" >
+                 <div style="width: 100%; padding: 3px; padding-bottom: 1px;">
+                     		     
+                       <table style="width: 100%;" >
+                          <tr style="width: 100%" class="designStyleLabel">
+                     		        
+                     	     <td style="width: 35%; padding-right: 23px;">
+                     		    <label style="width: 100%; height:30px; text-align:left;">
+		                          <span style='font-size: 11px;'>&#10148; </span><span>Glyc&eacute;mie &agrave; jeun </span> 
+		                            <?php echo $this->formRow($form->get('glycemie_jeun')); ?> 
+		                        </label>
+                     		 </td>
+                     		 
+                     		 <td style="width: 35%; padding-right: 23px;">
+                     		    <label style="width: 100%; height:30px; text-align:left;">
+		                          <span style='font-size: 11px;'>&#10148; </span><span title='H&eacute;moglobine glyqu&eacute;e'>H&eacute;mo. glyqu&eacute;e </span> 
+		                            <?php echo $this->formRow($form->get('hemoglobine_glyquee')); ?> 
+		                        </label>
+                     		 </td>
+                     		 
+                     		 <td style="width: 30%; padding-right: 23px;">
+                     		    <label style="width: 100%; height:30px; text-align:left;">
+		                          <span style='font-size: 11px;'>&#10148; </span><span title='Cr&eacute;atinin&eacute;mie'>Cr&eacute;at. </span> 
+		                            <?php echo $this->formRow($form->get('creatininemie')); ?> 
+		                        </label>
+                     		 </td>
+                          </tr>
+	 			       </table>
+	 			       
+	 			       <table style="width: 100%;" >
+                          <tr style="width: 100%" class="designStyleLabel">
+                     		        
+                     	     <td style="width: 35%; padding-right: 23px;">
+                     		    <label style="width: 100%; height:30px; text-align:left;">
+		                          <span style='font-size: 11px;'>&#10148; </span><span>GSRh </span> 
+		                            <?php echo $this->formRow($form->get('grsh')); ?> 
+		                        </label>
+                     		 </td>
+                     		 
+                     		 <td style="width: 35%; padding-right: 23px;">
+                     		    <label style="width: 100%; height:30px; text-align:left;">
+		                          <span style='font-size: 11px;'>&#10148; </span><span>TP</span> 
+		                            <?php echo $this->formRow($form->get('tp')); ?> 
+		                        </label>
+                     		 </td>
+                     		 
+                     		 <td style="width: 30%; padding-right: 23px;">
+                     		    <label style="width: 100%; height:30px; text-align:left;">
+		                          <span style='font-size: 11px;'>&#10148; </span><span >TCA </span> 
+		                            <?php echo $this->formRow($form->get('tca')); ?> 
+		                        </label>
+                     		 </td>
+                          </tr>
+	 			       </table>
+	 			       
+	 			       <table style="width: 100%;" >
+                          <tr style="width: 100%" class="designStyleLabel">
+                     		        
+                     	     <td style="width: 35%; padding-right: 23px;">
+                     		    <label style="width: 100%; height:30px; text-align:left;">
+		                          <span style='font-size: 11px;'>&#10148; </span><span>HDL-C </span> 
+		                            <?php echo $this->formRow($form->get('hdl_c')); ?> 
+		                        </label>
+                     		 </td>
+                     		 
+                     		 <td style="width: 35%; padding-right: 23px;">
+                     		    <label style="width: 100%; height:30px; text-align:left;">
+		                          <span style='font-size: 11px;'>&#10148; </span><span>LDL-C</span> 
+		                            <?php echo $this->formRow($form->get('ldl_c')); ?> 
+		                        </label>
+                     		 </td>
+                     		 
+                     		 <td style="width: 30%; padding-right: 23px;">
+                     		    <label style="width: 100%; height:30px; text-align:left;">
+		                          <span style='font-size: 11px;'>&#10148; </span><span >Uric&eacute;mie </span> 
+		                            <?php echo $this->formRow($form->get('uricemie')); ?> 
+		                        </label>
+                     		 </td>
+                          </tr>
+	 			       </table>
+	 			       
+	 			       <table style="width: 100%;" >
+                          <tr style="width: 100%" class="designStyleLabel">
+                     		        
+                     	     <td style="width: 35%; padding-right: 23px;">
+                     		    <label style="width: 100%; height:30px; text-align:left;">
+		                          <span style='font-size: 11px;'>&#10148; </span><span>Triglyc&eacute;rides </span> 
+		                            <?php echo $this->formRow($form->get('triglycerides')); ?> 
+		                        </label>
+                     		 </td>
+                     		 
+                     		 <td style="width: 35%; padding-right: 23px;">
+                     		    <label style="width: 100%; height:30px; text-align:left;">
+		                          <span style='font-size: 11px;'>&#10148; </span><span title="Microalbuminurie/PU24h">Mic. alb./PU24h</span> 
+		                            <?php echo $this->formRow($form->get('microalbuminurie_pu24h')); ?> 
+		                        </label>
+                     		 </td>
+                     		 
+                     		 <td style="width: 30%; padding-right: 23px;"></td>
+                          </tr>
+	 			       </table>
+	 			       
+     
+                 </div>
+              </td>
+
+              <td style="width:41%; vertical-align: top;">
+     
+                 <div style="width: 95%; padding: 3px; padding-bottom: 1px; margin-left: 22px; " class="zoneContenuObmrePikaImg">
+                    
+                    <table style="width: 100%;" >
+                      <tr style="width: 100%;" class="designStyleLabel">
+                        <td style="width: 20%; padding-right: 23px; vertical-align: top;">
+                     	   <label style="width: 100%; height:15px; text-align:left; line-height: 0.7em;">
+		                     <span style='font-size: 11px;'>&#10148; </span><span>H&eacute;mogramme</span> 
+		                   </label>
+                     	</td>
+                     		           
+                     	<td  rowspan="2" style="width: 80%; padding-right: 23px; vertical-align: top;" id="zonePikaImageNfs">
+                     		    
+                     		           
+	                     	<!-- PIKACHOOSE -->
+	                        <!-- PIKACHOOSE -->
+	                        <div id="pikaNfs" style=" width: 100%; margin-top: 5px; margin-bottom: -15px;">
+	                          <div id="pika2Nfs" align="center">
+	                            <!-- EMPLACEMENT DES IMAGES -->
+	                            <!-- EMPLACEMENT DES IMAGES -->
+	                            <!-- EMPLACEMENT DES IMAGES -->
+	                            <div class="pikachoose" style="height: 210px;">
+		                           <ul id="pikameNfs" class="jcarousel-skin-pika"></ul>
+		                        </div>
+	                          </div>
+	                        </div>
+	                        <div id="AjoutImageNfs"  class="AjoutImage" style="position: relative; bottom: 25px; left: 15px; float: right;">
+	                           <input type='file' name="fichier">
+				               <!-- RECUPERER L'IMAGE -->
+				               <input type='hidden' id="fichier_tmpNfs" name="fichier_tmpNfs" />
+				               <!-- FICHIER TAMPON POUR RECUPERER L'IMAGE DANS LE CONTROLLER -->
+	                        </div>
+	                     		  
+	                        <script type="text/javascript"> setTimeout(function(){ scriptPikameChooseOther('Nfs'); }); </script>      
+                     		<script type="text/javascript"> setTimeout(function(){ scriptAddImageInDataBaseOther('Nfs'); }); </script>
+                     		<script type="text/javascript"> setTimeout(function(){ $("#zonePikaImageNfs").hover(function(){ temoinSupprImagePika2 = 50;}); }); </script>
+                            <script type="text/javascript"> setTimeout(function(){ getImagesExamensOther('Nfs'); });</script>        
+                                                  
+                     	</td>
+                     	
+                      </tr>
+                     		        
+                      <tr style="width: 100%; height: 197px;">
+                     	 <td style="width: 20%; padding-right: 23px;" id="imageWaitingNfs"></td>
+                      </tr>
+                     		        
+                   </table>
+                    
+                 </div>
+                     		   
+                   <!-- POP UP pour Confirmation Suppression -->
+				   <div id="confirmationNfs" title="Confirmation de la suppression" style="display:none;">
+				     <p style="font-size: 14px;">
+				       <span style="float:left; margin:0 0px 20px 0; ">
+				         <img src="<?php echo $this->basePath().'/images_icons/warning_16.png';?>" />
+				         Etes-vous s&ucirc;r de vouloir supprimer l'image n&deg;<span id="nbImagesPositionPopupNfs"> </span>
+				       </span>
+				     </p>
+				   </div>                  
+     
+     		  </td>
+           </tr>
+           
+        
+        </table>
+     
+     </div>
+     
+     
+     
+     <!-- ******************** Examens fonctionnels ******************-->
+     <!-- ******************** Examens fonctionnels ******************-->
+     <!-- ******************** Examens fonctionnels ******************-->
+    
+     <!--*8*-->
+     <div style='font-family: police2;font-size: 17px; font-weight: bold;' >Examens fonctionnels</div>
+     <div style='max-height: 300px;'>
+     
+        <table style="width:100%;" >
+                         
+           <tr style="width: 100%" >
+              <td style="width: 59%; vertical-align: top;" class="zoneContenuObmre" >
+                 <div style="width: 100%; padding: 3px; padding-bottom: 1px;">
+                     		     
+                       <table style="width: 100%;" >
+                          <tr style="width: 100%" class="designStyleLabel">
+                     		        
+                     	     <td style="width: 35%; padding-right: 23px;">
+                     		    <label style="width: 100%; height:30px; text-align:left;">
+		                          <span style='font-size: 11px;'>&#10148; </span><span>Glyc&eacute;mie &agrave; jeun </span> 
+		                            <?php echo $this->formRow($form->get('glycemie_jeun')); ?> 
+		                        </label>
+                     		 </td>
+                     		 
+                     	  </tr>
+                       </table>
+                     	  
+                 </div>
+              </td>
+
+              <td style="width:41%; vertical-align: top;">
+     
+                 <div style="width: 95%; padding: 3px; padding-bottom: 1px; margin-left: 22px; " class="zoneContenuObmrePikaImg">
+                    
+                    <table style="width: 100%;" >
+                      <tr style="width: 100%;" class="designStyleLabel">
+                        <td style="width: 20%; padding-right: 23px; vertical-align: top;">
+                     	   <label style="width: 100%; height:15px; text-align:left; line-height: 0.7em;">
+		                     <span style='font-size: 11px;'>&#10148; </span><span>H&eacute;mogramme</span> 
+		                   </label>
+                     	</td>
+                     		           
+                     	<td  rowspan="2" style="width: 80%; padding-right: 23px; vertical-align: top;" id="zonePikaImageNfs">
+                     	</td>
+                     	
+                      </tr>
+                    </table>
+     
+                 </div>
+     
+              </td>
+           </tr>
+              
+        </table>
+              
+     </div>
+              
+              
+              
+              
+              
      
      
 </div>

@@ -68,6 +68,15 @@ class ConsultationForm extends Form {
 				)
 		) );
 		
+		$this->add ( array (
+				'name' => 'idadmission',
+				'type' => 'Hidden',
+				'attributes' => array (
+						'id' => 'idadmission'
+				)
+		) );
+		
+		
 
 		/*
 		 * ETAT CIVIL DU PATIENT --- ETAT CIVIL DU PATIENT 
@@ -256,10 +265,10 @@ class ConsultationForm extends Form {
 				'type' => 'Select',
 				'options' => array (
 						'value_options' => array (
-								'' => '',
-								'1' => '+',
-								'2' => '++',
-								'3' => '+++'
+								0 => '',
+								1 => '+',
+								2 => '++',
+								3 => '+++'
 						)
 				),
 				'attributes' => array (
@@ -326,144 +335,7 @@ class ConsultationForm extends Form {
 		/**
 		 * ************************* CONSTANTES *****************************************************
 		 */
-		$this->add ( array (
-				'name' => 'poids',
-				'type' => 'number',
-				'options' => array (
-						'label' => 'Poids (kg)'
-				),
-				'attributes' => array (
-						'max' => 100,
-						'min' => 1,
-						'id' => 'poids',
-				        'step' => 'any',
-						'class' => 'poids',
-						'required' => true,
-				)
-		) );
-		$this->add ( array (
-				'name' => 'taille',
-				'type' => 'number',
-				'options' => array (
-						'label' => 'Taille (cm)'
-				),
-				'attributes' => array (
-						'max' => 200,
-						'min' => 45,
-						'id' => 'taille',
-    				    'step' => 'any',
-						'required' => true,
-				)
-		) );
-		$this->add ( array (
-				'name' => 'temperature',
-				'type' => 'number',
-				'options' => array (
-						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Température (°C)' )
-				),
-				'attributes' => array (
-						'max' => 45,
-						'min' => 34,
-						'id' => 'temperature',
-						'step' => 'any',
-						'required' => true,
-				)
-		) );
 		
-		$this->add ( array (
-				'name' => 'perimetre_cranien',
-				'type' => 'number',
-				'options' => array (
-						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Perimètre cranien (cm)'),
-				),
-				'attributes' => array (
-						'min' => 30,
-						'max' => 55,
-						'id' => 'perimetre_cranien',
-	    			    'step' => 'any',
-				)
-		) );
-		
-		$this->add ( array (
-				'name' => 'tensionmaximale',
-				'type' => 'Text',
-				'attributes' => array (
-						'class' => 'tension_only_numeric',
-						'id' => 'tensionmaximale',
-    				    'step' => 'any',
-				)
-		) );
-		
-		$this->add ( array (
-				'name' => 'tensionminimale',
-				'type' => 'Text',
-				'attributes' => array (
-						'class' => 'tension_only_numeric',
-						'id' => 'tensionminimale',
-				        'step' => 'any',
-				)
-		) );
-		
-		$this->add ( array (
-				'name' => 'pouls',
-				'type' => 'Text',
-				'options' => array (
-						'label' => 'Pouls (bat/min)'
-				),
-				'attributes' => array (
-						'class' => 'pouls_only_numeric',
-						'readonly' => 'readonly',
-						'id' => 'pouls',
-				        'step' => 'any',
-				)
-		) );
-		$this->add ( array (
-				'name' => 'frequence_respiratoire',
-				'type' => 'Text',
-				'options' => array (
-						'label' => iconv('ISO-8859-1', 'UTF-8','Fréquence respiratoire')
-				),
-				'attributes' => array (
-						'class' => 'frequence_only_numeric',
-						'readonly' => 'readonly',
-						'id' => 'frequence_respiratoire'
-				)
-		) );
-		$this->add ( array (
-				'name' => 'glycemie_capillaire',
-				'type' => 'Text',
-				'options' => array (
-						'label' => iconv('ISO-8859-1', 'UTF-8', 'Glycémie capillaire (g/l)')
-				),
-				'attributes' => array (
-						'class' => 'glycemie_only_numeric',
-						'readonly' => 'readonly',
-						'id' => 'glycemie_capillaire'
-				)
-		) );
-		
-		$this->add ( array (
-				'name' => 'perimetre_brachial',
-				'type' => 'Text',
-				'options' => array (
-						'label' => 'Perimetre brachial'
-				),
-				'attributes' => array (
-						'id' => 'perimetre_brachial'
-				)
-		) );
-
-		
-		$this->add ( array (
-				'name' => 'perimetre_thoracique',
-				'type' => 'Text',
-				'options' => array (
-						'label' => 'Perimetre thoracique'
-				),
-				'attributes' => array (
-						'id' => 'perimetre_thoracique'
-				)
-		) );
 		
 		
 		$this->add ( array (
@@ -523,9 +395,9 @@ class ConsultationForm extends Form {
 				'type' => 'Select',
 				'options' => array (
 						'value_options' => array (
-								'' => '',
-								'1' => 'Oui',
-								'2' => 'Non',
+								0 => '',
+								1 => 'Oui',
+								2 => 'Non',
 						)
 				),
 				'attributes' => array (
@@ -541,11 +413,11 @@ class ConsultationForm extends Form {
 				'type' => 'Select',
 				'options' => array (
 						'value_options' => array (
-								'' => '',
-								'1' => iconv('ISO-8859-1', 'UTF-8', 'Diabète de type 1'),
-								'2' => iconv('ISO-8859-1', 'UTF-8', 'Diabète de type 2'),
-								'3' => iconv('ISO-8859-1', 'UTF-8', 'Diabète gestationnel'),
-								'4' => iconv('ISO-8859-1', 'UTF-8', 'Diabète secondaire'),
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Diabète de type 1'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Diabète de type 2'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Diabète gestationnel'),
+								4 => iconv('ISO-8859-1', 'UTF-8', 'Diabète secondaire'),
 						)
 				),
 				'attributes' => array (
@@ -571,11 +443,11 @@ class ConsultationForm extends Form {
 				'type' => 'Select',
 				'options' => array (
 						'value_options' => array (
-								'' => '',
-								'1' => iconv('ISO-8859-1', 'UTF-8', 'Métformine (Glucophage®)'),
-								'2' => iconv('ISO-8859-1', 'UTF-8', 'Sulfamide  (Diamicron®, Amarel®, Daonil®)'),
-								'3' => iconv('ISO-8859-1', 'UTF-8', 'Glinide (Novonorm®)'),
-								'4' => iconv('ISO-8859-1', 'UTF-8', 'IPPD-4 (Januvia®, Galvus®)'),
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Métformine (Glucophage®)'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Sulfamide  (Diamicron®, Amarel®, Daonil®)'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Glinide (Novonorm®)'),
+								4 => iconv('ISO-8859-1', 'UTF-8', 'IPPD-4 (Januvia®, Galvus®)'),
 						)
 				),
 				'attributes' => array (
@@ -590,11 +462,11 @@ class ConsultationForm extends Form {
 				'type' => 'Select',
 				'options' => array (
 						'value_options' => array (
-								'' => '',
-								'1' => iconv('ISO-8859-1', 'UTF-8', 'Insuline rapide (ordinaire)'),
-								'2' => iconv('ISO-8859-1', 'UTF-8', 'Insuline Mixte'),
-								'3' => iconv('ISO-8859-1', 'UTF-8', 'Insuline semi-lente'),
-								'4' => iconv('ISO-8859-1', 'UTF-8', 'Insuline lente'),
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Insuline rapide (ordinaire)'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Insuline Mixte'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Insuline semi-lente'),
+								4 => iconv('ISO-8859-1', 'UTF-8', 'Insuline lente'),
 						)
 				),
 				'attributes' => array (
@@ -609,9 +481,9 @@ class ConsultationForm extends Form {
 				'type' => 'Select',
 				'options' => array (
 						'value_options' => array (
-								'' => '',
-								'1' => iconv('ISO-8859-1', 'UTF-8', 'Diabétique'),
-								'2' => iconv('ISO-8859-1', 'UTF-8', 'Hyposodé'),
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Diabétique'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Hyposodé'),
 						)
 				),
 				'attributes' => array (
@@ -626,9 +498,9 @@ class ConsultationForm extends Form {
 				'type' => 'Select',
 				'options' => array (
 						'value_options' => array (
-								'' => '',
-								'1' => iconv('ISO-8859-1', 'UTF-8', 'Oui'),
-								'2' => iconv('ISO-8859-1', 'UTF-8', 'Non'),
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Oui'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Non'),
 						)
 				),
 				'attributes' => array (
@@ -653,9 +525,9 @@ class ConsultationForm extends Form {
 				'type' => 'Select',
 				'options' => array (
 						'value_options' => array (
-								'' => '',
-								'1' => iconv('ISO-8859-1', 'UTF-8', 'Oui'),
-								'2' => iconv('ISO-8859-1', 'UTF-8', 'Non'),
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Oui'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Non'),
 						)
 				),
 				'attributes' => array (
@@ -671,12 +543,12 @@ class ConsultationForm extends Form {
 				'type' => 'Select',
 				'options' => array (
 						'value_options' => array (
-								'' => '',
-								'1' => iconv('ISO-8859-1', 'UTF-8', 'IEC/ARA2'),
-								'2' => iconv('ISO-8859-1', 'UTF-8', 'Inhibiteur calcique'),
-								'3' => iconv('ISO-8859-1', 'UTF-8', 'Diurétique'),
-								'4' => iconv('ISO-8859-1', 'UTF-8', 'Béta-bloquant'),
-								'5' => iconv('ISO-8859-1', 'UTF-8', 'Non traitée'),
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'IEC/ARA2'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Inhibiteur calcique'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Diurétique'),
+								4 => iconv('ISO-8859-1', 'UTF-8', 'Béta-bloquant'),
+								5 => iconv('ISO-8859-1', 'UTF-8', 'Non traitée'),
 						)
 				),
 				'attributes' => array (
@@ -691,9 +563,9 @@ class ConsultationForm extends Form {
 				'type' => 'Select',
 				'options' => array (
 						'value_options' => array (
-								'' => '',
-								'1' => iconv('ISO-8859-1', 'UTF-8', 'Oui'),
-								'2' => iconv('ISO-8859-1', 'UTF-8', 'Non'),
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Oui'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Non'),
 						)
 				),
 				'attributes' => array (
@@ -709,10 +581,10 @@ class ConsultationForm extends Form {
 				'type' => 'Select',
 				'options' => array (
 						'value_options' => array (
-								'' => '',
-								'1' => iconv('ISO-8859-1', 'UTF-8', 'Statine'),
-								'2' => iconv('ISO-8859-1', 'UTF-8', 'Fibrate'),
-								'3' => iconv('ISO-8859-1', 'UTF-8', 'Non traitée'),
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Statine'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Fibrate'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Non traitée'),
 						)
 				),
 				'attributes' => array (
@@ -727,9 +599,9 @@ class ConsultationForm extends Form {
 				'type' => 'Select',
 				'options' => array (
 						'value_options' => array (
-								'' => '',
-								'1' => iconv('ISO-8859-1', 'UTF-8', 'Oui'),
-								'2' => iconv('ISO-8859-1', 'UTF-8', 'Non'),
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Oui'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Non'),
 						)
 				),
 				'attributes' => array (
@@ -744,9 +616,9 @@ class ConsultationForm extends Form {
 				'type' => 'Select',
 				'options' => array (
 						'value_options' => array (
-								'' => '',
-								'1' => iconv('ISO-8859-1', 'UTF-8', 'Oui'),
-								'2' => iconv('ISO-8859-1', 'UTF-8', 'Non'),
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Oui'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Non'),
 						)
 				),
 				'attributes' => array (
@@ -772,9 +644,9 @@ class ConsultationForm extends Form {
 				'type' => 'Select',
 				'options' => array (
 						'value_options' => array (
-								'' => '',
-								'1' => iconv('ISO-8859-1', 'UTF-8', 'Oui'),
-								'2' => iconv('ISO-8859-1', 'UTF-8', 'Non'),
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Oui'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Non'),
 						)
 				),
 				'attributes' => array (
@@ -782,6 +654,600 @@ class ConsultationForm extends Form {
 						'style' => 'float:right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
 		) );
+		
+		
+		$this->add ( array (
+				'name' => 'antecedents_medicaux_notable',
+				'type' => 'Text',
+				'attributes' => array (
+						'id' => 'antecedents_medicaux_notable',
+						'style' => 'float:right; width: 75%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'anciennes_hospitalisations',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'anciennes_hospitalisations',
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'traitements_en_cours',
+				'type' => 'Text',
+				'attributes' => array (
+						'id' => 'traitements_en_cours',
+						'style' => 'float:right; width: 65%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'antecedents_chirurgicaux',
+				'type' => 'Text',
+				'attributes' => array (
+						'id' => 'antecedents_chirurgicaux',
+						'style' => 'float:right; width: 75%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'chirurgie_rapport_avec_diabete',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array (
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Chirurgie des membres'),
+						)
+				),
+				'attributes' => array (
+						'id' => 'chirurgie_rapport_avec_diabete',
+						'onchange' => 'getChirurgieRapportAvecDiabete(this.value)',
+						'style' => 'float:right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'liste_chirurgie_des_membres',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array (
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Amputation ou désarticulation'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Mise à plat (Abcès et Phlegmons)'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Nécrosectomie et assimilés'),
+						)
+				),
+				'attributes' => array (
+						'id' => 'liste_chirurgie_des_membres',
+						'style' => 'float:right; width: 90%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'chirurgie_sans_rapport_avec_diabete',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array (
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Chirurgie abdominale'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Chirurgie pariétale'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Chirurgie thoracique'),
+						)
+				),
+				'attributes' => array (
+						'id' => 'chirurgie_sans_rapport_avec_diabete',
+						'onchange' => 'getChirurgieSansRapportAvecDiabete(this.value)',
+						'style' => 'float:right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'etat_general',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array (
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Asymptomatique').' (Score = 0)',
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Activité physique diminué mais autonome').' (Score = 1)',
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Incapacité de mener une activité normale ou travailler, mais alité moins de 50% du temps').' (Score = 2)',
+								4 => iconv('ISO-8859-1', 'UTF-8', 'Incapacité de mener une activité normale et alité plus de 50% du temps').' (Score = 3)',
+								5 => iconv('ISO-8859-1', 'UTF-8', 'Grabattaire (incapable de quitter le lit)').' (Score = 4)',
+						)
+				),
+				'attributes' => array (
+						'id' => 'etat_general',
+						'style' => 'float:right; width: 80%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'muqueuses',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array (
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Normocolorées'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Pâles'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Ictériques'),
+						)
+				),
+				'attributes' => array (
+						'id' => 'muqueuses',
+						'style' => 'float:right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'deshydratation',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array (
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Oui'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Non'),
+						)
+				),
+				'attributes' => array (
+						'id' => 'deshydratation',
+						'style' => 'float:right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'oedeme_membres_inferieurs',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array (
+								 0 => '',
+								 1 => iconv('ISO-8859-1', 'UTF-8', 'Oui'),
+								 2 => iconv('ISO-8859-1', 'UTF-8', 'Non'),
+						)
+				),
+				'attributes' => array (
+						'id' => 'oedeme_membres_inferieurs',
+						'style' => 'float:right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+
+		$this->add ( array (
+				'name' => 'tension_arterielle_min',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'tension_arterielle_min',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 10,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'tension_arterielle_max',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'tension_arterielle_max',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'coucheTA',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'coucheTA',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'deboutTA',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'deboutTA',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+
+		
+		$this->add ( array (
+				'name' => 'ipsTA',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'ipsTA',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'piedgaucheTA',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'piedgaucheTA',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'pieddroitTA',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'pieddroitTA',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'poulsBatMin',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'poulsBatMin',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'frequence_respiratoire_cycles_min',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'frequence_respiratoire_cycles_min',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'diurese_horaire',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'diurese_horaire',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+
+		
+		$this->add ( array (
+				'name' => 'poids',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'poids',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'taille',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'taille',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'tour_taille',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'tour_taille',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'imc_constante',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'imc_constante',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'glycemie_capillaire',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'glycemie_capillaire',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'sucre',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'sucre',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'corps_cetonique',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'corps_cetonique',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'proteines',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'proteines',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'hematies',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'hematies',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'appareil_appel_systeme_1',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array (
+								 0 => '',
+								 1 => iconv('ISO-8859-1', 'UTF-8', 'Appareil cardio-circulatoire'),
+								 2 => iconv('ISO-8859-1', 'UTF-8', 'Appareil respiratoire'),
+								 3 => iconv('ISO-8859-1', 'UTF-8', 'Appareil digestif'),
+								 4 => iconv('ISO-8859-1', 'UTF-8', 'Appareil uro-génital'),
+								 5 => iconv('ISO-8859-1', 'UTF-8', 'Appareil musculo-squelettique'),
+								 6 => iconv('ISO-8859-1', 'UTF-8', 'Appareil cutanéo-tégumentaire'),
+								 7 => iconv('ISO-8859-1', 'UTF-8', 'Appareil hématopoïétique et glandulaire'),
+								 8 => iconv('ISO-8859-1', 'UTF-8', 'Système nerveux'),
+						)
+				),
+				'attributes' => array (
+						'id' => 'appareil_appel_systeme_1',
+						'onchange' => 'getInfosAppareilAppelSysteme(1, this.value)',
+						'style' => 'float:right; height: 28px; font-family: time new roman; font-size: 17px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+
+		
+		$this->add ( array (
+				'name' => 'glycemie_jeun',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'glycemie_jeun',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'hemoglobine_glyquee',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'hemoglobine_glyquee',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		 
+		$this->add ( array (
+				'name' => 'creatininemie',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'creatininemie',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'grsh',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array (
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'A-'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'B-'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'AB-'),
+								4 => iconv('ISO-8859-1', 'UTF-8', 'O-'),
+								5 => iconv('ISO-8859-1', 'UTF-8', 'A+'),
+								6 => iconv('ISO-8859-1', 'UTF-8', 'B+'),
+								7 => iconv('ISO-8859-1', 'UTF-8', 'AB+'),
+								8 => iconv('ISO-8859-1', 'UTF-8', 'O+'),
+						)
+				),
+				'attributes' => array (
+						'id' => 'grsh',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 70px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'tp',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'tp',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'tca',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'tca',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'hdl_c',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'hdl_c',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'ldl_c',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'ldl_c',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'uricemie',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'uricemie',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		 
+		$this->add ( array (
+				'name' => 'triglycerides',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'triglycerides',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'microalbuminurie_pu24h',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'microalbuminurie_pu24h',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
 		
 	}
 }

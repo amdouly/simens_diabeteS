@@ -164,7 +164,7 @@ class ConsultationTable {
 					}
 		
 					else if ($aColumns[$i] == 'id') {
-						$html  ="<infoBulleVue> <a href='".$tabURI[0]."public/consultation/consulter?idpatient=".$aRow[ 'idadmission' ]."'>"; //."&idcons=".$aRow[ 'Idcons' ]
+						$html  ="<infoBulleVue> <a href='".$tabURI[0]."public/consultation/consulter?idadmission=".$aRow[ 'idadmission' ]."&idpatient=".$aRow[ 'id' ]."'>";
 						$html .="<img style='display: inline; margin-right: 17%;' src='".$tabURI[0]."public/images_icons/doctor_16.png' title='Consulter'></a></infoBulleVue>";
 							
 						$html .="<infoBulleVue>";
@@ -262,6 +262,154 @@ class ConsultationTable {
 		
 		return $output;
 	}
+	
+	
+	
+	public function addImagesIconographie($nomimage, $idadmission, $position, $idemploye){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->insert()->into('iconographie_image')
+		->values(array('nomimage' => $nomimage, 'idadmission' => $idadmission, 'position' => $position, 'idemploye' => $idemploye));
+		return $sql->prepareStatementForSqlObject($sQuery)->execute();
+	}
+	
+	public function getImagesIconographie($idadmission, $position) {
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select('iconographie_image')->order('idimage DESC')
+		->where(array('idadmission' => $idadmission, 'position' => $position));
+		 
+		return $sql->prepareStatementForSqlObject($sQuery)->execute();
+	}
+	
+	public function getImageIconographie($id, $idadmission, $position) {
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select('iconographie_image')->order('idimage DESC')
+		->where(array('position' => $position, 'idadmission' => $idadmission));
+			
+		$Result = $sql->prepareStatementForSqlObject($sQuery)->execute();
+		
+		$i = 1;
+		$tabIdImage  = array( $id => 0 );
+		$tabNomImage = array( $id => 0 );
+		 
+		foreach ($Result as $resultat){
+			$tabIdImage[$i] = $resultat['idimage'];
+			$tabNomImage[$i++] = $resultat['nomimage'];
+		}
+		
+		return  array('idimage' => $tabIdImage[$id], 'nomimage'=> $tabNomImage[$id]);
+	}
+	
+	public function deleteImagesIconographie($idimage, $idadmission){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->delete()->from('iconographie_image')->where(array('idimage' => $idimage, 'idadmission' => $idadmission));
+		$sql->prepareStatementForSqlObject($sQuery)->execute();
+	}	
+	
+	
+	
+	
+	public function addImagesExamens($nomimage, $idadmission, $examen, $idemploye){
+		$table = 'image';
+		if($examen == 'Nfs'){$table = $table.'_nfs'; }
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->insert()->into($table)
+		->values(array('nomimage' => $nomimage, 'idadmission' => $idadmission, 'idemploye' => $idemploye));
+		return $sql->prepareStatementForSqlObject($sQuery)->execute();
+	}
+	
+	public function getImagesExamens($idadmission, $examen) {
+		$table = 'image';
+		if($examen == 'Nfs'){$table = $table.'_nfs'; }
+		
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select($table)->order('idimage DESC')
+		->where(array('idadmission' => $idadmission));
+			
+		return $sql->prepareStatementForSqlObject($sQuery)->execute();
+	}
+	
+	
+	
+	public function getImageExamen($id, $idadmission, $examen) {
+		$table = 'image';
+		if($examen == 'Nfs'){ $table = $table.'_nfs'; }
+		
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select($table)->order('idimage DESC')->where(array('idadmission' => $idadmission));
+			
+		$Result = $sql->prepareStatementForSqlObject($sQuery)->execute();
+	
+		$i = 1;
+		$tabIdImage  = array( $id => 0 );
+		$tabNomImage = array( $id => 0 );
+			
+		foreach ($Result as $resultat){
+			$tabIdImage[$i] = $resultat['idimage'];
+			$tabNomImage[$i++] = $resultat['nomimage'];
+		}
+	
+		return  array('idimage' => $tabIdImage[$id], 'nomimage'=> $tabNomImage[$id]);
+	}
+	
+	public function deleteImageExamen($idimage, $idadmission, $examen){
+		$table = 'image';
+		if($examen == 'Nfs'){ $table = $table.'_nfs'; }
+		
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->delete()->from($table)->where(array('idimage' => $idimage, 'idadmission' => $idadmission));
+		$sql->prepareStatementForSqlObject($sQuery)->execute();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

@@ -119,6 +119,10 @@ return array(
 										'supprimer-admission-patient' => 'medecin',
 										'liste-consultations-ajax' => 'medecin',
 										'consulter' => 'medecin',
+										'image-iconographie' => 'medecin',
+										'supprimer-image-iconographie' => 'medecin',
+										'images-differents-examens' => 'medecin',
+										'supprimer-images-differents-examens' => 'medecin',
 				
 								),
 						),

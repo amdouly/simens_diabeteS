@@ -829,7 +829,9 @@ class ConsultationController extends AbstractActionController {
 		$user = $this->layout()->user;
 		$idmedecin = $user['id_personne'];
 		
+		$idadmission = $this->params ()->fromQuery ( 'idadmission', 0 );
 		$idpatient = $this->params ()->fromQuery ( 'idpatient', 0 );
+		
 		$liste = $this->getConsultationTable ()->getInfoPatient ( $idpatient );
 		$patient = $this->getPatientTable()->getPatient( $idpatient );
 		
@@ -855,6 +857,14 @@ class ConsultationController extends AbstractActionController {
 		$form->get('motif_admission3')->setvalueOptions($listeSigne);
 		$form->get('motif_admission4')->setvalueOptions($listeSigne);
 		$form->get('motif_admission5')->setvalueOptions($listeSigne);
+		
+		
+		
+		$data = array ('idadmission' => $idadmission);
+		
+		$form->populateValues($data);
+		
+		
 		
 		//var_dump($patient->numero_dossier); exit();
 		
@@ -1021,6 +1031,261 @@ class ConsultationController extends AbstractActionController {
 	}
 	
 	
+	public function imageIconographieAction(){
+	
+		$idadmission = (int)$this->params()->fromPost( 'idadmission' );
+		$ajout = (int)$this->params()->fromPost( 'ajout' );
+		$position = (int)$this->params()->fromPost( 'position' );
+		
+		$idemploye = $this->layout()->user['id_personne'];
+		 
+		/***
+		 * INSERTION DE LA NOUVELLE IMAGE
+		*/
+		$formatFichier = "";
+		if($ajout == 1) {
+			/***
+			 * Enregistrement de l'image
+			* Enregistrement de l'image
+			* Enregistrement de l'image
+			***/
+			$today = new \DateTime ( 'now' );
+			$nomimage = "iconographie_".$idadmission.'_'.$position.'_'.$today->format ( 'dmy_His' );
+				
+			$fileBase64 = $this->params ()->fromPost ( 'fichier_tmp' );
+	
+			$typeFichier = substr ( $fileBase64, 5, 5 );
+			$formatFichier = substr ($fileBase64, 11, 4 );
+			$fileBase64 = substr ( $fileBase64, 23 );
+	
+			if($fileBase64 && $typeFichier == 'image' && $formatFichier =='jpeg'){
+				$img = imagecreatefromstring(base64_decode($fileBase64));
+				if($img){
+					$resultatAjout = $this->getConsultationTable()->addImagesIconographie($nomimage, $idadmission, $position, $idemploye);
+				}
+				if($resultatAjout){
+					imagejpeg ( $img, $this->baseUrlFile().'public/images/iconographies/' . $nomimage . '.jpg' );
+				}
+			}
+			 
+		}
+		 
+		/**
+		 * RECUPERATION DE TOUTES LES IMAGES
+		 */
+		$pickaChoose = "";
+		
+		$result = $this->getConsultationTable()->getImagesIconographie($idadmission, $position);
+		 
+		 
+		if($result){
+			foreach ($result as $resultat) {
+				$pickaChoose .=" <li><a href='../images/iconographies/".$resultat['nomimage'].".jpg'><img src='../images/iconographies/".$resultat['nomimage'].".jpg'/></a><span></span></li>";
+			}
+		}
+		
+		$nbImgPika2 = ($position*2)+1;
+		
+		$pikame = ($position == 1) ? 'pikame' : 'pikame'.$position;
+		$pika2  = ($position == 1) ? 'pika2'  : 'pika'.$nbImgPika2;
+		
+		
+		
+	
+		if($ajout == 1){
+			if($formatFichier == 'jpeg'){
+				$html ="<div id='".$pika2."' align='center'>
+					      <div class='pikachoose' style='height: 210px;'>
+	                        <ul id='".$pikame."' class='jcarousel-skin-pika'>";
+				$html .=$pickaChoose;
+				$html .="   </ul>
+	                      </div>
+					 	</div>";
+				
+				if($position == 1){
+					$html.="<script>
+					         scriptExamenMorpho();
+					        </script>";
+				}else {
+					$html.="<script>
+					         scriptPikameChoose(".$position.");
+					        </script>";
+				}
+				
+			}else {
+				$html ="";
+			}
+	
+		}else {
+			$html ="<div id='".$pika2."' align='center'>
+				    <div class='pikachoose' style='height: 210px;'>
+                      <ul id='".$pikame."' class='jcarousel-skin-pika'>";
+			$html .=$pickaChoose;
+			$html .="     </ul>
+                    </div>
+				 </div>";
+			
+			if($position == 1){
+				$html.="<script>
+					         scriptExamenMorpho();
+					        </script>";
+			}else {
+				$html.="<script>
+					         scriptPikameChoose(".$position.");
+					        </script>";
+			}
+		}
+	
+		 
+		$this->getResponse()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html' );
+		return $this->getResponse ()->setContent(Json::encode ( $html ));
+	}
+	
+	
+	public function supprimerImageIconographieAction()
+	{
+		$id = $this->params()->fromPost('id');
+		$idadmission = $this->params()->fromPost('idadmission');
+		$position = (int)$this->params()->fromPost( 'position' );
+		 
+		$result = $this->getConsultationTable()->getImageIconographie($id, $idadmission, $position);
+		
+		if($result['idimage']){
+			
+			// SUPPRESSION PHYSIQUE DE L'IMAGE
+			unlink ( $this->baseUrlFile().'public/images/iconographies/' . $result['nomimage'] . '.jpg' );
+			
+			// SUPPRESSION DE L'IMAGE DANS LA BASE
+			$this->getConsultationTable()->deleteImagesIconographie($result['idimage'], $idadmission);
+		}
+	
+		$this->getResponse()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html' );
+		return $this->getResponse ()->setContent(Json::encode ($result['idimage']));
+	}
+	
+	
+	public function imagesDifferentsExamensAction(){
+	
+		$idadmission = (int)$this->params()->fromPost( 'idadmission' );
+		$ajout = (int)$this->params()->fromPost( 'ajout' );
+		$examen = $this->params()->fromPost( 'examen' );
+	
+		$idemploye = $this->layout()->user['id_personne'];
+			
+		/***
+		 * INSERTION DE LA NOUVELLE IMAGE
+		*/
+		$formatFichier = "";
+		if($ajout == 1) {
+			/***
+			 * Enregistrement de l'image
+			 * Enregistrement de l'image
+			 * Enregistrement de l'image
+			 ***/
+			$today = new \DateTime ( 'now' );
+			if($examen == 'Nfs'){
+				$nomimage = "nfs_".$idadmission.'_'.$today->format ( 'dmy_His' );
+			}else{
+				
+				$this->getResponse()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html' );
+				return $this->getResponse ()->setContent(Json::encode ( "" ));
+			}
+	
+			$fileBase64 = $this->params ()->fromPost ( 'fichier_tmp' );
+	
+			$typeFichier = substr ( $fileBase64, 5, 5 );
+			$formatFichier = substr ($fileBase64, 11, 4 );
+			$fileBase64 = substr ( $fileBase64, 23 );
+	
+			if($fileBase64 && $typeFichier == 'image' && $formatFichier =='jpeg'){
+				$img = imagecreatefromstring(base64_decode($fileBase64));
+				if($img){
+					$resultatAjout = $this->getConsultationTable()->addImagesExamens($nomimage, $idadmission, $examen, $idemploye);
+				}
+				if($resultatAjout){
+					imagejpeg ( $img, $this->baseUrlFile().'public/images/hemogrammes/' . $nomimage . '.jpg' );
+				}
+			}
+	
+		}
+			
+		/**
+		 * RECUPERATION DE TOUTES LES IMAGES
+		 */
+		$pickaChoose = "";
+	
+		$result = $this->getConsultationTable()->getImagesExamens($idadmission, $examen);
+			
+			
+		if($result){
+			foreach ($result as $resultat) {
+				$pickaChoose .=" <li><a href='../images/hemogrammes/".$resultat['nomimage'].".jpg'><img src='../images/hemogrammes/".$resultat['nomimage'].".jpg'/></a><span></span></li>";
+			}
+		}
+	
+		if($ajout == 1){
+			if($formatFichier == 'jpeg'){
+				$html ="<div id='pika2".$examen."' align='center'>
+					      <div class='pikachoose' style='height: 210px;'>
+	                        <ul id='pikame".$examen."' class='jcarousel-skin-pika'>";
+				$html .=$pickaChoose;
+				$html .="   </ul>
+	                      </div>
+					 	</div>";
+	
+				$html.="<script>
+				         scriptPikameChooseOther('".$examen."');
+				        </script>";
+	
+			}else {
+				$html ="";
+			}
+	
+		}else {
+			$html ="<div id='pika2".$examen."' align='center'>
+				    <div class='pikachoose' style='height: 210px;'>
+                      <ul id='pikame".$examen."' class='jcarousel-skin-pika'>";
+			$html .=$pickaChoose;
+			$html .="     </ul>
+                    </div>
+				 </div>";
+				
+			$html.="<script>
+			         scriptPikameChooseOther('".$examen."');
+			        </script>";
+		}
+	
+			
+		$this->getResponse()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html' );
+		return $this->getResponse ()->setContent(Json::encode ( $html ));
+	}
+	
+	public function supprimerImagesDifferentsExamensAction()
+	{
+		$id = (int)$this->params()->fromPost('id');
+		$idadmission = (int)$this->params()->fromPost('idadmission');
+		$examen = $this->params()->fromPost( 'examen', '' );
+
+		
+		if(!$examen){
+			$this->getResponse()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html' );
+			return $this->getResponse ()->setContent(Json::encode ( "" ));
+		}
+		
+		$result = $this->getConsultationTable()->getImageExamen($id, $idadmission, $examen);
+		
+		if( $result['idimage'] ){
+			//SUPPRESSION PHYSIQUE DE L'IMAGE
+			unlink ( $this->baseUrlFile().'public/images/hemogrammes/' . $result['nomimage'] . '.jpg' );
+			
+			//SUPPRESSION DE L'IMAGE DANS LA BASE
+			$this->getConsultationTable()->deleteImageExamen($result['idimage'], $idadmission, $examen);
+		}
+		
+		$this->getResponse()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html' );
+		return $this->getResponse ()->setContent(Json::encode ( $result['idimage'] ));
+		
+	}
 	
 
 }

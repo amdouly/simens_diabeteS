@@ -5,7 +5,7 @@
 /*====== IMAGE RADIO ======*/
 /*====== IMAGE RADIO ======*/
 /*====== IMAGE RADIO ======*/
-#AjoutImage input {
+#AjoutImage input, .AjoutImage input  {
               position:absolute;
 	          bottom:0px;
 	          right:0px;
@@ -17,12 +17,12 @@
               text-align:right; 
          }
 
-#AjoutImage {
+#AjoutImage, .AjoutImage {
               position:relative;
               width:14px;
               height:15px;
               overflow:hidden;
-              background:#fff url("../images_icons/aj.gif") no-repeat right top;
+              background: url("../../images_icons/aj.gif") no-repeat right top;
         }
         
 /*====== IMAGE ECHOGRAPHIE ======*/    
@@ -4330,17 +4330,32 @@ div .dataTables_paginate
 	padding-bottom: 4px;
 
 	padding-left: 10px;
+	
+	margin-bottom: 0px;
 
 	font-family: time new romans;
 }
 
 
+.RadiusLabel label
+{
+	border-radius: 10px;
+
+}
+
+
 .designHistoireMaladie label input[type='text'], .designHistoireMaladie label input[type='number'],
-.designStyleLabel label input[type='text'], .designStyleLabel label input[type='number']
+.designStyleLabel label input[type='text'], .designStyleLabel label input[type='number'], .designStyleLabel label select, .designStyleLabel label areatext
 {
 	padding-left: 5px;
 	font-size: 18px;
 	height: 30px;
+	margin-bottom: 8px;
+}
+
+.designStyleLabel label input[type='number']
+{
+	font-weight: bold;
 }
 
 .designHistoireMaladie #dureeHM
@@ -4406,5 +4421,42 @@ div .dataTables_paginate
 	font-size: 18px;
 	height: 30px;
 }
+
+
+.examen_physique_pm{
+	border: 2px solid #cccccc;
+	border-radius: 10px;
+	box-shadow: 0pt 1pt 2px rgba(0, 0, 0, 0.5);
+	padding-letf: 0px;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	float: left; 
+	width: 20%; 
+	cursor: pointer;
+	text-align: center;
+	margin-left: 10px;
+	margin-top: 15px;
+	font-weight: bold;
+	color: gray;
+}
+
+.examen_physique_pm:hover{
+	box-shadow: 0pt 1pt 4px rgba(0, 0, 0, 0.9);
+}
+
+#examen_physique_moins{
+	display: none;
+}
+
+.modeleInputAppSys select{
+	float:right; 
+	height: 28px; 
+	font-family: time new roman; 
+	font-size: 15px; 
+	padding-left: 3px; 
+	margin-top: 2px;
+}
+
 
 
