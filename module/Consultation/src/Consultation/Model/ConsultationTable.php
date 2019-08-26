@@ -315,6 +315,11 @@ class ConsultationTable {
 	public function addImagesExamens($nomimage, $idadmission, $examen, $idemploye){
 		$table = 'image';
 		if($examen == 'Nfs'){$table = $table.'_nfs'; }
+		else if($examen == 'Ecg'){$table = $table.'_ecg'; }
+		else if($examen == 'Rsd'){$table = $table.'_rsd'; }
+		else if($examen == 'Sca'){$table = $table.'_sca'; }
+		else if($examen == 'Eco'){$table = $table.'_eco'; }
+		
 		$db = $this->tableGateway->getAdapter();
 		$sql = new Sql($db);
 		$sQuery = $sql->insert()->into($table)
@@ -325,6 +330,10 @@ class ConsultationTable {
 	public function getImagesExamens($idadmission, $examen) {
 		$table = 'image';
 		if($examen == 'Nfs'){$table = $table.'_nfs'; }
+		else if($examen == 'Ecg'){$table = $table.'_ecg'; }
+		else if($examen == 'Rsd'){$table = $table.'_rsd'; }
+		else if($examen == 'Sca'){$table = $table.'_sca'; }
+		else if($examen == 'Eco'){$table = $table.'_eco'; }
 		
 		$db = $this->tableGateway->getAdapter();
 		$sql = new Sql($db);
@@ -338,7 +347,11 @@ class ConsultationTable {
 	
 	public function getImageExamen($id, $idadmission, $examen) {
 		$table = 'image';
-		if($examen == 'Nfs'){ $table = $table.'_nfs'; }
+		if($examen == 'Nfs'){ $table = $table.'_nfs'; } 
+		else if($examen == 'Ecg'){$table = $table.'_ecg'; }
+		else if($examen == 'Rsd'){$table = $table.'_rsd'; }
+		else if($examen == 'Sca'){$table = $table.'_sca'; }
+		else if($examen == 'Eco'){$table = $table.'_eco'; }
 		
 		$db = $this->tableGateway->getAdapter();
 		$sql = new Sql($db);
@@ -361,6 +374,10 @@ class ConsultationTable {
 	public function deleteImageExamen($idimage, $idadmission, $examen){
 		$table = 'image';
 		if($examen == 'Nfs'){ $table = $table.'_nfs'; }
+		else if($examen == 'Ecg'){$table = $table.'_ecg'; }
+		else if($examen == 'Rsd'){$table = $table.'_rsd'; }
+		else if($examen == 'Sca'){$table = $table.'_sca'; }
+		else if($examen == 'Eco'){$table = $table.'_eco'; }
 		
 		$db = $this->tableGateway->getAdapter();
 		$sql = new Sql($db);

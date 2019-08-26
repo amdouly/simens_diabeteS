@@ -510,7 +510,7 @@ function confirmerSuppression(id, idadmission){
  * Appel de la suppression
  * Appel de la suppression
  * Appel de la suppression
- */
+ */ 
 
 function supprimerImage(id){
 	var idadmission = $("#idadmission").val();
@@ -518,6 +518,22 @@ function supprimerImage(id){
 	if(temoinSupprImagePika2 == 50){ //Si c'est le NFS
 		confirmerSuppressionOther(id, idadmission, 'Nfs');
 		$("#confirmationNfs").dialog('open');
+		
+	}else if(temoinSupprImagePika2 == 51){ //Si c'est le ECG
+		confirmerSuppressionOther(id, idadmission, 'Ecg');
+		$("#confirmationEcg").dialog('open');
+		
+	}else if(temoinSupprImagePika2 == 52){ //Si c'est le RSD (Radiographie standard)
+		confirmerSuppressionOther(id, idadmission, 'Rsd');
+		$("#confirmationRsd").dialog('open');
+		
+	}else if(temoinSupprImagePika2 == 53){ //Si c'est le SCA (Scanner)
+		confirmerSuppressionOther(id, idadmission, 'Sca');
+		$("#confirmationSca").dialog('open');
+		
+	}else if(temoinSupprImagePika2 == 54){ //Si c'est le Eco (Echographie)
+		confirmerSuppressionOther(id, idadmission, 'Eco');
+		$("#confirmationEco").dialog('open');
 		
 	}else if(temoinSupprImagePika2 == 1){ //les iconographies dans examen physique
 		confirmerSuppression(id, idadmission);
@@ -1076,5 +1092,154 @@ function getImagesExamensOther(examen){
           }
           
      });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var tabDisabledComplicationSelect = [0,0,0,0,0,0,0,0,0,0];
+
+function getModeleComplicationSelect(id){
+	
+	var liste = '<select id="listeComplicationsSelect_'+id+'" style="float:right; width: 60%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;" onchange="getComplicationDisabledSelect('+id+', this.value)">'+
+	               '<option value=0 ></option>'+
+	               '<option class="disabledComplicationSelectOption'+tabDisabledComplicationSelect[1]+'" value=1 >Acido-c&eacute;tose</option>'+
+	               '<option class="disabledComplicationSelectOption'+tabDisabledComplicationSelect[2]+'" value=2 >Coma hyperosmolaire</option>'+
+	               '<option class="disabledComplicationSelectOption'+tabDisabledComplicationSelect[3]+'" value=3 >N&eacute;phropathie diab&egrave;tique</option>'+
+	               '<option class="disabledComplicationSelectOption'+tabDisabledComplicationSelect[4]+'" value=4 >R&eacute;tinopathie diab&egrave;tique</option>'+
+	               '<option class="disabledComplicationSelectOption'+tabDisabledComplicationSelect[5]+'" value=5 >Neuropathie p&eacute;riph&eacute;rique</option>'+
+	               '<option class="disabledComplicationSelectOption'+tabDisabledComplicationSelect[6]+'" value=6 >ACOMI</option>'+
+	               '<option class="disabledComplicationSelectOption'+tabDisabledComplicationSelect[7]+'" value=7 >AVC</option>'+
+	               '<option class="disabledComplicationSelectOption'+tabDisabledComplicationSelect[8]+'" value=8 >IDM</option>'+
+	               '<option class="disabledComplicationSelectOption'+tabDisabledComplicationSelect[9]+'" value=9 >Pied diab&egrave;tique</option>'+
+	            "</select>";
+	
+	return liste;
+}
+
+
+function getComplicationDisabledSelect(ligne, id){ 
+	
+	if(id==0){
+		$('#complication_plus').toggle(false);
+	}else{
+		$('#complication_plus').toggle(true);
+		
+		var nbLigne = $('.complicationDiagEntree').length; 
+		$('#valueChampInputComplication_'+nbLigne).val($('.champInputComplication_'+nbLigne+' select').val());
+	}
+	
+}
+
+function ajouterComplicationDiagEntree(){ 
+	
+	var nbLigne = $('.complicationDiagEntree').length; 
+	var valInputComplicationSelect = $('#valueChampInputComplication_'+nbLigne).val();
+	tabDisabledComplicationSelect[valInputComplicationSelect] = 1;
+	
+	
+	
+	var interfaceChamps = '<table style="width: 100%;" class="complicationDiagEntree complicationDiagEntree_'+(nbLigne+1)+'">'+
+	                        '<tr style="width: 100%" class="designStyleLabel">'+
+		        
+							   '<td style="width: 40%; padding-right: 25px;" class="complicationDiagEntCol1">'+
+							     '<label class="modeleChampInputComplication champInputComplication_'+(nbLigne+1)+'" style="width: 100%; height:30px; text-align:left;">'+
+						           '<span style="font-size: 11px;">&#10148; </span><span>Complication '+(nbLigne+1)+' </span>'+ 
+						           getModeleComplicationSelect((nbLigne+1))+
+						         '</label>'+
+						         '<input type="hidden" id="valueChampInputComplication_'+(nbLigne+1)+'">'+
+							   '</td>'+
+							   
+							   '<td style="width: 60%; padding-right: 13px;" class="complicationDiagEntCol2">'+
+							     '<label style="width: 100%; height:30px; margin-left: -10px; text-align:right;">'+
+							       '<span> Note '+(nbLigne+1)+'&nbsp;&nbsp; </span>'+ 
+							       '<input type="Text" id="noteInputComplication_'+(nbLigne+1)+'" style="float:right; width: 85%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;">'+
+							     '</label>'+
+							   '</td>'+
+							   
+	                        '</tr>'+
+                          '</table>';
+	
+	
+	
+	
+	
+	$('.complicationDiagEntree_'+(nbLigne)).after(interfaceChamps);
+	
+	if((nbLigne+1) > 1){ 
+		$('#complication_moins').toggle(true);
+	}else if((nbLigne+1) == 1){
+		$('#complication_plus').toggle(false);
+	}
+	
+	if(nbLigne == 0){ $('#complication_moins').toggle(false); }
+
+	$('#complication_plus').toggle(false);
+	$('.champInputComplication_'+nbLigne+' select').attr("disabled", true);
+	$(".disabledComplicationSelectOption1").toggle(false);
+	$(".disabledComplicationSelectOption0").toggle(true);
+}
+
+
+function enleverComplicationDiagEntree(){
+	
+	var nbLigne = $('.complicationDiagEntree').length; 
+	if(nbLigne > 1){
+		$('.complicationDiagEntree_'+nbLigne).remove();
+		if(nbLigne == 2){ $('#complication_moins').toggle(false); }
+		
+		$('#complication_plus').toggle(true);
+		$('.champInputComplication_'+(nbLigne-1)+' select').attr("disabled", false);
+		
+		var valInputComplicationSelect = $('#valueChampInputComplication_'+(nbLigne-1)).val();
+		tabDisabledComplicationSelect[valInputComplicationSelect] = 0;
+		
+	}
+	
+}
+
+
+function getHospitalisationInfos(id){
+	if(id==1){
+		$("#hospitalisationInfos").toggle(true);
+	}else{
+		$("#hospitalisationInfos").toggle(false);
+	}
+	
 }
 

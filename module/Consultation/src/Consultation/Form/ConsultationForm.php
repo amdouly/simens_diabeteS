@@ -1248,6 +1248,205 @@ class ConsultationForm extends Form {
 		) );
 		
 		
+		$this->add ( array (
+				'name' => 'ecg',
+				'type' => 'Textarea',
+				'attributes' => array (
+						'id' => 'ecg',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 85%; max-width: 500px; min-width: 350px; height: 150px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'indice_pression_systolique',
+				'type' => 'Number',
+				'attributes' => array (
+						'id' => 'indice_pression_systolique',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 60px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'rsd1',
+				'type' => 'Textarea',
+				'attributes' => array (
+						'id' => 'rsd1',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 85%; max-width: 500px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'rsd2',
+				'type' => 'Textarea',
+				'attributes' => array (
+						'id' => 'rsd2',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 85%; max-width: 500px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'scanner',
+				'type' => 'Textarea',
+				'attributes' => array (
+						'id' => 'scanner',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 85%; max-width: 500px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
+				)
+		) );
+		
+		 
+		$this->add ( array (
+				'name' => 'echodoppler',
+				'type' => 'Textarea',
+				'attributes' => array (
+						'id' => 'echodoppler',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 85%; max-width: 500px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'echographie1',
+				'type' => 'Textarea',
+				'attributes' => array (
+						'id' => 'echographie1',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 85%; max-width: 500px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'echographie2',
+				'type' => 'Textarea',
+				'attributes' => array (
+						'id' => 'echographie2',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 85%; max-width: 500px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'type_diabete',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array (
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Diabète de type 1'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Diabète de type 2'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Diabète gestationnel'),
+								4 => iconv('ISO-8859-1', 'UTF-8', 'MODY'),
+						)
+				),
+				'attributes' => array (
+						'id' => 'type_diabete',
+						'style' => 'float:right; width: 60%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'complication',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array (
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Acido-cétose'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Coma hyperosmolaire'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Néphropathie diabètique'),
+								4 => iconv('ISO-8859-1', 'UTF-8', 'Rétinopathie diabètique'),
+								5 => iconv('ISO-8859-1', 'UTF-8', 'Neuropathie périphérique'),
+								6 => iconv('ISO-8859-1', 'UTF-8', 'ACOMI'),
+								7 => iconv('ISO-8859-1', 'UTF-8', 'AVC'),
+								8 => iconv('ISO-8859-1', 'UTF-8', 'IDM'),
+								9 => iconv('ISO-8859-1', 'UTF-8', 'Pied diabètique'),
+						)
+				),
+				'attributes' => array (
+						'id' => 'complication',
+						'style' => 'float:right; width: 60%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'hospitalisation',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array (
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Oui'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Non'),
+						)
+				),
+				'attributes' => array (
+						'id' => 'hospitalisation',
+						'onchange' => 'getHospitalisationInfos(this.value)',
+						'style' => 'float:right; width: 35%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'evolution',
+				'type' => 'Textarea',
+				'attributes' => array (
+						'id' => 'evolution',
+						'min' => 1,
+						'max' => 300,
+						'tabindex' => 11,
+						'style' => 'float:right; width: 85%; max-width: 380px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
+				)
+		) );
+		
+		
+		$this->add ( array (
+				'name' => 'exeat',
+				'type' => 'Text',
+				'attributes' => array (
+						'id' => 'exeat',
+						'style' => 'float:right; width: 80%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
+		$this->add ( array (
+				'name' => 'deces',
+				'type' => 'Select',
+				'options' => array (
+						'value_options' => array (
+								0 => '',
+								1 => iconv('ISO-8859-1', 'UTF-8', 'Oui'),
+								2 => iconv('ISO-8859-1', 'UTF-8', 'Non'),
+						)
+				),
+				'attributes' => array (
+						'id' => 'deces',
+						'style' => 'float:right; width: 80%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+				)
+		) );
+		
 		
 	}
 }

@@ -1064,7 +1064,7 @@ class ConsultationController extends AbstractActionController {
 					$resultatAjout = $this->getConsultationTable()->addImagesIconographie($nomimage, $idadmission, $position, $idemploye);
 				}
 				if($resultatAjout){
-					imagejpeg ( $img, $this->baseUrlFile().'public/images/iconographies/' . $nomimage . '.jpg' );
+					imagejpeg ( $img, $this->baseUrlFile().'public/images/imagerie/iconographies/' . $nomimage . '.jpg' );
 				}
 			}
 			 
@@ -1080,7 +1080,7 @@ class ConsultationController extends AbstractActionController {
 		 
 		if($result){
 			foreach ($result as $resultat) {
-				$pickaChoose .=" <li><a href='../images/iconographies/".$resultat['nomimage'].".jpg'><img src='../images/iconographies/".$resultat['nomimage'].".jpg'/></a><span></span></li>";
+				$pickaChoose .=" <li><a href='../images/imagerie/iconographies/".$resultat['nomimage'].".jpg'><img src='../images/imagerie/iconographies/".$resultat['nomimage'].".jpg'/></a><span></span></li>";
 			}
 		}
 		
@@ -1153,7 +1153,7 @@ class ConsultationController extends AbstractActionController {
 		if($result['idimage']){
 			
 			// SUPPRESSION PHYSIQUE DE L'IMAGE
-			unlink ( $this->baseUrlFile().'public/images/iconographies/' . $result['nomimage'] . '.jpg' );
+			unlink ( $this->baseUrlFile().'public/images/imagerie/iconographies/' . $result['nomimage'] . '.jpg' );
 			
 			// SUPPRESSION DE L'IMAGE DANS LA BASE
 			$this->getConsultationTable()->deleteImagesIconographie($result['idimage'], $idadmission);
@@ -1185,6 +1185,14 @@ class ConsultationController extends AbstractActionController {
 			$today = new \DateTime ( 'now' );
 			if($examen == 'Nfs'){
 				$nomimage = "nfs_".$idadmission.'_'.$today->format ( 'dmy_His' );
+			}else if($examen == 'Ecg'){
+				$nomimage = "ecg_".$idadmission.'_'.$today->format ( 'dmy_His' );
+			}else if($examen == 'Rsd'){
+				$nomimage = "rsd_".$idadmission.'_'.$today->format ( 'dmy_His' );
+			}else if($examen == 'Sca'){
+				$nomimage = "sca_".$idadmission.'_'.$today->format ( 'dmy_His' );
+			}else if($examen == 'Eco'){
+				$nomimage = "eco_".$idadmission.'_'.$today->format ( 'dmy_His' );
 			}else{
 				
 				$this->getResponse()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html' );
@@ -1203,7 +1211,19 @@ class ConsultationController extends AbstractActionController {
 					$resultatAjout = $this->getConsultationTable()->addImagesExamens($nomimage, $idadmission, $examen, $idemploye);
 				}
 				if($resultatAjout){
-					imagejpeg ( $img, $this->baseUrlFile().'public/images/hemogrammes/' . $nomimage . '.jpg' );
+					if($examen == 'Nfs'){
+						imagejpeg ( $img, $this->baseUrlFile().'public/images/imagerie/hemogrammes/' . $nomimage . '.jpg' );
+					}else if($examen == 'Ecg'){
+						imagejpeg ( $img, $this->baseUrlFile().'public/images/imagerie/electrocardiogrammes/' . $nomimage . '.jpg' );
+					}else if($examen == 'Rsd'){
+						imagejpeg ( $img, $this->baseUrlFile().'public/images/imagerie/radiographies/' . $nomimage . '.jpg' );
+					}else if($examen == 'Sca'){
+						imagejpeg ( $img, $this->baseUrlFile().'public/images/imagerie/scanners/' . $nomimage . '.jpg' );
+					}else if($examen == 'Eco'){
+						imagejpeg ( $img, $this->baseUrlFile().'public/images/imagerie/echographies/' . $nomimage . '.jpg' );
+					}
+					
+					
 				}
 			}
 	
@@ -1219,7 +1239,17 @@ class ConsultationController extends AbstractActionController {
 			
 		if($result){
 			foreach ($result as $resultat) {
-				$pickaChoose .=" <li><a href='../images/hemogrammes/".$resultat['nomimage'].".jpg'><img src='../images/hemogrammes/".$resultat['nomimage'].".jpg'/></a><span></span></li>";
+				if($examen == 'Nfs'){
+					$pickaChoose .=" <li><a href='../images/imagerie/hemogrammes/".$resultat['nomimage'].".jpg'><img src='../images/imagerie/hemogrammes/".$resultat['nomimage'].".jpg'/></a><span></span></li>";
+				}else if($examen == 'Ecg'){
+					$pickaChoose .=" <li><a href='../images/imagerie/electrocardiogrammes/".$resultat['nomimage'].".jpg'><img src='../images/imagerie/electrocardiogrammes/".$resultat['nomimage'].".jpg'/></a><span></span></li>";
+				}else if($examen == 'Rsd'){
+					$pickaChoose .=" <li><a href='../images/imagerie/radiographies/".$resultat['nomimage'].".jpg'><img src='../images/imagerie/radiographies/".$resultat['nomimage'].".jpg'/></a><span></span></li>";
+				}else if($examen == 'Sca'){
+					$pickaChoose .=" <li><a href='../images/imagerie/scanners/".$resultat['nomimage'].".jpg'><img src='../images/imagerie/scanners/".$resultat['nomimage'].".jpg'/></a><span></span></li>";
+				}else if($examen == 'Eco'){
+					$pickaChoose .=" <li><a href='../images/imagerie/echographies/".$resultat['nomimage'].".jpg'><img src='../images/imagerie/echographies/".$resultat['nomimage'].".jpg'/></a><span></span></li>";
+				}
 			}
 		}
 	
@@ -1260,6 +1290,7 @@ class ConsultationController extends AbstractActionController {
 		return $this->getResponse ()->setContent(Json::encode ( $html ));
 	}
 	
+	
 	public function supprimerImagesDifferentsExamensAction()
 	{
 		$id = (int)$this->params()->fromPost('id');
@@ -1275,13 +1306,22 @@ class ConsultationController extends AbstractActionController {
 		$result = $this->getConsultationTable()->getImageExamen($id, $idadmission, $examen);
 		
 		if( $result['idimage'] ){
-			//SUPPRESSION PHYSIQUE DE L'IMAGE
-			unlink ( $this->baseUrlFile().'public/images/hemogrammes/' . $result['nomimage'] . '.jpg' );
 			
-			//SUPPRESSION DE L'IMAGE DANS LA BASE
+			if($examen == 'Nfs'){
+				unlink ( $this->baseUrlFile().'public/images/imagerie/hemogrammes/' . $result['nomimage'] . '.jpg' );
+			}else if($examen == 'Ecg'){
+				unlink ( $this->baseUrlFile().'public/images/imagerie/electrocardiogrammes/' . $result['nomimage'] . '.jpg' );
+			}else if($examen == 'Rsd'){
+				unlink ( $this->baseUrlFile().'public/images/imagerie/radiographies/' . $result['nomimage'] . '.jpg' );
+			}else if($examen == 'Sca'){
+				unlink ( $this->baseUrlFile().'public/images/imagerie/scanners/' . $result['nomimage'] . '.jpg' );
+			}else if($examen == 'Eco'){
+				unlink ( $this->baseUrlFile().'public/images/imagerie/echographies/' . $result['nomimage'] . '.jpg' );
+			}
+			
 			$this->getConsultationTable()->deleteImageExamen($result['idimage'], $idadmission, $examen);
 		}
-		
+
 		$this->getResponse()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html' );
 		return $this->getResponse ()->setContent(Json::encode ( $result['idimage'] ));
 		
