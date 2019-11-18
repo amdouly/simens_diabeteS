@@ -1,0 +1,1159 @@
+<script>
+var base_url = window.location.toString();
+var tabUrl = base_url.split("public");
+
+$('.layoutViewMenuGauche').toggle(false);
+</script>
+
+<?php use Consultation\View\Helper\DateHelper; ?>
+<?php $Control = new DateHelper(); ?>
+
+<!-- LES SCRIPS DES PLUGINS ET DES JS -->
+<?php 
+  echo $this->headLink()->appendStylesheet($this->basePath().'/css/pikachoose/bottom.css');
+  echo $this->headScript()->appendFile($this->basePath().'/js/plugins/pikachoose/jquery.jcarousel.min.js');
+  echo $this->headScript()->appendFile($this->basePath().'/js/plugins/pikachoose/jquery.pikachoose.min.js');
+  
+  echo $this->headScript()->appendFile($this->basePath().'/js/plugins/fancybox/source/jquery.fancybox.js');
+  echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/fancybox/source/jquery.fancybox.css');
+  
+  echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/dateTimePicker/jquery-ui-timepicker-addon.css');
+  echo $this->headScript()->appendFile($this->basePath().'/js/plugins/dateTimePicker/jquery-ui-timepicker-addon.js');
+    
+  echo $this->headScript()->appendFile($this->basePath().'/js/consultation/jsConsulter.js');
+?>
+
+<!-- LES SCRIPS CSS -->
+<?php 
+  echo $this->headLink()->appendStylesheet($this->basePath().'/css/consultation/styleConsulter.css');
+  echo $this->headLink()->appendStylesheet($this->basePath().'/css/consultation/styleMonstyle.css');
+?>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+$(window).load(function () {
+
+	$('#wait').toggle(false);
+	$('#contenu').fadeIn().css({'visibility':'visible'});
+	 
+});
+</script>
+
+<div id="wait" style="color: gray; font-size: 20px; text-align: center; margin-top: 80px;" > <span> Chargement ... </span> </div>
+
+<div id="contenu" >
+
+  <?php 
+	$form = $this->form;
+	$form->setName('formConsultation');
+	$form->setAttribute('method', 'post');
+	$form->prepare();
+	echo $this->form()->openTag($form); 
+  ?>
+
+
+  <?php echo $this->formHidden($form->get('idpatient'));?>
+  <?php echo $this->formHidden($form->get('idmedecin'));?>
+  <?php echo $this->formHidden($form->get('idadmissionsuiv'));?>
+  <?php echo $this->formHidden($form->get('idcons'));?>
+               
+<div id="accordions"> 
+
+	 <!--*************** Accordeon ETAT CIVIL ******************-->
+	 <!--*************** Accordeon ETAT CIVIL ******************-->
+	 <!--*************** Accordeon ETAT CIVIL ******************-->
+	 
+	 <!--*1*-->
+	 
+     <div style='width:160px; font-family: police2;font-size: 17px; font-weight: bold;'>Etat Civil</div>
+     <div style='max-height: 340px;'>
+
+       <table style="width: 100%;">
+         <tr style="width: 100%;">
+         
+           <!-- Première colonne photo -->         
+           <td style="height: 100px; width: 16%; vertical-align: top;">
+             <img id="faces" src='<?php echo $this->basePath().'/images/photos_patients/identite.jpg';?>'  style='float:left; margin-right:40px; width:105px; height:105px;'/>
+             <div style=' left: 40px; top: 160px; font-family: time new romans; position: absolute; '> Age: <span style='font-size:19px; font-family: time new romans; color: green; font-weight: bold;'> <?php echo $this->lesdetails['AGE'].' ans'; ?>  </span></div>
+                          
+           </td> 
+           
+           
+           <!-- Deuxième colonne infos état-civil -->
+           <td style="width: 72%;">
+           
+              <table id="etat_civil" style="width: 100%;">
+               <tr style="width: 100%;">
+			   	<td style='width:27%; font-family: police1;font-size: 12px;'>
+			   		<div ><a style="text-decoration: underline;">Pr&eacute;nom</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['PRENOM'];?></p></div>
+			   	</td>
+
+			   	<td style='width:35%; font-family: police1;font-size: 12px;'>
+		   		<div ><a style="text-decoration: underline;">Origine g&eacute;ographique</a><br><p style='font-weight: bold;font-size: 19px;'><?php  echo $this->patient->origine_geographique; ?></p></div>
+			   	</td>
+
+			    <td style='width:38%; font-family: police1;font-size: 12px;'>
+			   		<div ><a style="text-decoration: underline;">T&eacute;l&eacute;phone</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['TELEPHONE'];?></p></div>
+			   	</td>
+
+			 </tr>
+
+			 <tr>
+			    <td style=' font-family: police1;font-size: 12px;'>
+			   		<div ><a style="text-decoration: underline;">Nom</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['NOM'];?></p></div>
+			   	</td>
+
+			   	<td style=' font-family: police1;font-size: 12px;'>
+			   		<div ><a style="text-decoration: underline;">Statut matrimonial</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['STATUT_MATRIMONIAL']?$this->listeStatutMatrimonial[$this->lesdetails['STATUT_MATRIMONIAL']]:'';?></p></div>
+			   	</td>
+
+			   	<td style=' font-family: police1;font-size: 12px;'>
+			   		<div ><a style="text-decoration: underline;">Ethnie</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->patient->ethnie?$this->listeEthnies[$this->patient->ethnie]:'';?></p></div>
+			   	</td>
+
+			 </tr>
+
+			 <tr>
+			    <td style=' font-family: police1;font-size: 12px;'>
+			   		
+			   		<div ><a style="text-decoration: underline; ">Date de naissance</a><br>
+			   		  <p style='font-weight: bold;font-size: 19px;'>
+			   		    <?php 
+			   		    $date_naissance = $this->lesdetails['DATE_NAISSANCE'];
+			   		    if($date_naissance){ echo $Control->convertDate($this->lesdetails['DATE_NAISSANCE']); }else{ echo "";}
+			   		    ?> 
+			   		  </p>
+			   		</div>
+			   	
+			   	</td>
+
+			    <td style=' font-family: police1;font-size: 12px;'>
+			   		<div ><a style="text-decoration: underline;">R&eacute;gime matrimonial</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['REGIME_MATRIMONIAL']?$this->listeRegimeMatrimonial[$this->lesdetails['REGIME_MATRIMONIAL']]:'';?></p></div>
+			   	</td>
+
+			   	<td style=' font-family: police1;font-size: 12px;'>
+			   		<div ><a style="text-decoration: underline;">Race</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->patient->race;?></p></div>
+			   	</td>
+
+			 </tr>
+
+			  <tr>
+			   	<td style='width: 27%; font-family: police1;font-size: 12px; vertical-align: top;'>
+			   	
+			   		<div ><a style="text-decoration: underline;">Sexe</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['SEXE'];?></p></div>
+			   		
+			   	</td>
+
+			    <td style='display:"block"; font-family: police1;font-size: 12px;'>
+			   		<div ><a style="text-decoration: underline;">Adresse</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['ADRESSE'];?></p></div>
+
+			   	</td>
+			   	
+			   	<td style='display:"block";  font-family: police1;font-size: 12px; vertical-align: top;'>
+			   	    <div ><a style="text-decoration: underline;">Profession</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['PROFESSION']?$this->listeProfessions[$this->lesdetails['PROFESSION']]:'';?></p></div>
+			   	</td>
+			  </tr>
+             </table>
+           
+           </td> 
+           
+           
+           
+           <!-- Troisième colonne photo -->
+           <td style="width: 12%; vertical-align: top;">
+           
+             <p style='color: white; opacity: 0.09;'>
+               <img id="faces" src='<?php echo $this->basePath().'/images/photos_patients/identite.jpg'?>'  alt="Jonathan Verrecchia" style='float:right; margin-right:15px; width:95px; height:95px;'/>
+             </p>
+             <span style="position: absolute; right: 63px; top: 150px; color: green; font-family: time new roman; font-size: 17px; "> <?php echo $this->patient->numero_dossier; ?> </span>
+             
+           </td>
+           
+         </tr>
+         
+         
+         <!-- Deuxième ligne pour le bas de page -->
+         <tr style="width: 100%;">
+           <td style="height: 10px; width: 16%;"></td> 
+           <td colspan="2"> <div id="barre"></div> </td> 
+           
+         </tr>
+         
+         <!-- Troisième ligne pour le bas de page -->
+         <tr style="height: 100px; width: 100%;">
+           <td style="height: 10px; width: 16%;"></td> 
+           
+           <td style="width: 72%; vertical-align: top;">
+             <table id="numero" style=" padding-top:5px; width: 550px;">
+	           <tr style="width: 100%;">
+	             <td style="padding-top:5px; width: 70px; font-size: 12px;"> Consultation: </td>
+	             <td style="font-weight: bold;"> <?php echo $this->idsuiv;?></td>
+	             <td style="font-weight: bold; width:10px;">|</td>
+	             <td style="padding-top:5px; width: 80px; font-size: 12px; "> Date & Heure: </td>
+	             <td style="font-weight: bold;"> <?php echo $Control->convertDate($this->datesuiv); ?>  -  <?php echo $this->heuresuiv;?></td>
+	           </tr>
+         	 </table>
+           </td> 
+           
+           <td style="width: 12%; vertical-align: top;">
+             <div style='color: white; opacity: 1; width:95px; height:40px; float:right'>
+               <img  src='<?php echo $this->basePath().'/images_icons/fleur1.jpg'?>'  alt="fleur1" />
+             </div>
+           </td>
+           
+         </tr>
+       
+       
+       
+       </table>
+       
+         
+
+     </div>
+  
+     
+     <!-- ******************** SUIVI ******************-->
+     <!-- ******************** SUIVI ******************-->
+     <!-- ******************** SUIVI ******************-->
+    
+           <!-- **1** -->
+           <!-- **1** -->
+           <!-- **1** -->
+           <!-- **1** -->
+           <!-- **1** -->
+           <!-- **1** -->
+           <div style='font-family: police2;font-size: 17px; font-weight: bold;'> Plaintes </div>
+           <div id="plaintesConsSuivi" class="zoneContenuObmre">
+           
+       	     <div style="width: 100%; padding: 3px; margin-top: 6px; padding-bottom: 1px; ">
+               <table class="plainteEntre plainteEntree_0"></table>
+             </div>
+             
+             <table style="width:100%;" >
+               <tr style="width: 100%">
+                  <td style="width: 20%;">
+ 			         <div id='plainte_moins' class='examen_physique_pm' onclick='enleverUnePlainte();' style='display: none;'> &minus; </div> 
+ 			         <div id='plainte_plus'  class='examen_physique_pm' onclick='ajouterUneNouvellePlainte();' style='display: none;'> + </div>
+ 			      </td>
+ 			      <td style="width: 80%;" ></td>
+ 			   </tr>
+ 			 </table>
+ 			 <input type="hidden" id="nbPlaintesEntree" name="nbPlaintesEntree">
+             <script type="text/javascript">ajouterUneNouvellePlainte();</script>
+           
+             <script type="text/javascript">
+    	     	var nbPlaintesSuivi = "<?php echo $this->nbPlaintesSuivi;?>";
+    	     	var indice=1;
+    	     </script>
+    	   
+    	     <?php foreach ($this->plaintesSuivi as $listePlaintesSuivi){?>
+    	        <script> 
+    	        	$("#listePlaintesSelect_"+(indice)).val("<?php echo $listePlaintesSuivi['idplainte'];?>").trigger('change'); 
+    		   		$("#noteInputPlainte_"+(indice)).val("<?php echo $listePlaintesSuivi['note'];?>");
+    
+    	       		if(indice < nbPlaintesSuivi){ ajouterUneNouvellePlainte(); }
+               		indice++;
+    		    </script>
+    	     <?php }?>
+    	   
+    	   
+           </div>
+           
+           
+           
+           <!-- **2** -->
+           <!-- **2** -->
+           <!-- **2** -->
+           <!-- **2** -->
+           <!-- **2** -->
+           <!-- **2** -->
+           <div style='font-family: police2;font-size: 17px; font-weight: bold;'> Examen g&eacute;n&eacute;ral </div>
+           <div id="examenGeneralConsSuivi" style="max-height: 350px;">
+           
+           			<table style="width:100%;" >
+                         
+	 			   		 <tr style="width:100%;">
+                     		 <td  style="width:100%; vertical-align: top;" class="zoneContenuObmre">
+		                        
+                               <div style="width: 100%; padding: 3px; padding-bottom: 1px;">
+                     		     
+                     		     <table style="width: 100%;" >
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		        
+                     		           <td style="width: 100%; padding-right: 23px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Etat g&eacute;n&eacute;ral </span> 
+		                                    <?php echo $this->formRow($form->get('etat_general_suiv')); ?> 
+		                                    <span style='font-style: italic; font-size: 17px; font-style: italic; float: right;'> Activit&eacute;&nbsp;  </span>
+		                                  </label>
+                     		           </td>
+                     		        
+                     		        </tr>
+	 			                 </table>
+	 			                 
+	 			                 
+	 			                 <table style="width: 100%;" >
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		        
+                     		           <td style="width: 28%; padding-right: 25px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Muqueuses</span> 
+		                                    <?php echo $this->formRow($form->get('muqueuses_suiv')); ?> 
+		                                  </label>
+                     		           </td>
+                     		        
+                     		           <td style="width: 22%; padding-right: 25px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>D&eacute;shydratation</span> 
+		                                    <?php echo $this->formRow($form->get('deshydratation_suiv')); ?> 
+		                                  </label>
+                     		           </td>
+                     		        
+                     		           <td style="width: 35%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Oed&egrave;me des membres inf&eacute;rieurs</span> 
+		                                    <?php echo $this->formRow($form->get('oedeme_membres_inferieurs_suiv')); ?> 
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 15%; padding-right: 23px;">
+                     		              <label style="width: 100%; height:30px; text-align:left; display: none;">
+		                           		    <span style='font-size: 11px;'> </span>  
+		                                  </label>
+                     		           </td>
+                     		           
+                     		        </tr>
+	 			                 </table>
+	 			                 
+	 			               </div>
+	 			                 
+	 			               
+	 			             </td>
+	 			             
+	 			         </tr>
+	 			         
+	 			         <tr style="width:100%;">  
+	 			             <td style="width:100%; vertical-align: top;" class="zoneContenuObmre">
+                               <div style="width: 100%; margin-top: 5px; padding: 3px; padding-bottom: 1px;">
+	 			             
+	 			                 <table style="width: 100%;" >
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		           <td style="width: 25%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>T.A(mmHG)</span> 
+		                           		    <?php echo $this->formRow($form->get('tension_arterielle_max_suiv')); ?>
+		                                    <?php echo $this->formRow($form->get('tension_arterielle_min_suiv')); ?> 
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 14%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:right; font-style: italic;">
+		                           		    <span style='font-size: 11px;'> </span><span>Couch&eacute;&nbsp;</span> 
+		                                    <?php echo $this->formRow($form->get('coucheTA_suiv')); ?> 
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 14%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:right; font-style: italic;">
+		                           		    <span style='font-size: 11px;'> </span><span>Debout&nbsp;</span> 
+		                                    <?php echo $this->formRow($form->get('deboutTA_suiv')); ?> 
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 12%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:right; font-style: italic;">
+		                           		    <span style='font-size: 11px;'> </span><span>IPS&nbsp;</span> 
+		                                    <?php echo $this->formRow($form->get('ipsTA_suiv')); ?> 
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 17%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:right; font-style: italic;">
+		                           		    <span style='font-size: 11px;'> </span><span>Pied gauche&nbsp;</span> 
+		                                    <?php echo $this->formRow($form->get('piedgaucheTA_suiv')); ?> 
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 18%; padding-right: 23px;">
+                     		              <label style="width: 100%; height:30px; text-align:right; font-style: italic;">
+		                           		    <span style='font-size: 11px;'> </span><span>Pied droit&nbsp;</span> 
+		                                    <?php echo $this->formRow($form->get('pieddroitTA_suiv')); ?> 
+		                                  </label>
+                     		           </td>
+                     		           
+                     		        </tr>
+                     		     </table>
+	 			             
+	 			               </div>
+	 			             </td>
+	 			           </tr>  
+	 			           
+	 			           
+	 			           <tr style="width:100%;">  
+	 			             <td style="width:100%; vertical-align: top;" class="zoneContenuObmre">
+                               <div style="width: 100%; margin-top: 5px; padding: 3px; padding-bottom: 1px;">
+	 			             
+	 			                 <table style="width: 100%;" >
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		           <td style="width: 23%; padding-right: 25px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Pouls (bat./min)</span> 
+		                           		    <?php echo $this->formRow($form->get('poulsBatMin_suiv')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 37%; padding-right: 25px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Fr&eacute;quence respiratoire (cycles/min)</span> 
+		                           		    <?php echo $this->formRow($form->get('frequence_respiratoire_cycles_min_suiv')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 22%; padding-right: 23px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Diur&egrave;se horaire</span> 
+		                           		    <?php echo $this->formRow($form->get('diurese_horaire_suiv')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 18%; padding-right: 23px;"> </td>
+                     		           
+                     		           
+                     		        </tr>
+                     		     </table>
+                     		     
+                     		   </div>
+                     	     </td>
+                     	   </tr>   
+                     	   
+                     	   
+                     	   <tr style="width:100%;">  
+	 			             <td style="width:100%; vertical-align: top;" class="zoneContenuObmre">
+                               <div style="width: 100%; margin-top: 5px; padding: 3px; padding-bottom: 1px;">
+	 			             
+	 			                 <table style="width: 100%;" >
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		           <td style="width: 18%; padding-right: 25px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Poids (kg)</span> 
+		                           		    <?php echo $this->formRow($form->get('poids_suiv')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 20%; padding-right: 25px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Taille (cm)</span> 
+		                           		    <?php echo $this->formRow($form->get('taille_suiv')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 15%; padding-right: 25px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>IMC</span> 
+		                           		    <?php echo $this->formRow($form->get('imc_constante_suiv')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 22%; padding-right: 25px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Tour taille (cm)</span> 
+		                           		    <?php echo $this->formRow($form->get('tour_taille_suiv')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 25%; padding-right: 23px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Glyc&eacute;mie capillaire</span> 
+		                           		    <?php echo $this->formRow($form->get('glycemie_capillaire_suiv')); ?>
+		                                  </label>
+                     		           </td>
+                     	           
+                     	            </tr>
+                     		     </table>
+                     		     
+                     		     
+                     		     <table style="width: 100%;" >
+                     		        <tr style="width: 100%" class="designStyleLabel">
+                     		           <td style="width: 35%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:left;">
+		                           		    <span style='font-size: 11px;'>&#10148; </span>Bandelette urinaire <span style="position: absolute;  font-style: italic; left: 27%;">Sucre&nbsp;</span> 
+		                           		    <?php echo $this->formRow($form->get('sucre_suiv')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 20%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:right;  font-style: italic;">
+		                           		    <span style='font-size: 11px;'> </span><span>Corps c&eacute;tonique&nbsp;</span> 
+		                           		    <?php echo $this->formRow($form->get('corps_cetonique_suiv')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 20%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:right; font-style: italic;">
+		                           		    <span style='font-size: 11px;'> </span><span>Albumine&nbsp; </span> 
+		                           		    <?php echo $this->formRow($form->get('proteines_suiv')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 20%; padding-right: 15px;">
+                     		              <label style="width: 100%; height:30px; text-align:right; font-style: italic;">
+		                           		    <span style='font-size: 11px;'> </span><span>H&eacute;maties&nbsp;</span> 
+		                           		    <?php echo $this->formRow($form->get('hematies_suiv')); ?>
+		                                  </label>
+                     		           </td>
+                     		           
+                     		           <td style="width: 5%; padding-right: 15px;"></td>
+                     		           
+                     		        </tr>   
+                     		     </table>
+                     		     
+                     		     
+                     		   </div>
+                     	     </td>
+                     	   </tr>   
+                     	           
+                     	           
+	 			   
+	 			   </table>
+
+           </div>
+           
+           
+           <!-- **3** -->
+           <!-- **3** -->
+           <!-- **3** -->
+           <!-- **3** -->
+           <!-- **3** -->
+           <!-- **3** -->
+           <div style='font-family: police2;font-size: 17px; font-weight: bold;'> Examen physique </div>
+           <div>
+
+               <table style="width:100%;" class="champsAjoutAppareilSystem champsAjoutAppareilSystemeSuiv_0"></table>
+               <input type='hidden' id='nbChampsInputAppSysSelectSuiv' name='nbChampsInputAppSysSelectSuiv'> 
+               
+ 			   <table style="width:100%;" >
+                  <tr style="width: 100%">
+                     <td style="width: 20%;">
+ 			           <div id='examen_physique_moins_Suiv' class='examen_physique_pm' onclick='enleverExamenPhysiqueAppareilSystemeSuiv();'> &minus; </div> 
+ 			           <div id='examen_physique_plus_Suiv' class='examen_physique_pm' onclick='ajouterExamenPhysiqueAppareilSystemeSuiv();' style='display: none;'> + </div>
+ 			         </td>
+ 			         <td style="width: 80%;" ></td>
+ 			      </tr>
+ 			   </table>
+
+			   <script type="text/javascript">ajouterExamenPhysiqueAppareilSystemeSuiv();</script>
+
+
+               <script type="text/javascript">
+    	     	  var nbExamenPhysiqueSuivi = "<?php echo $this->nbExamenPhysiqueSuivi;?>";
+    	     	  var indice=1;
+    	       </script>
+    	   
+    	       <?php foreach ($this->examenPhysiqueSuivi as $listeExamenPhysiqueSuivi){?>
+    	          <script> 
+		   			 $("#appareil_appel_systeme_suiv_"+(indice)).val("<?php echo $listeExamenPhysiqueSuivi['idexamenphysique'];?>").trigger('change'); 
+		 			 $("#inspectionSuiv_"+(indice)).val("<?php echo $listeExamenPhysiqueSuivi['inspection'];?>");
+			 		 $("#palpitationSuiv_"+(indice)).val("<?php echo $listeExamenPhysiqueSuivi['palpitation'];?>");
+				 	 $("#percussionSuiv_"+(indice)).val("<?php echo $listeExamenPhysiqueSuivi['percussion'];?>");
+					 $("#auscultationSuiv_"+(indice)).val("<?php echo $listeExamenPhysiqueSuivi['auscultation'];?>");
+    
+    	       		 if(indice < nbExamenPhysiqueSuivi){ ajouterExamenPhysiqueAppareilSystemeSuiv(); }
+               		 indice++;
+    		      </script>
+    	       <?php }?>
+    	       
+    	       
+           </div>
+           
+           
+           
+           
+           <!-- **4** -->
+           <!-- **4** -->
+           <!-- **4** -->
+           <!-- **4** -->
+           <!-- **4** -->
+           <!-- **4** -->
+           <!-- **4** -->
+           <!-- **4** -->
+           <div style='font-family: police2;font-size: 17px; font-weight: bold;'> Examens biologiques </div>
+           <div style="max-height: 280px;">
+
+                 <table style="width:100%;" >
+                                 
+                   <tr style="width: 100%" >
+                      <td style="width: 59%; vertical-align: top;" class="zoneContenuObmre" >
+                         <div style="width: 100%; padding: 3px; padding-bottom: 1px;">
+                             		     
+                               <table style="width: 100%;" >
+                                  <tr style="width: 100%" class="designStyleLabel">
+                             		        
+                             	     <td style="width: 50%; padding-right: 25px;">
+                             		    <label style="width: 100%; height:30px; text-align:left;">
+        		                          <span style='font-size: 11px;'>&#10148; </span><span>Glyc&eacute;mie &agrave; jeun <i style='font-size: 14px;'>(g/l)</i> </span> 
+        		                            <?php echo $this->formRow($form->get('glycemie_jeun_suiv')); ?> 
+        		                        </label>
+                             		 </td>
+                             		 
+                             		 <td style="width: 50%; padding-right: 25px;">
+                             		    <label style="width: 100%; height:30px; text-align:left;">
+        		                          <span style='font-size: 11px;'>&#10148; </span><span title='H&eacute;moglobine glyqu&eacute;e'>H&eacute;mo. glyqu&eacute;e <i style='font-size: 14px;'>(g/l)</i> </span> 
+        		                            <?php echo $this->formRow($form->get('hemoglobine_glyquee_suiv')); ?> 
+        		                        </label>
+                             		 </td>
+                             		 
+                                  </tr>
+        	 			       </table>
+        	 			       
+        	 			       
+        	 			       
+        	 			       
+        	 			       <table style="width: 100%;" >
+                                  <tr style="width: 100%" class="designStyleLabel">
+                             		        
+                             		 <td style="width: 50%; padding-right: 23px;">
+                             		    <label style="width: 100%; height:30px; text-align:left;">
+        		                          <span style='font-size: 11px;'>&#10148; </span><span>Cr&eacute;atinin&eacute;mie <i style='font-size: 14px;'>(mg/l)</i> </span> 
+        		                            <?php echo $this->formRow($form->get('creatininemie_suiv')); ?> 
+        		                        </label>
+                             		 </td>
+                             		 
+                             		 <td style="width: 50%; padding-right: 25px;">
+                             		    <label style="width: 100%; height:30px; text-align:left;">
+        		                          <span style='font-size: 11px;'>&#10148; </span><span>Groupe sanguin </span> 
+        		                            <?php echo $this->formRow($form->get('grsh_suiv')); ?> 
+        		                        </label>
+                             		 </td>
+                             		 
+                                  </tr>
+        	 			       </table>
+        	 			       
+        	 			       
+        	 			       
+        	 			       
+        	 			       <table style="width: 100%;" >
+                                  <tr style="width: 100%" class="designStyleLabel">
+                             		        
+                             		 <td style="width: 50%; padding-right: 25px;">
+                             		    <label style="width: 100%; height:30px; text-align:left;">
+        		                          <span style='font-size: 11px;'>&#10148; </span><span>Triglyc&eacute;rides <i style='font-size: 14px;'>(g/l)</i></span> 
+        		                            <?php echo $this->formRow($form->get('triglycerides_suiv')); ?> 
+        		                        </label>
+                             		 </td>
+                             		 
+                              		 <td style="width: 50%; padding-right: 23px;">
+                             		    <label style="width: 100%; height:30px; text-align:left;">
+        		                          <span style='font-size: 11px;'>&#10148; </span><span >Uric&eacute;mie <i style='font-size: 14px;'>(mg/l)</i></span> 
+        		                            <?php echo $this->formRow($form->get('uricemie_suiv')); ?> 
+        		                        </label>
+                             		 </td>
+                             		 
+                                  </tr>
+        	 			       </table>
+        	 			       
+        	 			       
+        	 			       <table style="width: 100%;" >
+                                  <tr style="width: 100%" class="designStyleLabel">
+                             		        
+                             	     <td style="width: 35%; padding-right: 25px;">
+                             		    <label style="width: 100%; height:30px; text-align:left;">
+        		                          <span style='font-size: 11px;'>&#10148; </span><span>HDL-C <i style='font-size: 14px;'>(g/l)</i></span> 
+        		                            <?php echo $this->formRow($form->get('hdl_c_suiv')); ?> 
+        		                        </label>
+                             		 </td>
+                             		 
+                             		 <td style="width: 35%; padding-right: 25px;">
+                             		    <label style="width: 100%; height:30px; text-align:left;">
+        		                          <span style='font-size: 11px;'>&#10148; </span><span>LDL-C <i style='font-size: 14px;'>(g/l)</i></span> 
+        		                            <?php echo $this->formRow($form->get('ldl_c_suiv')); ?> 
+        		                        </label>
+                             		 </td>
+                             		 
+                             		 <td style="width: 30%; padding-right: 25px;">
+                             		    <label style="width: 100%; height:30px; text-align:left;">
+        		                          <span style='font-size: 11px;'>&#10148; </span><span>TP <i style='font-size: 14px;'>(%)</i></span> 
+        		                            <?php echo $this->formRow($form->get('tp_suiv')); ?> 
+        		                        </label>
+                             		 </td>
+
+                                  </tr>
+        	 			       </table>
+        	 			       
+        	 			       <table style="width: 100%;" >
+                                  <tr style="width: 100%" class="designStyleLabel">
+                             		        
+                             	     <td style="width: 35%; padding-right: 23px;">
+                             		    <label style="width: 100%; height:30px; text-align:left;">
+        		                          <span style='font-size: 11px;'>&#10148; </span><span >TCA <i style='font-size: 14px;'>(%)</i></span> 
+        		                            <?php echo $this->formRow($form->get('tca_suiv')); ?> 
+        		                        </label>
+                             		 </td>
+                             		 
+                             		 <td style="width: 65%; padding-right: 25px;">
+                             		    <label style="width: 100%; height:30px; text-align:left;">
+        		                          <span style='font-size: 11px;'>&#10148; </span><span>Microalbuminurie/PU24h</span> 
+        		                            <?php echo $this->formRow($form->get('microalbuminurie_pu24h_suiv')); ?> 
+        		                        </label>
+                             		 </td>
+                             		 
+                                  </tr>
+        	 			       </table>
+        	 			       
+             
+                         </div>
+                      </td>
+        
+                      <td style="width:41%; vertical-align: top;">
+             
+                         <div style="width: 95%; padding: 3px; padding-bottom: 1px; margin-left: 22px; " class="zoneContenuObmrePikaImg">
+                            
+                            <table style="width: 100%;" >
+                              <tr style="width: 100%;" class="designStyleLabel">
+                                <td style="width: 20%; padding-right: 23px; vertical-align: top;">
+                             	   <label style="width: 100%; height:15px; text-align:left; line-height: 0.7em;">
+        		                     <span style='font-size: 11px;'>&#10148; </span><span>H&eacute;mogramme</span> 
+        		                   </label>
+                             	</td>
+                             		           
+                             	<td  rowspan="2" style="width: 80%; padding-right: 23px; vertical-align: top;" id="zonePikaImageSuivNfs">
+                             		    
+                             		           
+        	                     	<!-- PIKACHOOSE -->
+        	                        <!-- PIKACHOOSE -->
+        	                        <div id="pikaSuivNfs" style=" width: 100%; margin-top: 5px; margin-bottom: -15px;">
+        	                          <div id="pikaSuiv2Nfs" align="center">
+        	                            <!-- EMPLACEMENT DES IMAGES -->
+        	                            <!-- EMPLACEMENT DES IMAGES -->
+        	                            <!-- EMPLACEMENT DES IMAGES -->
+        	                            <div class="pikachoose" style="height: 210px;">
+        		                           <ul id="pikameSuivNfs" class="jcarousel-skin-pika"></ul>
+        		                        </div>
+        	                          </div>
+        	                        </div>
+        	                        <div id="AjoutImageSuivNfs"  class="AjoutImage" style="position: relative; bottom: 25px; left: 15px; float: right;">
+        	                           <input type='file' name="fichier">
+        				               <!-- RECUPERER L'IMAGE -->
+        				               <input type='hidden' id="fichier_tmpSuivNfs" name="fichier_tmpSuivNfs" />
+        				               <!-- FICHIER TAMPON POUR RECUPERER L'IMAGE DANS LE CONTROLLER -->
+        	                        </div>
+        	                     		  
+        	                        <script type="text/javascript"> setTimeout(function(){ scriptPikameChooseOtherSuiv('Nfs'); }); </script>      
+                             		<script type="text/javascript"> setTimeout(function(){ scriptAddImageInDataBaseOtherSuiv('Nfs'); }); </script>
+                             		<script type="text/javascript"> setTimeout(function(){ $("#zonePikaImageSuivNfs").hover(function(){ temoinSupprImagePika2 = 101;}); }); </script>
+                                    <script type="text/javascript"> setTimeout(function(){ getImagesExamensOtherSuiv('Nfs'); });</script>        
+                                                          
+                             	</td>
+                             	
+                              </tr>
+                             		        
+                              <tr style="width: 100%; height: 197px;">
+                             	 <td style="width: 20%; padding-right: 23px;" id="imageWaitingSuivNfs"></td>
+                              </tr>
+                             		        
+                           </table>
+                            
+                         </div>
+                             		   
+                           <!-- POP UP pour Confirmation Suppression -->
+        				   <div id="confirmationSuivNfs" title="Confirmation de la suppression" style="display:none;">
+        				     <p style="font-size: 14px;">
+        				       <span style="float:left; margin:0 0px 20px 0; ">
+        				         <img src="<?php echo $this->basePath().'/images_icons/warning_16.png';?>" />
+        				         Etes-vous s&ucirc;r de vouloir supprimer l'image n&deg;<span id="nbImagesPositionPopupSuivNfs"> </span>
+        				       </span>
+        				     </p>
+        				   </div>                  
+             
+             		  </td>
+                   </tr>
+                   
+                
+                </table>
+
+
+
+
+           </div>
+           
+           
+           <!-- **5** -->
+           <!-- **5** -->
+           <!-- **5** -->
+           <!-- **5** -->
+           <!-- **5** -->
+           <!-- **5** -->
+           <!-- **5** -->
+           <!-- **5** -->
+           <div style='font-family: police2;font-size: 17px; font-weight: bold;'> Examens radiologiques </div>
+           <div style="max-height: 400px;">
+
+                <table style="width:100%;" >
+                                 
+                   <tr style="width: 100%" >
+                      <td style="width: 59%; vertical-align: top;" class="zoneContenuObmre" >
+        
+                         <div style="width: 100%; padding: 3px; padding-bottom: 1px;">
+                               <table style="width: 100%;" >
+                                  <tr style="width: 100%" class="designStyleLabelTextarea">
+                             	     <td style="width: 35%; padding-right: 23px;">
+                             		    <label style="width: 100%; text-align:left;">
+        		                          <span style='font-size: 11px;'>&#10148; </span><span title='Radiographie standard 1'>Radio 1. </span> 
+        		                            <?php echo $this->formRow($form->get('rsd1_suiv')); ?> 
+        		                        </label>
+                             		 </td>
+                             	  </tr>
+                               </table>
+                         </div>
+                         
+                         <div style="width: 100%; padding: 3px; margin-top: 10px; padding-bottom: 1px;">
+                               <table style="width: 100%;" >
+                                  <tr style="width: 100%" class="designStyleLabelTextarea">
+                             	     <td style="width: 35%; padding-right: 23px;">
+                             		    <label style="width: 100%; text-align:left;">
+        		                          <span style='font-size: 11px;'>&#10148; </span><span title='Radiographie standard 2'>Radio 2. </span> 
+        		                            <?php echo $this->formRow($form->get('rsd2_suiv')); ?> 
+        		                        </label>
+                             		 </td>
+                             	  </tr>
+                               </table>
+                         </div>
+                         
+                      </td>
+        
+                      <td style="width:41%; vertical-align: top;">
+             
+                         <div style="width: 95%; padding: 3px; padding-bottom: 1px; margin-left: 22px; " class="zoneContenuObmrePikaImg">
+                            
+                            <table style="width: 100%;" >
+                              <tr style="width: 100%;" class="designStyleLabel">
+                                <td style="width: 20%; padding-right: 23px; vertical-align: top;">
+                             	   <label style="width: 100%; height:15px; text-align:left; line-height: 0.7em;">
+        		                     <span style='font-size: 11px;'>&#10148; </span><span title='Radiographie standard'>Radiograhie.</span> 
+        		                   </label>
+                             	</td>
+                             		           
+                             	<td  rowspan="2" style="width: 80%; padding-right: 23px; vertical-align: top;" id="zonePikaImageSuivRsd">
+                             	
+                             	
+                             	
+                             	    <!-- PIKACHOOSE -->
+        	                        <!-- PIKACHOOSE -->
+        	                        <div id="pikaSuivRsd" style=" width: 100%; margin-top: 5px; margin-bottom: -15px;">
+        	                          <div id="pikaSuiv2Rsd" align="center">
+        	                            <!-- EMPLACEMENT DES IMAGES -->
+        	                            <!-- EMPLACEMENT DES IMAGES -->
+        	                            <!-- EMPLACEMENT DES IMAGES -->
+        	                            <div class="pikachoose" style="height: 210px;">
+        		                           <ul id="pikameSuivRsd" class="jcarousel-skin-pika"></ul>
+        		                        </div>
+        	                          </div>
+        	                        </div>
+        	                        <div id="AjoutImageSuivRsd"  class="AjoutImage" style="position: relative; bottom: 25px; left: 15px; float: right;">
+        	                           <input type='file' name="fichier">
+        				               <!-- RECUPERER L'IMAGE -->
+        				               <input type='hidden' id="fichier_tmpSuivRsd" name="fichier_tmpRsd" />
+        				               <!-- FICHIER TAMPON POUR RECUPERER L'IMAGE DANS LE CONTROLLER -->
+        	                        </div>
+        	                     		  
+        	                        <script type="text/javascript"> setTimeout(function(){ scriptPikameChooseOtherSuiv('Rsd'); }); </script>      
+                             		<script type="text/javascript"> setTimeout(function(){ scriptAddImageInDataBaseOtherSuiv('Rsd'); }); </script>
+                             		<script type="text/javascript"> setTimeout(function(){ $("#zonePikaImageSuivRsd").hover(function(){ temoinSupprImagePika2 = 102;}); }); </script>
+                                    <script type="text/javascript"> setTimeout(function(){ getImagesExamensOtherSuiv('Rsd'); });</script>        
+                             	
+                             	</td>
+                             	
+                              </tr>
+                              
+                              <tr style="width: 100%; height: 197px;">
+                             	 <td style="width: 20%; padding-right: 23px;" id="imageWaitingSuivRsd"></td>
+                              </tr>
+                              
+                              
+                            </table>
+                           
+             
+                         </div>
+                         
+                         <!-- POP UP pour Confirmation Suppression -->
+        			     <div id="confirmationSuivRsd" title="Confirmation de la suppression" style="display:none;">
+        			       <p style="font-size: 14px;">
+        			         <span style="float:left; margin:0 0px 20px 0; ">
+        			           <img src="<?php echo $this->basePath().'/images_icons/warning_16.png';?>" />
+        			           Etes-vous s&ucirc;r de vouloir supprimer l'image n&deg;<span id="nbImagesPositionPopupSuivRsd"> </span>
+        			         </span>
+        			       </p>
+        			     </div> 
+        				   
+             
+                      </td>
+                   </tr>
+                      
+                </table>
+
+
+                <table style="width:100%; margin-top: 6px;" >
+                                 
+                   <tr style="width: 100%" >
+                      <td style="width: 59%; vertical-align: top;" class="zoneContenuObmre" >
+        
+                         <div style="width: 100%; padding: 3px; padding-bottom: 1px;">
+                               <table style="width: 100%;" >
+                                  <tr style="width: 100%" class="designStyleLabelTextarea">
+                             	     <td style="width: 35%; padding-right: 23px;">
+                             		    <label style="width: 100%; text-align:left;">
+        		                          <span style='font-size: 11px;'>&#10148; </span><span>Scanner </span> 
+        		                            <?php echo $this->formRow($form->get('scanner_suiv')); ?> 
+        		                        </label>
+                             		 </td>
+                             	  </tr>
+                               </table>
+                         </div>
+                         
+                         <div style="width: 100%; padding: 3px; margin-top: 10px; padding-bottom: 1px;">
+                               <table style="width: 100%;" >
+                                  <tr style="width: 100%" class="designStyleLabelTextarea">
+                             	     <td style="width: 35%; padding-right: 23px;">
+                             		    <label style="width: 100%; text-align:left;">
+        		                          <span style='font-size: 11px;'>&#10148; </span><span title='Echodoppler'>Echodop </span> 
+        		                            <?php echo $this->formRow($form->get('echodoppler_suiv')); ?> 
+        		                        </label>
+                             		 </td>
+                             	  </tr>
+                               </table>
+                         </div>
+                         
+                      </td>
+        
+                      <td style="width:41%; vertical-align: top;">
+             
+                         <div style="width: 95%; padding: 3px; padding-bottom: 1px; margin-left: 22px; " class="zoneContenuObmrePikaImg">
+                            
+                            <table style="width: 100%;" >
+                              <tr style="width: 100%;" class="designStyleLabel">
+                                <td style="width: 20%; padding-right: 23px; vertical-align: top;">
+                             	   <label style="width: 100%; height:15px; margin-right: 35px; text-align:left; line-height: 0.7em;">
+        		                     <span style='font-size: 11px;'>&#10148; </span><span>Scanner</span> 
+        		                   </label>
+                             	</td>
+                             		           
+                             	<td  rowspan="2" style="width: 80%; padding-right: 23px; vertical-align: top;" id="zonePikaImageSuivSca">
+                             	
+                             	
+                             	
+                             	    <!-- PIKACHOOSE -->
+        	                        <!-- PIKACHOOSE -->
+        	                        <div id="pikaSuivSca" style=" width: 100%; margin-top: 5px; margin-bottom: -15px;">
+        	                          <div id="pikaSuiv2Sca" align="center">
+        	                            <!-- EMPLACEMENT DES IMAGES -->
+        	                            <!-- EMPLACEMENT DES IMAGES -->
+        	                            <!-- EMPLACEMENT DES IMAGES -->
+        	                            <div class="pikachoose" style="height: 210px;">
+        		                           <ul id="pikameSuivSca" class="jcarousel-skin-pika"></ul>
+        		                        </div>
+        	                          </div>
+        	                        </div>
+        	                        <div id="AjoutImageSuivSca"  class="AjoutImage" style="position: relative; bottom: 25px; left: 15px; float: right;">
+        	                           <input type='file' name="fichier">
+        				               <!-- RECUPERER L'IMAGE -->
+        				               <input type='hidden' id="fichier_tmpSuivSca" name="fichier_tmpSuivSca" />
+        				               <!-- FICHIER TAMPON POUR RECUPERER L'IMAGE DANS LE CONTROLLER -->
+        	                        </div>
+        	                     		  
+        	                        <script type="text/javascript"> setTimeout(function(){ scriptPikameChooseOtherSuiv('Sca'); }); </script>      
+                             		<script type="text/javascript"> setTimeout(function(){ scriptAddImageInDataBaseOtherSuiv('Sca'); }); </script>
+                             		<script type="text/javascript"> setTimeout(function(){ $("#zonePikaImageSuivSca").hover(function(){ temoinSupprImagePika2 = 103;}); }); </script>
+                                    <script type="text/javascript"> setTimeout(function(){ getImagesExamensOtherSuiv('Sca'); });</script>        
+                             	
+                             	</td>
+                             	
+                              </tr>
+                              
+                              <tr style="width: 100%; height: 197px;">
+                             	 <td style="width: 20%; padding-right: 23px;" id="imageWaitingSuivSca"></td>
+                              </tr>
+                              
+                              
+                            </table>
+                           
+             
+                         </div>
+                         
+                         <!-- POP UP pour Confirmation Suppression -->
+        			     <div id="confirmationSuivSca" title="Confirmation de la suppression" style="display:none;">
+        			       <p style="font-size: 14px;">
+        			         <span style="float:left; margin:0 0px 20px 0; ">
+        			           <img src="<?php echo $this->basePath().'/images_icons/warning_16.png';?>" />
+        			           Etes-vous s&ucirc;r de vouloir supprimer l'image n&deg;<span id="nbImagesPositionPopupSuivSca"> </span>
+        			         </span>
+        			       </p>
+        			     </div> 
+        				   
+             
+                      </td>
+                   </tr>
+                      
+                </table>
+
+
+
+        		<table style="width:100%; margin-top: 6px;" >
+                                 
+                   <tr style="width: 100%" >
+                      <td style="width: 59%; vertical-align: top;" class="zoneContenuObmre" >
+        
+                         <div style="width: 100%; padding: 3px; padding-bottom: 1px;">
+                               <table style="width: 100%;" >
+                                  <tr style="width: 100%" class="designStyleLabelTextarea">
+                             	     <td style="width: 35%; padding-right: 23px;">
+                             		    <label style="width: 100%; text-align:left;">
+        		                          <span style='font-size: 11px;'>&#10148; </span><span title='Echographie 1'>Echo 1. </span> 
+        		                            <?php echo $this->formRow($form->get('echographie1_suiv')); ?> 
+        		                        </label>
+                             		 </td>
+                             	  </tr>
+                               </table>
+                         </div>
+                         
+                         <div style="width: 100%; padding: 3px; margin-top: 10px; padding-bottom: 1px;">
+                               <table style="width: 100%;" >
+                                  <tr style="width: 100%" class="designStyleLabelTextarea">
+                             	     <td style="width: 35%; padding-right: 23px;">
+                             		    <label style="width: 100%; text-align:left;">
+        		                          <span style='font-size: 11px;'>&#10148; </span><span title='Echographie 2'>Echo 2. </span> 
+        		                            <?php echo $this->formRow($form->get('echographie2_suiv')); ?> 
+        		                        </label>
+                             		 </td>
+                             	  </tr>
+                               </table>
+                         </div>
+                         
+                      </td>
+        
+                      <td style="width:41%; vertical-align: top;">
+             
+                         <div style="width: 95%; padding: 3px; padding-bottom: 1px; margin-left: 22px; " class="zoneContenuObmrePikaImg">
+                            
+                            <table style="width: 100%;" >
+                              <tr style="width: 100%;" class="designStyleLabel">
+                                <td style="width: 20%; padding-right: 23px; vertical-align: top;">
+                             	   <label style="width: 100%; height:15px; text-align:left; line-height: 0.7em;">
+        		                     <span style='font-size: 11px;'>&#10148; </span><span>Echographie</span> 
+        		                   </label>
+                             	</td>
+                             		           
+                             	<td  rowspan="2" style="width: 80%; padding-right: 23px; vertical-align: top;" id="zonePikaImageSuivEco">
+                             	
+                             	
+                             	
+                             	    <!-- PIKACHOOSE -->
+        	                        <!-- PIKACHOOSE -->
+        	                        <div id="pikaSuivEco" style=" width: 100%; margin-top: 5px; margin-bottom: -15px;">
+        	                          <div id="pikaSuiv2Eco" align="center">
+        	                            <!-- EMPLACEMENT DES IMAGES -->
+        	                            <!-- EMPLACEMENT DES IMAGES -->
+        	                            <!-- EMPLACEMENT DES IMAGES -->
+        	                            <div class="pikachoose" style="height: 210px;">
+        		                           <ul id="pikameSuivEco" class="jcarousel-skin-pika"></ul>
+        		                        </div>
+        	                          </div>
+        	                        </div>
+        	                        <div id="AjoutImageSuivEco"  class="AjoutImage" style="position: relative; bottom: 25px; left: 15px; float: right;">
+        	                           <input type='file' name="fichier">
+        				               <!-- RECUPERER L'IMAGE -->
+        				               <input type='hidden' id="fichier_tmpSuivEco" name="fichier_tmpSuivEco" />
+        				               <!-- FICHIER TAMPON POUR RECUPERER L'IMAGE DANS LE CONTROLLER -->
+        	                        </div>
+        	                     		  
+        	                        <script type="text/javascript"> setTimeout(function(){ scriptPikameChooseOtherSuiv('Eco'); }); </script>      
+                             		<script type="text/javascript"> setTimeout(function(){ scriptAddImageInDataBaseOtherSuiv('Eco'); }); </script>
+                             		<script type="text/javascript"> setTimeout(function(){ $("#zonePikaImageSuivEco").hover(function(){ temoinSupprImagePika2 = 104;}); }); </script>
+                                    <script type="text/javascript"> setTimeout(function(){ getImagesExamensOtherSuiv('Eco'); });</script>        
+                             	
+                             	</td>
+                             	
+                              </tr>
+                              
+                              <tr style="width: 100%; height: 197px;">
+                             	 <td style="width: 20%; padding-right: 23px;" id="imageWaitingSuivEco"></td>
+                              </tr>
+                              
+                              
+                            </table>
+                           
+             
+                         </div>
+                         
+                         <!-- POP UP pour Confirmation Suppression -->
+        			     <div id="confirmationSuivEco" title="Confirmation de la suppression" style="display:none;">
+        			       <p style="font-size: 14px;">
+        			         <span style="float:left; margin:0 0px 20px 0; ">
+        			           <img src="<?php echo $this->basePath().'/images_icons/warning_16.png';?>" />
+        			           Etes-vous s&ucirc;r de vouloir supprimer l'image n&deg;<span id="nbImagesPositionPopupSuivEco"> </span>
+        			         </span>
+        			       </p>
+        			     </div> 
+        				   
+             
+                      </td>
+                   </tr>
+                      
+                </table>
+
+
+           </div>
+           
+           <!-- **6** -->
+           <!-- **6** -->
+           <!-- **6** -->
+           <!-- **6** -->
+           <!-- **6** -->
+           <!-- **6** -->
+           <!-- **6** -->
+           <!-- **6** -->
+           <div style='font-family: police2;font-size: 17px; font-weight: bold;'> Conduite &agrave; tenir </div>
+           <div style="max-height: 250px;">
+           
+                <table class="styleLabelInputChamps" style="width: 100%;">
+                  <tr style="width: 100%;">
+                     <td style="width: 70%;"> <?php echo $this->formRow($form->get('conduite_a_suivre_suivi')); ?> </td>
+                     <td style="width: 30%;"></td>
+                  </tr>
+                </table>
+
+           </div>
+           
+           
+     <!-- ******************** FIN SUIVI -- FIN SUIVI ******************-->
+     <!-- ******************** FIN SUIVI -- FIN SUIVI ******************-->
+     <!-- ******************** FIN SUIVI -- FIN SUIVI ******************-->
+     
+     
+     
+     
+</div>
+
+<?php echo $this->form()->closeTag();?>
+
+
+</div>
+
+
+<script> setTimeout(function(){ $(".AjoutImage").toggle(false); }); </script>
+<script> setTimeout(function(){ $(".pikachooseFermerSuppImg").toggle(false); },3000); </script>

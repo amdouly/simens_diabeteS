@@ -35,6 +35,7 @@ $(window).load(function () {
 
 <?php
 $form = $this->form;
+$form->setName('formModifierDonneesPatient');
 $form->setAttribute ( 'action', $this->url ( 'consultation', array ('action' => 'modifier-dossier') ) );
 $form->setAttribute ('enctype','multipart/form-data');
 $this->form->prepare ();
@@ -91,9 +92,16 @@ echo $this->form ()->openTag ( $form );
 
                   <tr class="comment-form-patient">
                      <td > <?php echo $this->formRow($this->form->get('SEXE'));?></td>
+                     <td > <?php echo $this->formRow($this->form->get('COMMUNE_SAINTLOUIS'));?></td>
                      <td > <?php echo $this->formRow($this->form->get('STATUT_MATRIMONIAL'));?></td>
+                  </tr>
+
+				  <tr class="comment-form-patient">
+                     <td style="width: 33%;"> </td>
+                     <td > <?php echo $this->formRow($this->form->get('QUARTIER_SAINTLOUIS'));?></td>
                      <td > <?php echo $this->formRow($this->form->get('REGIME_MATRIMONIAL'));?></td>
                   </tr>
+
 
 		</table>
 	  </div>
@@ -102,9 +110,9 @@ echo $this->form ()->openTag ( $form );
     </div>
     
 	<button id="envoyerDonneesForm" style="display:none;"  name="terminer"></button>
-	<table style="margin-top: 365px; width: 100%;  height: 12px;">
-	  
+	<table style="margin-top: 420px; width: 100%;  height: 12px;">
 	  <tr style="">
+	  
 	  <td style="width: 42%;"></td>
 	  <td style="width: 10%;" id="thoughtbot" >
 		<button id="annuler"
@@ -119,7 +127,6 @@ echo $this->form ()->openTag ( $form );
 			Terminer
 		</button>
 	  </td>
-	  
 	  <td style="width: 38%;"></td>
 	  
 	  </tr>
@@ -164,6 +171,7 @@ echo $this->form ()->openTag ( $form );
     
 	//Envoyer le formulaire --- Envoyer le formulaire
 	//Envoyer le formulaire --- Envoyer le formulaire
+    /*
     $('#terminer').click(function(){
 
          if($('#SEXE').val() != "" && $('#NOM').val() != "" && $('#PRENOM').val() != "" && $('#AGE').val() != "" ){
@@ -180,7 +188,36 @@ echo $this->form ()->openTag ( $form );
          }
          
     });
+    */
 
+
+    $('#terminer').click(function(){
+   	 
+		if($('#formModifierDonneesPatient')[0].checkValidity() == true){
+			//formulaire valide et envoi des donnees
+			$(this).attr('disabled', true);
+    		$('#envoyerDonneesForm').trigger('click');
+		}else{
+			$('#envoyerDonneesForm').trigger('click');
+		}
+
+		
+	});
+	
+    //===============================================
+    //===============================================
+    //-----------------------------------------------
+    //_______________________________________________
+
+
+
+
+
+
+
+
+
+	
     $('#TELEPHONE').mask('00 000 00 00');
 
 

@@ -58,7 +58,7 @@ echo $this->form ()->openTag ( $form );
 			<!-- balise sans importance pour le moment -->
 	 </div>
      
-	 <div style='width: 80%; height: 150px; float:left;'>
+	 <div style='width: 80%; float:left;'>
 		<table id="form_patient" style="float: left;">
 
 			<tr class="comment-form-patient">
@@ -71,7 +71,11 @@ echo $this->form ()->openTag ( $form );
                   <tr class="comment-form-patient">
                      <td > <?php echo $this->formRow($this->form->get('PRENOM'));?></td>
                      <td > <?php echo $this->formRow($this->form->get('TELEPHONE'));?></td>
-                     <td > <?php echo $this->formRow($this->form->get('RACE'));?></td>
+                     <td > 
+                       <?php echo $this->formRow($this->form->get('RACE'));?>
+                       <img onclick="ajouterUneRace();" style="cursor: pointer; position: relative; margin-top: 10px;" src="<?php echo $this->basePath().'/images_icons/light/plus.png'?>" title="Ajouter une race"/> 
+                       
+                     </td>
                   </tr>
 
                   <tr class="comment-form-patient">
@@ -85,7 +89,17 @@ echo $this->form ()->openTag ( $form );
 
                   <tr class="comment-form-patient">
                      <td > <?php echo $this->formRow($this->form->get('SEXE'));?></td>
+                     <td > <?php echo $this->formRow($this->form->get('COMMUNE_SAINTLOUIS'));?></td>
                      <td > <?php echo $this->formRow($this->form->get('STATUT_MATRIMONIAL'));?></td>
+                  </tr>
+                  
+                  <tr class="comment-form-patient">
+                     <td > </td>
+                     <td >
+                       <?php echo $this->formRow($this->form->get('QUARTIER_SAINTLOUIS'));?>
+                       <img onclick="ajouterUnQartierDeSaintLouis();" style="cursor: pointer; position: relative; margin-top: 10px;" src="<?php echo $this->basePath().'/images_icons/light/plus.png'?>" title="Ajouter un quartier"/> 
+                       
+                     </td>
                      <td > <?php echo $this->formRow($this->form->get('REGIME_MATRIMONIAL'));?></td>
                   </tr>
 
@@ -96,7 +110,7 @@ echo $this->form ()->openTag ( $form );
     </div>
     
 	<button id="envoyerDonneesForm" style="display:none;"  name="terminer"></button>
-	<table style="margin-top: 365px; width: 100%;  height: 12px;">
+	<table style="margin-top: 420px; width: 100%;">
 	  
 	  <tr style="">
 	  <td style="width: 42%;"></td>
@@ -121,7 +135,10 @@ echo $this->form ()->openTag ( $form );
 
 </div>
 
-<!-- POP UP pour Confirmation Suppression -->
+<?php echo $this->form()->closeTag(); ?>
+
+
+<!-- POP UP pour Confirmation Suppression de la photo -->
 <div id="confirmation" title="Confirmation de la suppression"
 	style="display: none;">
 	<p style="font-size: 16px;">
@@ -132,12 +149,170 @@ echo $this->form ()->openTag ( $form );
 		</span>
 	</p>
 </div>
-
-
 <!-- LES BOUTONS "TERMINER" ou "VALIDER" -->
 
-<?php echo $this->form()->closeTag();
-?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- GESTION DE L'INTERFACE D'AJOUT DES TYPES D'ELEMENTS ET ELEMENTS -->
+<!-- GESTION DE L'INTERFACE D'AJOUT DES TYPES D'ELEMENTS ET ELEMENTS -->
+<!-- GESTION DE L'INTERFACE D'AJOUT DES TYPES D'ELEMENTS ET ELEMENTS -->
+
+<div id="ajouterElements" style="display: none;" >
+
+    <table class="ligneElementsExistantes">
+        <tr>
+            <td>
+               <label id="labListeTypeElement"> Types de elements </label>
+               <div class="listeTypeElementsExistantes"> 
+                   <table> <!-- Contient la liste des types de elements --> </table>
+               </div>
+            </td>
+            <td>
+              <label id="labListeElement">  Elements </label>
+              <div class="listeElementsExistantes">
+                  <table> <!-- Contient la liste des elements --> </table>
+              </div>
+            </td>
+        </tr>
+    </table>
+    
+    <table class="ligneBoutonsAjout">
+        <tr>
+            <td>
+                <div class="boutonATP"> <button onclick="ajoutTypeElement();"> Ajouter un type de element </button> </div>
+            </td>
+            <td>
+                <div class="boutonAP"> <button onclick="ajoutElement();"> Ajouter un element </button> </div>
+            </td>
+        </tr>
+    </table>
+    
+    <div id="contenuInterfaceAjoutTypeElements">
+    
+    <table class="ligneInfosAjoutElements">
+        <tr> 
+           <td class="LIATP" align="left"><span> <img src='../images_icons/chevrons2.png'> <span> Ajout de types d'&eacute;l&eacute;ments <span> </span></td>
+           <td class="LIAP"  align="left"><span> <img src='../images_icons/chevrons2.png'> <span> Ajout d'&eacute;l&eacute;ments <span> </span></td>
+        </tr>
+    </table>
+    
+    <table class="interfaceAjoutElements">
+        <tr>
+            <td>
+               <div class="contenuIAPath">
+                  <table>
+                     <tr class="champsAjoutTP_0"> </tr>
+                     
+                     <tr>
+                        <td>
+                           <img class='iconeAnnulerAP' onclick='enleverUneLigneElement();' src='../images_icons/icone_minus.png' >
+                           <img class='iconeAjouterAP' onclick='ajouterUneNouvelleLigneElement();' src='../images_icons/icone_plus.png' >
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </td>
+        </tr>
+    </table>
+    
+    <table class="ligneBoutonsAnnulerValiderAjout">
+        <tr>
+            <td>
+                <div class="boutonAVAA"> <button onclick="annulerAjoutElement();"> Annuler </button> </div>
+            </td>
+            <td>
+                <div class="boutonAVAV"> <button onclick="validerAjoutElement();"> Valider </button> </div>
+            </td>
+        </tr>
+    </table>
+    
+    </div>
+    
+</div>
+
+
+
+
+<div id="modifierTypeElement" style="display: none;" >
+   <div class="affichageMessageInfos" align="center"> <div> MODIFIER LE TERME SUIVANT </div>  </div>
+   <table id="infosConfirmationModification"> </table>
+   <div class="affichageMessageInfos" align="center"> <div> PAR </div>  </div>
+   <div id="affichageMessageInfosRemplaceModification" align="center"> <input type='text'>  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <script> 
@@ -158,22 +333,32 @@ echo $this->form ()->openTag ( $form );
     
 	//Envoyer le formulaire --- Envoyer le formulaire
 	//Envoyer le formulaire --- Envoyer le formulaire
+
     $('#terminer').click(function(){
+     	 
+		if($('#formModifierDonneesPatient')[0].checkValidity() == true){
+			//formulaire valide et envoi des donnees
+			$(this).attr('disabled', true);
+    		$('#envoyerDonneesForm').trigger('click');
+		}else{
+			$('#envoyerDonneesForm').trigger('click');
+		}
 
-         if($('#SEXE').val() != "" && $('#NOM').val() != "" && $('#PRENOM').val() != "" && $('#AGE').val() != "" ){
+		
+	});
+	
+    //===============================================
+    //===============================================
+    //-----------------------------------------------
+    //_______________________________________________
 
-            if($('#AGE').val() <= 150 && $('#AGE').val() >= 0){
-            	$(this).attr('disabled', true); 
-                $('#envoyerDonneesForm').trigger('click');
-            }else {
-                return true;
-            }   
-             
-         }else{
-        	return true;
-         }
-         
-    });
+
+
+
+
+
+
+    
 
     $('#TELEPHONE').mask('00 000 00 00');
 

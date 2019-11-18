@@ -70,6 +70,8 @@ class PatientTable {
 	        'race' => $donnees['RACE'] ? $donnees['RACE'] : null,
 	        'ethnie' => $donnees['ETHNIE'] ? $donnees['ETHNIE'] : null,
 	        'origine_geographique' => $donnees['ORIGINE_GEOGRAPHIQUE'] ? $donnees['ORIGINE_GEOGRAPHIQUE'] : null,
+	        'commune_saintlouis' => ($donnees['COMMUNE_SAINTLOUIS'])?$donnees['COMMUNE_SAINTLOUIS']:null,
+	        'quartier_saintlouis' => ($donnees['QUARTIER_SAINTLOUIS'])?$donnees['QUARTIER_SAINTLOUIS']:null,
 	        'idemploye' => $idemploye,
 	    ); 
 	    
@@ -100,6 +102,8 @@ class PatientTable {
 	        'race' => $donnees['RACE'] ? $donnees['RACE'] : null,
 	        'ethnie' => $donnees['ETHNIE'] ? $donnees['ETHNIE'] : null,
 	        'origine_geographique' => $donnees['ORIGINE_GEOGRAPHIQUE'] ? $donnees['ORIGINE_GEOGRAPHIQUE'] : null,
+	        'commune_saintlouis' => ($donnees['COMMUNE_SAINTLOUIS'])?$donnees['COMMUNE_SAINTLOUIS']:null,
+	        'quartier_saintlouis' => ($donnees['QUARTIER_SAINTLOUIS'])?$donnees['QUARTIER_SAINTLOUIS']:null,
 	        'idemploye' => $idemploye,
 	        'numero_dossier' => $numero_dossier,
 	    );
@@ -183,7 +187,7 @@ class PatientTable {
 		$sql = new Sql($db);
 		$sQuery = $sql->select()
 		->from(array('pat' => 'patient'))->columns(array('*'))
-		->join(array('pers' => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','Taille'=>'TAILLE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
+		->join(array('pers' => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
 		->order('pat.idpersonne DESC');
 	
 	
@@ -281,7 +285,7 @@ class PatientTable {
 		$sql = new Sql($db);
 		$sQuery = $sql->select()
 		->from(array('pat' => 'patient'))->columns(array('*'))
-		->join(array('p' => 'personne'), 'pat.idpersonne = p.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','Taille'=>'TAILLE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
+		->join(array('p' => 'personne'), 'pat.idpersonne = p.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
 		->where(array(new NotIn ( 'pat.idpersonne', $subselect )))
 		->order('pat.idpersonne DESC');
 	
@@ -390,7 +394,7 @@ class PatientTable {
 		$sql = new Sql($db);
 		$sQuery = $sql->select()
 		->from(array('pat'   => 'patient'))->columns(array('*'))
-		->join(array('pers'  => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','Taille'=>'TAILLE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
+		->join(array('pers'  => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
 		->join(array('admis' => 'admission'), 'admis.idpatient = pers.ID_PERSONNE' , array('dateadmission','idadmission'))
 		->where(array('dateadmission' => $date))
 		->order('admis.idadmission ASC');
@@ -711,7 +715,7 @@ class PatientTable {
 		$sql = new Sql($db);
 		$sQuery = $sql->select()
 		->from(array('pat' => 'patient'))->columns(array())
-		->join(array('pers' => 'personne'), 'pat.ID_PERSONNE = pers.ID_PERSONNE', array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','Taille'=>'TAILLE','id'=>'ID_PERSONNE','Idpatient'=>'ID_PERSONNE'))
+		->join(array('pers' => 'personne'), 'pat.ID_PERSONNE = pers.ID_PERSONNE', array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','id'=>'ID_PERSONNE','Idpatient'=>'ID_PERSONNE'))
 		->where( array (
 				new NotIn ( 'pat.ID_PERSONNE', $subselect1 ),
 				new NotIn ( 'pat.ID_PERSONNE', $subselect2 )
@@ -860,7 +864,7 @@ class PatientTable {
 		$sql = new Sql($db);
 		$sQuery = $sql->select()
 		->from(array('pat' => 'patient'))->columns(array('*'))
-		->join(array('pers' => 'personne'), 'pat.ID_PERSONNE = pers.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','Taille'=>'TAILLE','id'=>'ID_PERSONNE','Idpatient'=>'ID_PERSONNE'))
+		->join(array('pers' => 'personne'), 'pat.ID_PERSONNE = pers.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','id'=>'ID_PERSONNE','Idpatient'=>'ID_PERSONNE'))
 		->join(array('cons' => 'consultation'), 'cons.ID_PATIENT = pers.ID_PERSONNE' , array('*') )
 		->join(array('dem_act' => 'demande_acte'), 'cons.ID_CONS = dem_act.idCons' , array('*') )
 		->order('dem_act.idDemande ASC')
@@ -986,7 +990,7 @@ class PatientTable {
 		$sql = new Sql($db);
 		$sQuery = $sql->select()
 		->from(array('pat' => 'patient'))->columns(array('*'))
-		->join(array('pers' => 'personne'), 'pat.ID_PERSONNE = pers.ID_PERSONNE', array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','Taille'=>'TAILLE','id'=>'ID_PERSONNE','Idpatient'=>'ID_PERSONNE'))
+		->join(array('pers' => 'personne'), 'pat.ID_PERSONNE = pers.ID_PERSONNE', array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','id'=>'ID_PERSONNE','Idpatient'=>'ID_PERSONNE'))
 		->join(array('cons' => 'consultation'), 'cons.ID_PATIENT = pers.ID_PERSONNE', array('*') )
 		->join(array('dem_act' => 'demande_acte'), 'cons.ID_CONS = dem_act.idCons', array('*') )
 		->order('dem_act.idDemande DESC')
@@ -1078,7 +1082,6 @@ class PatientTable {
 				'Sexe' => 'SEXE',
 				'Adresse' => 'ADRESSE',
 				'Nationalite' => 'NATIONALITE_ACTUELLE',
-				'Taille' => 'TAILLE',
 				'Id' => 'ID_PERSONNE'
 		) );
 		$select->where( array (
@@ -1217,7 +1220,7 @@ class PatientTable {
 		*/
 		$sql = new Sql($db);
 		$sQuery = $sql->select()
-		->from(array('pat' => 'patient'))->columns(array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','Taille'=>'TAILLE','id'=>'ID_PERSONNE'))
+		->from(array('pat' => 'patient'))->columns(array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','id'=>'ID_PERSONNE'))
 		->join(array('d' => 'deces') , 'd.id_personne = pat.ID_PERSONNE')
 		->order('d.date_deces DESC');
 		/* Data set length after filtering */

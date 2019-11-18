@@ -21,6 +21,7 @@
     padding-left: 25px;
 	padding-top: 10px;
     box-shadow: 0pt 5pt 12px rgba(0, 0, 0, 0.5);
+	min-height: 475px;
 }
 
 #photo, #modifier_photo  /*photo*/
@@ -565,4 +566,345 @@ tr:hover /* Apparence au survol des lignes */
     background: -ms-linear-gradient( #eee, #aaa);
     background: -o-linear-gradient( #eee, #aaa);
     background: linear-gradient( #eee, #aaa);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#ajouterElements table, #ajouterElements table tr{
+	width: 100%;
+	vertical-align: top;
+}
+
+
+
+
+#ajouterElements .ligneElementsExistantes td{
+	width: 50%; 
+	margin-left: 5px;
+}
+
+#ajouterElements .ligneElementsExistantes td label{
+	width: 100%;
+	height: 25px;
+	font-size: 20px;
+	font-family: times new roman;
+	text-align: left;
+}
+#ajouterElements .ligneElementsExistantes td div{
+	width: 96%;
+	height: 200px;
+	font-size: 17px;
+	font-family: times new roman;
+	border: 1px solid #cccccc;
+    background : #fdfdfd;
+    box-shadow: 0pt 0pt 5px rgba(0, 0, 0, 0.3);
+	margin-bottom: 5px;
+	overflow-y: auto;
+}
+
+#ajouterElements .listeTypeElementsExistantes table tr{
+	width: 100%;
+	font-size: 17px;
+}
+
+#ajouterElements .listeTypeElementsExistantes table td{
+	padding-left: 6px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border: 1px solid #cccccc;
+}
+
+#ajouterElements .listeTypeElementsExistantes table .LTPE1{
+	width: 8%;
+}
+
+#ajouterElements .listeTypeElementsExistantes table .LTPE2{
+	width: 92%;
+}
+
+#ajouterElements .listeTypeElementsExistantes table tr:hover{
+	background: #e1e1e1; 
+}
+
+.listeTypeElementsExistantes table img{
+	margin-left: -3px;
+	cursor: pointer;
+}
+
+
+#ajouterElements .listeElementsExistantes table tr{
+	width: 100%;
+	font-size: 17px;
+	cursor: pointer;
+}
+
+#ajouterElements .listeElementsExistantes table td{
+	padding-left: 6px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border: 1px solid #cccccc;
+}
+
+#ajouterElements .listeElementsExistantes table .LPE1{
+	width: 0%;
+}
+
+#ajouterElements .listeElementsExistantes table .LPE2{
+	width: 100%;
+}
+
+#ajouterElements .listeElementsExistantes table tr:hover{
+	background: #e1e1e1; 
+}
+
+
+
+
+
+
+
+
+
+
+
+#ajouterElements .ligneBoutonsAjout td{
+	width: 50%; 
+	height: 50px;
+	margin-left: 5px;
+}
+
+#ajouterElements .ligneBoutonsAjout button{
+	border: 1px;
+	border-radius: 15px;
+	border: 1px solid #bdb9b9;
+	height: 32px;
+	font-size: 14px;
+	margin-top: 5px;
+}
+
+.ligneBoutonsAjout .boutonATP button{
+	width: 70%;
+}
+
+.ligneBoutonsAjout .boutonAP button{
+	width: 55%;
+}
+
+#ajouterElements .ligneBoutonsAnnulerValiderAjout, #ajouterElements .ligneBoutonsAnnulerValiderAjout tr{
+	width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+#ajouterElements .ligneInfosAjoutElements, #ajouterElements .ligneInfosAjoutElements tr{
+	width: 100%;
+}
+
+#ajouterElements .ligneInfosAjoutElements td{
+	height: 35px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: left;
+	margin-left: 15px;
+}
+
+#ajouterElements .ligneInfosAjoutElements .LIATP, #ajouterElements .ligneInfosAjoutElements .LIAP{
+	width: 50%;
+}
+
+#ajouterElements .LIATP img, #ajouterElements .LIAP img{
+	margin-top: -15px;
+}
+
+
+
+
+
+
+.interfaceAjoutElements .contenuIAPath table, .interfaceAjoutElements .contenuIAPath table tr{
+	width: 100%;
+}
+
+.interfaceAjoutElements .contenuIAPath td{
+	width: 100%; 
+	margin-left: 5px;
+}
+
+.interfaceAjoutElements .contenuIAPath{
+	height: 220px;
+	overflow-y: auto;
+}
+
+.interfaceAjoutElements .contenuIAPath td input[type='text']{
+	width: 50%; 
+	height: 40px;
+	padding-left: 8px;
+	font-size: 18px;
+	font-family: times new roman;
+	border: 2px solid #bdb9b9;
+}
+
+.contenuIAPath img{
+	cursor: pointer;
+}
+
+.contenuIAPath .champsAjoutP select{
+	width: 50%;
+	height: 40px;
+	padding-left: 8px;
+	font-size: 18px;
+	font-family: times new roman;
+	border: 2px solid #bdb9b9;
+	float: left;
+}
+
+.contenuIAPath .champsAjoutP input[type='text']{
+	max-width: 48%;
+	height: 40px;
+	padding-left: 8px;
+	font-size: 18px;
+	font-family: times new roman;
+	border: 2px solid #bdb9b9;
+	float: left;
+	margin-left: 4px;
+}
+
+
+
+#ajouterElements .ligneBoutonsAnnulerValiderAjout td{
+	width: 50%;
+	height: 50px;
+}
+
+#ajouterElements .ligneBoutonsAnnulerValiderAjout button{
+	border: 1px;
+	border-radius: 15px;
+	border: 1px solid #bdb9b9;
+	height: 32px;
+	font-size: 14px;
+	margin-top: 5px;
+}
+
+#ajouterElements .ligneBoutonsAnnulerValiderAjout .boutonAVAA{
+	float: right; 
+}
+
+
+
+.LTPE2 .imgLTPE2{
+	height: 16px; 
+	width: 16px;
+	float: right;
+	visibility: hidden;
+}
+
+.LPE2 .imgLPE2{
+	height: 16px; 
+	width: 16px;
+	float: right;
+	visibility: hidden;
+}
+
+#ajouterElements .listeTypeElementsExistantes table tr:hover .imgLTPE2{
+	float: right; 
+	height: 18px; 
+	width: 18px;
+	visibility: visible;
+}
+
+#ajouterElements .listeElementsExistantes table tr:hover .imgLPE2{
+	float: right; 
+	height: 18px; 
+	width: 18px;
+	visibility: visible;
+}
+
+
+
+.affichageMessageInfos div{
+	color: gray;
+	margin-top: 13px;
+	margin-bottom: 13px;
+	font-size: 13px;
+}
+
+.affichageMessageInfosRemplace div{
+	color: green;
+	font-weight: bold;
+	margin-top: 2px;
+	margin-bottom: 10px;
+	font-size: 15px;
+}
+
+
+#infosConfirmationModification{
+	width: 100%; 
+	height: 10px; 
+}
+
+#infosConfirmationModification tr{
+	width: 100%; 
+	height: 10px;
+	font-size: 15px;
+	background: #f1f1f1;
+}
+
+#infosConfirmationModification td{
+	width: 95%; 
+	height: 25px; 
+	padding-left: 6px;
+}
+
+#affichageMessageInfosRemplaceModification input[type='text']{
+	margin-top: 2px;
+	margin-bottom: 10px;
+	width: 90%;
+	height: 40px;
+	padding-left: 8px;
+	font-size: 18px;
+	font-family: times new roman;
+	border: 2px solid #bdb9b9;
 }

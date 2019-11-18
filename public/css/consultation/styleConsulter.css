@@ -746,3 +746,47 @@ width: 190px; /* la largeur du champ input*/
 .designStyleLabel td:hover {
 	border-radius: 10px; 
 }
+
+
+.interfaceAffichageInfosCons {
+	width: 50%;
+	height: 45px;
+	background: #ffffff;
+	box-shadow: 1px 1px 2px rgba(204, 204, 204, 0.9);
+	border-radius: 10px; 
+	border: 2px solid #cccccc;
+	margin-bottom: 15px;
+}
+
+.interfaceAffichageInfosCons label {
+	margin-top: 1px;
+	border-radius: 10px; 
+	margin-left: 3px;
+    margin-right: 5px;
+	/* text-align: left; */
+}
+
+#consultationDeSuivi{
+	min-height: 600px;
+}
+
+#plaintesConsSuivi{
+	max-height: 240px;
+}
+
+#examenGeneralConsSuivi{
+	height: 320px;
+}
+
+.commentChoicePVBut{
+	color: gray; 
+	width: 35px; 
+	height: 20px; 
+	margin-bottom: 5px; 
+	margin-left: 3px;
+	border-radius: 15px;
+	box-shadow: 0pt 1pt 2px rgba(0, 0, 0, 0.1);
+	float: left;
+	font-weight: bold;
+}
+

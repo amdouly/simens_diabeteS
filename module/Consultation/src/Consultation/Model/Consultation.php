@@ -8,6 +8,7 @@ use Zend\InputFilter\InputFilterInterface;
 
 class Consultation implements InputFilterAwareInterface{
 	public $idcons;
+	public $idadmission;
 	public $idmedecin;
 	public $idinfirmier;
 	public $idpatient;
@@ -27,6 +28,7 @@ class Consultation implements InputFilterAwareInterface{
 
 	public function exchangeArray($data) {
 		$this->idcons = (! empty ( $data ['idcons'] )) ? $data ['idcons'] : null;
+		$this->idadmission = (! empty ( $data ['idadmission'] )) ? $data ['idadmission'] : null;
 		$this->idmedecin = (! empty ( $data ['idmedecin'] )) ? $data ['idmedecin'] : null;
 		$this->idinfirmier = (! empty ( $data ['idinfirmier'] )) ? $data ['idinfirmier'] : null;
 		$this->idpatient = (! empty ( $data ['idpatient'] )) ? $data ['idpatient'] : null;

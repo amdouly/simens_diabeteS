@@ -409,3 +409,464 @@ function alertPatientExistant(myarray, myarrayId, myarrayAge, myarrayTelephone){
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * =========================================================================================================
+ * ---------------------------------------------------------------------------------------------------------
+ * =========================================================================================================
+ * -------------------------------------- Interface A deux Volets ------------------------------------------
+ * ---------------------------------------------------------------------------------------------------------
+ */
+
+
+var tableBdTypeElementSelect = "";
+var tableBdElementSelect = "";
+var libElementSelect = "";
+
+/**
+ * AJOUTER UN QUARTIER --- AJOUTER UN QUARTIER --- AJOUTER UN QUARTIER
+ * AJOUTER UN QUARTIER --- AJOUTER UN QUARTIER --- AJOUTER UN QUARTIER
+ */
+    
+function ajouterUnQartierDeSaintLouis(){
+	var libTypeElement = 'commune';
+	var libElement = 'quartier';
+	var tabTypeElemBD = 'commune_saint_louis';
+	var tabElementBD = 'quartier_saint_louis';
+	
+	tableBdTypeElementSelect = tabTypeElemBD;
+	tableBdElementSelect = tabElementBD;
+	libElementSelect = libElement;
+	
+	
+	ajouterElements(libTypeElement, libElement, tabTypeElemBD);
+	$('.ligneBoutonsAjout .boutonATP button').toggle(false);
+	$(".ligneInfosAjoutElements .LIAP span span").html('Ajout de quartiers');
+	
+	afficherListeElementDuType(0);
+}
+
+function getListeQuartierSaintLouis(idcommune){
+	$.ajax({
+		type : 'POST',
+		url : tabUrl[0] + 'public/consultation/liste-quartier-select',
+		data : {'idcommune':idcommune},
+		success : function(data) {
+			var result = jQuery.parseJSON(data);
+			
+			$("#QUARTIER_SAINTLOUIS").html(result);
+		}
+	});
+}
+
+
+
+
+/**
+ * GESTION DE LA PREMIERE PARTIE
+ */
+$(function() {
+    $( "#ajouterElements button" ).button();
+});
+var crerAttrTitleUneFois = 0; 
+function ajouterElements(libTypeElement, libElement, tabTypeElemBD){
+	
+	if(crerAttrTitleUneFois == 0){ 
+		$("#ajouterElements").attr('title','Ajouter un '+libElement); 
+		$("#modifierTypeElement").attr('title','Modifier un '+libElement); 
+		crerAttrTitleUneFois = 1;
+	}
+	$("#labListeTypeElement").html('Les '+libTypeElement+'s');
+	$("#labListeElement").html('Les '+libElement+'s');
+	$(".ligneBoutonsAjout .boutonATP button").html('Ajouter une '+libTypeElement);
+	$(".ligneBoutonsAjout .boutonAP button").html('Ajouter un '+libElement);
+	
+	$( "#ajouterElements" ).dialog({
+		resizable: false,
+	    height:680,
+	    width:750,
+	    autoOpen: false,
+	    modal: true,
+	    buttons: {
+	        "Fermer": function() {
+              $( this ).dialog( "close" );
+	        }
+	    }
+	});
+	
+	$("#ajouterElements").dialog('open');
+	
+	
+	$("#contenuInterfaceAjoutTypeElements").toggle(false);
+	$(".ligneBoutonsAjout").toggle(true);
+	recupererListeTypesElementsOptionSelect(tabTypeElemBD);
+	recupererListeTypesElements(tabTypeElemBD);
+	
+}
+
+var listeTypesElementsSelectOption = "";
+function recupererListeTypesElementsOptionSelect(tabTypeElemBD){
+	$.ajax({
+		type : 'POST',
+		url : tabUrl[0] + 'public/consultation/liste-types-elements-select',
+		data : {'tabTypeElemBD':tabTypeElemBD},
+		success : function(data) {
+			var result = jQuery.parseJSON(data);
+			listeTypesElementsSelectOption = result;
+		}
+	});
+
+}
+
+
+function recupererListeTypesElements(tabTypeElemBD){ 
+	$.ajax({
+		type : 'POST',
+		url : tabUrl[0] + 'public/consultation/liste-types-elements',
+		data : {'tabTypeElemBD':tabTypeElemBD},
+		success : function(data) {
+			var result = jQuery.parseJSON(data);
+			$('.listeTypeElementsExistantes table').html(result);
+		}
+	});
+
+}
+
+
+
+
+/**
+ * GESTION DE LA DEUXIEME PARTIE
+ */
+var variableTypeElement = 0;
+var variableElement = 0;
+
+function ajoutTypeElement(){
+	variableTypeElement = 1;
+	variableElement = 0;
+	
+	$('.ligneBoutonsAjout').fadeOut(function(){
+		$(".ligneInfosAjoutElements .LIATP span").toggle(true);
+		$(".ligneInfosAjoutElements .LIAP span").toggle(false);
+		$("#contenuInterfaceAjoutTypeElements").toggle(true);
+	});
+	
+	$('.interfaceAjoutElements .contenuIAPath .identifCAP').remove();
+	
+	if($('.champsAjoutTP').length == 0){
+		ajouterUneNouvelleLigneElement();
+	}
+}
+
+function ajoutElement(){
+	variableElement = 1;
+	variableTypeElement = 0;
+	$('.ligneBoutonsAjout').fadeOut(function(){
+		$(".ligneInfosAjoutElements .LIAP span").toggle(true);
+		$(".ligneInfosAjoutElements .LIATP span").toggle(false);
+		$("#contenuInterfaceAjoutTypeElements").toggle(true);
+	});
+	
+	$('.interfaceAjoutElements .contenuIAPath .identifCAP').remove();
+	
+	if($('.champsAjoutTP').length == 0){
+		ajouterUneNouvelleLigneElement();
+	}
+}
+
+function annulerAjoutElement(){
+	$('#contenuInterfaceAjoutTypeElements').fadeOut(function(){
+		$(".ligneBoutonsAjout").toggle(true);
+	});
+}
+
+function ajouterUneNouvelleLigneElement(){
+	
+	if(variableTypeElement == 1){
+		
+		var nbLigne = $('.champsAjoutTP').length;
+		
+		var ligne ="<tr class='champsAjoutTP  identifCAP  champsAjoutTP_"+(nbLigne+1)+"'>"+
+	               "<td><input type='text' placeholder='Ecrire un nouveau type d\'element &agrave; ajouter'></td>"+
+	               "</tr>";
+		
+		$('.interfaceAjoutElements .contenuIAPath .champsAjoutTP_'+(nbLigne)).after(ligne);
+		
+		if((nbLigne+1) > 1){ 
+			$('.iconeAnnulerAP').toggle(true);
+		}else if((nbLigne+1) == 1){
+			$('.iconeAnnulerAP').toggle(false);
+		}
+		
+	}else 
+		if(variableElement == 1){ 
+			
+			var nbLigne = $('.champsAjoutP').length;
+			
+			var ligne ="<tr class='champsAjoutP  identifCAP  champsAjoutTP_"+(nbLigne+1)+"'>"+
+		               "<td> <select>"+listeTypesElementsSelectOption+"</select> <input type='text' placeholder='Ecrire un nouvel element &agrave; ajouter'></td>"+
+		               "</tr>";
+			
+			$('.interfaceAjoutElements .contenuIAPath .champsAjoutTP_'+(nbLigne)).after(ligne);
+			
+			if((nbLigne+1) > 1){ 
+				$('.iconeAnnulerAP').toggle(true);
+			}else if((nbLigne+1) == 1){
+				$('.iconeAnnulerAP').toggle(false);
+			}
+			
+		}
+	
+}
+
+
+function enleverUneLigneElement(){
+	
+	if(variableTypeElement == 1){
+		
+		var nbLigne = $('.champsAjoutTP').length;
+		if(nbLigne > 1){
+			$('.champsAjoutTP_'+nbLigne).remove();
+			if(nbLigne == 2){ $('.iconeAnnulerAP').toggle(false); }
+		}
+		
+	}else 
+		if(variableElement == 1){ 
+			
+			var nbLigne = $('.champsAjoutP').length; 
+			if(nbLigne > 1){
+				$('.champsAjoutTP_'+nbLigne).remove();
+				if(nbLigne == 2){ $('.iconeAnnulerAP').toggle(false); }
+			}
+			
+		}
+
+}
+
+
+
+function validerAjoutElement(){
+	
+	if(variableTypeElement == 1){
+		var nbLigne = $('.champsAjoutTP').length;
+
+		var tabTypeElement = new Array();
+		var j = 0;
+		for(var i=1; i<=nbLigne ; i++){
+			var valeurChamp = $('.champsAjoutTP_'+i+' input').val(); 
+			if(valeurChamp){
+				tabTypeElement [j++] =  valeurChamp;
+			}
+		}
+		
+		if(tabTypeElement.length != 0){
+			var reponse = confirm("Confirmer l'enregistrement de(s) type(s) de element");
+			if (reponse == false) { return false; }
+			else{ enregistrementTypeElement(tabTypeElement); }
+		}
+		
+	}else
+		if(variableElement == 1){ 
+			var nbLigne = $('.champsAjoutP').length;
+			
+			var tabElement = new Array();
+			var tabTypeElement = new Array();
+			var j = 0;
+			for(var i=1; i<=nbLigne ; i++){
+				var valeurChamp = $('.champsAjoutTP_'+i+' input').val();
+				if(valeurChamp){
+					tabElement [j] = valeurChamp;
+					tabTypeElement[j++] = $('.champsAjoutTP_'+i+' select').val();
+				}
+			}
+			
+			if(tabElement.length != 0){
+				var reponse = confirm("Confirmer l'enregistrement de(s) element(s)");
+				if (reponse == false) { return false; }
+				else{ enregistrementElement(tabTypeElement, tabElement); }
+			}
+			
+		}
+}
+
+/*
+function enregistrementTypeElement(tabTypeElement){
+
+	$('.boutonAVAV button').attr('disabled', true);
+	$('.champsAjoutTP input').attr('disabled', true);
+	$.ajax({
+		type : 'POST',
+		url : tabUrl[0] + 'public/consultation/enregistrement-type-element',
+		data : {'tabTypeElement' : tabTypeElement},
+		success : function(data) {
+			
+			$('.listeTypeElementsExistantes table').html('<tr> <td style="margin-top: 35px; border: 1px solid #ffffff; text-align: center;"> Chargement </td> </tr>  <tr> <td align="center" style="border: 1px solid #ffffff; text-align: center;"> <img style="margin-top: 13px; width: 50px; height: 50px;" src="../images/loading/Chargement_1.gif" /> </td> </tr>');
+			recupererListeTypesElements();
+			$('.listeElementsExistantes table').html('');
+			recupererListeTypesElementsOptionSelect();
+			$('.boutonAVAV button').attr('disabled', false);
+			ajoutTypeElement();
+			
+		}
+	});
+}
+*/
+
+function enregistrementElement(tabTypeElement, tabElement){
+	
+	$('.boutonAVAV button').attr('disabled', true);
+	$('.champsAjoutP select, .champsAjoutP input').attr('disabled', true);
+	$.ajax({
+		type : 'POST',
+		url : tabUrl[0] + 'public/consultation/enregistrement-element',
+		data : {'tabTypeElement' : tabTypeElement, 'tabElement' : tabElement, 'tableBdElementSelect':tableBdElementSelect},
+		success : function(data) {
+			
+			afficherListeElementDuType(tabTypeElement[0]);
+			$('.boutonAVAV button').attr('disabled', false);
+			ajoutElement();
+		}
+	});
+}
+
+function afficherListeElementDuType(id){
+	$('.listeElementsExistantes table').html('<tr> <td style="margin-top: 35px; border: 1px solid #ffffff; text-align: center;"> Chargement </td> </tr>  <tr> <td align="center" style="border: 1px solid #ffffff; text-align: center;"> <img style="margin-top: 13px; width: 50px; height: 50px;" src="../images/loading/Chargement_1.gif" /> </td> </tr>');
+	$.ajax({
+		type : 'POST',
+		url : tabUrl[0] + 'public/consultation/liste-elements-pour-interface-ajout',
+		data : {'id':id, 'tableBdElementSelect':tableBdElementSelect, 'tableBdTypeElementSelect':tableBdTypeElementSelect},
+		success : function(data) {
+			var result = jQuery.parseJSON(data); 
+			$('.listeElementsExistantes table').html(result[0]);
+			
+			$('.LTPE1 a').html("<img src='../images_icons/light/triangle_right.png'>");
+			$('.iconeIndicateurChoix_'+result[1]+' a').html("<img src='../images_icons/greenarrowright.png'>");
+		}
+	});
+}
+
+
+function modifierInfosTypeElement(id){
+	alert('Prochaines mises a jour pour les modifications !');
+}
+
+function modifierInfosElement(id){
+	
+	var libelleElement = $('.listeElementsExistantes table .LPE2_'+id+' span').html();
+	var html ="<tr><td>"+libelleElement+"</td></tr>";
+	
+	$('#infosConfirmationModification').html(html);
+	
+	$( "#modifierTypeElement" ).dialog({
+		resizable: false,
+	    height:300,
+	    width:450,
+	    autoOpen: false,
+	    modal: true,
+	    buttons: {
+	    	"Annuler": function() {
+	    		$( this ).dialog( "close" );
+		    },
+	        "Modifier": function() {
+
+	        	var libelleElementModif = $('#affichageMessageInfosRemplaceModification input').val();
+	        	if(libelleElementModif){
+	        		
+		        	var reponse = confirm("Confirmer la modification du terme suivant");
+					if (reponse == false) { return false; }
+					else{ 
+				      	$('.listeElementsExistantes table .LPE2_'+id+' span').html(libelleElement+ " <img style='margin-left: 5px; width: 18px; height: 18px;' src='../images/loading/Chargement_1.gif' />");
+			        	$( this ).dialog( "close" );
+			        	
+			        	$.ajax({
+			        		
+			        		type : 'POST',
+			        		url : tabUrl[0] + 'public/consultation/modifier-element',
+			        		data : {'idElement' : id, 'libelleElement' : libelleElementModif, 'tableBdElementSelect':tableBdElementSelect },
+			        		success : function(data) {
+			        			
+			        			$('.listeElementsExistantes table .LPE2_'+id+' span').html(libelleElementModif);
+			        			$('#affichageMessageInfosRemplaceModification input').val('');
+			        		}
+			        	});
+					}
+	        	}
+	        	
+	        }
+	    }
+	});
+	
+	$("#modifierTypeElement").dialog('open');
+
+}
+
+
+
+
+
+/**
+ * =========================================================================================================
+ * ---------------------------------------------------------------------------------------------------------
+ * =========================================================================================================
+ * -------------------------------------- Interface A un Volet ---------------------------------------------
+ * ---------------------------------------------------------------------------------------------------------
+ */
+
+
+
+/**
+ * AJOUTER UNE RACE --- AJOUTER UNE RACE --- AJOUTER UNE RACE
+ * AJOUTER UNE RACE --- AJOUTER UNE RACE --- AJOUTER UNE RACE
+ */
+
+function ajouterUneRace(){
+	var libElementUnVolet = 'race';
+	var tabElementUnVoletBD = 'liste_race';
+	
+	tableBdTypeElementSelect = tabTypeElemBD;
+	tableBdElementSelect = tabElementBD;
+	libElementSelect = libElement;
+	
+	
+	ajouterElements(libTypeElement, libElement, tabTypeElemBD);
+	$('.ligneBoutonsAjout .boutonATP button').toggle(false);
+	$(".ligneInfosAjoutElements .LIAP span span").html('Ajout de races');
+	
+	afficherListeElementDuType(0);
+}
+
+

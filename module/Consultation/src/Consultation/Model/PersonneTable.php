@@ -20,7 +20,7 @@ class PersonneTable {
         $select = $sql->select('liste_profession')->order('libelle ASC');
         $result = $sql->prepareStatementForSqlObject($select)->execute();
         
-        $options = array(0 => '');
+        $options = array('' => '');
         foreach ($result as $data) {
             $options[$data['id']] = $data['libelle'];
         }
@@ -33,7 +33,7 @@ class PersonneTable {
         $select = $sql->select('liste_ethnie')->order('libelle ASC');
         $result = $sql->prepareStatementForSqlObject($select)->execute();
     
-        $options = array(0 => '');
+        $options = array('' => '');
         foreach ($result as $data) {
             $options[$data['id']] = $data['libelle'];
         }
@@ -46,7 +46,7 @@ class PersonneTable {
         $select = $sql->select('liste_statut_matrimonial')->order('libelle ASC');
         $result = $sql->prepareStatementForSqlObject($select)->execute();
     
-        $options = array(0 => '');
+        $options = array('' => '');
         foreach ($result as $data) {
             $options[$data['id']] = $data['libelle'];
         }
@@ -59,7 +59,33 @@ class PersonneTable {
         $select = $sql->select('liste_regime_matrimonial')->order('libelle ASC');
         $result = $sql->prepareStatementForSqlObject($select)->execute();
     
-        $options = array(0 => '');
+        $options = array('' => '');
+        foreach ($result as $data) {
+            $options[$data['id']] = $data['libelle'];
+        }
+        return $options;
+    }
+    
+    public function getListeCommuneSaintlouis()
+    {
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select('commune_saint_louis')->order('id ASC');
+        $result = $sql->prepareStatementForSqlObject($select)->execute();
+    
+        $options = array('' => '');
+        foreach ($result as $data) {
+            $options[$data['id']] = $data['libelle'];
+        }
+        return $options;
+    }
+    
+    public function getListeQuartierSaintlouis()
+    {
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select('quartier_saint_louis')->order('id ASC');
+        $result = $sql->prepareStatementForSqlObject($select)->execute();
+    
+        $options = array('' => '');
         foreach ($result as $data) {
             $options[$data['id']] = $data['libelle'];
         }
@@ -72,7 +98,7 @@ class PersonneTable {
     	$select = $sql->select('liste_signe')->order('libelle ASC');
     	$result = $sql->prepareStatementForSqlObject($select)->execute();
     
-    	$options = array(0 => '');
+    	$options = array('' => '');
     	foreach ($result as $data) {
     		$options[$data['id']] = $data['libelle'];
     	}
@@ -92,6 +118,8 @@ class PersonneTable {
         $personne ['SEXE'] = ($donnees['SEXE'])?$donnees['SEXE']:null;
         $personne ['STATUT_MATRIMONIAL'] = ($donnees['STATUT_MATRIMONIAL'])?$donnees['STATUT_MATRIMONIAL']:null;
         $personne ['REGIME_MATRIMONIAL'] = ($donnees['REGIME_MATRIMONIAL'])?$donnees['REGIME_MATRIMONIAL']:null;
+        //$personne ['COMMUNE_SAINTLOUIS'] = ($donnees['COMMUNE_SAINTLOUIS'])?$donnees['COMMUNE_SAINTLOUIS']:null;
+        //$personne ['QUARTIER_SAINTLOUIS'] = ($donnees['QUARTIER_SAINTLOUIS'])?$donnees['QUARTIER_SAINTLOUIS']:null;
 
         $idpersonne = null;
         $this->tableGateway->getAdapter()->getDriver()->getConnection()->beginTransaction();
@@ -112,16 +140,18 @@ class PersonneTable {
     {
         $personne ['NOM'] = $donnees['NOM'];
         $personne ['PRENOM'] = rtrim($donnees['PRENOM']);
-        $personne ['ADRESSE'] = $donnees['ADRESSE'];
-    
-        $personne ['TELEPHONE'] = $donnees['TELEPHONE'];
-        $personne ['AGE'] = $donnees['AGE'];
+        $personne ['ADRESSE'] = ($donnees['ADRESSE'])?$donnees['ADRESSE']:null;
+        $personne ['TELEPHONE'] = ($donnees['TELEPHONE'])?$donnees['TELEPHONE']:null;
+        $personne ['AGE'] = ($donnees['AGE'])?$donnees['AGE']:null;
         $personne ['DATE_NAISSANCE'] = ($donnees['DATE_NAISSANCE'])? ((new DateHelper())->convertDateInAnglais($donnees['DATE_NAISSANCE'])):null ;
-        $personne ['PROFESSION'] = $donnees['PROFESSION'];
-        $personne ['SEXE'] = $donnees['SEXE'];
-        $personne ['STATUT_MATRIMONIAL'] = $donnees['STATUT_MATRIMONIAL'];
-        $personne ['REGIME_MATRIMONIAL'] = $donnees['REGIME_MATRIMONIAL'];
-    
+        $personne ['PROFESSION'] = ($donnees['PROFESSION'])?$donnees['PROFESSION']:null;
+        $personne ['SEXE'] = ($donnees['SEXE'])?$donnees['SEXE']:null;
+        $personne ['STATUT_MATRIMONIAL'] = ($donnees['STATUT_MATRIMONIAL'])?$donnees['STATUT_MATRIMONIAL']:null;
+        $personne ['REGIME_MATRIMONIAL'] = ($donnees['REGIME_MATRIMONIAL'])?$donnees['REGIME_MATRIMONIAL']:null;
+        //$personne ['COMMUNE_SAINTLOUIS'] = ($donnees['COMMUNE_SAINTLOUIS'])?$donnees['COMMUNE_SAINTLOUIS']:null;
+        //$personne ['QUARTIER_SAINTLOUIS'] = ($donnees['QUARTIER_SAINTLOUIS'])?$donnees['QUARTIER_SAINTLOUIS']:null;
+        
+        
         $this->tableGateway->getAdapter()->getDriver()->getConnection()->beginTransaction();
         try {
     
@@ -131,7 +161,7 @@ class PersonneTable {
         } catch (\Exception $e) {
             $this->tableGateway->getAdapter()->getDriver()->getConnection()->rollback();
         }
-    
+        
     }
     
     

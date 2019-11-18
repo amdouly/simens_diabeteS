@@ -29,6 +29,19 @@ class ConsultationForm extends Form {
 		) );
 		
 		$this->add ( array (
+		    'name' => 'idsuiv',
+		    'type' => 'hidden',
+		    'options' => array (
+		        'label' => 'Code consultation'
+		    ),
+		    'attributes' => array (
+		        'readonly' => 'readonly',
+		        'value' => 'suiv-'.$codeConsultations,
+		        'id' => 'idsuiv'
+		    )
+		) );
+		
+		$this->add ( array (
 				'name' => 'date',
 				'type' => 'Hidden',
 				'attributes' => array (
@@ -74,6 +87,14 @@ class ConsultationForm extends Form {
 				'attributes' => array (
 						'id' => 'idadmission'
 				)
+		) );
+		
+		$this->add ( array (
+		    'name' => 'idadmissionsuiv',
+		    'type' => 'Hidden',
+		    'attributes' => array (
+		        'id' => 'idadmissionsuiv'
+		    )
 		) );
 		
 		
@@ -246,6 +267,17 @@ class ConsultationForm extends Form {
 				)
 		) );
 		
+		
+		$this->add ( array (
+		    'name' => 'nbMotifs',
+		    'type' => 'Hidden',
+		    'attributes' => array (
+		        'id' => 'nbMotifs'
+		    )
+		) );
+		
+		
+		
 		$this->add ( array (
 				'name' => 'duree_des_signes',
 				'type' => 'number',
@@ -254,7 +286,7 @@ class ConsultationForm extends Form {
 						'id' => 'duree_des_signes',
 						'class' => 'intensiteClassStyle',
 						'max' => 10,
-						'min' => 1,
+						'min' => 0,
 						'step' => 'any',
 						'style' => 'text-align: right; width: 45px;',
 				)
@@ -297,7 +329,7 @@ class ConsultationForm extends Form {
 						'id' => 'intensite',
 						'class' => 'intensiteClassStyle',
 						'max' => 10,
-						'min' => 1,
+						'min' => 0,
 						'step' => 'any',
 						'style' => 'text-align: right',
 				)
@@ -318,7 +350,7 @@ class ConsultationForm extends Form {
 				),
 				'attributes' => array (
 						'max' => 100,
-						'min' => 1,
+						'min' => 0,
 						'id' => 'resume_histoire_maladie',
 						'step' => 'any',
 						'style' => 'float:left; max-height: 180px; min-height: 180px; max-width: 600px; min-width: 600px; font-family: time new roman; font-size: 18px; padding-left: 3px;',
@@ -769,6 +801,25 @@ class ConsultationForm extends Form {
 				)
 		) );
 		
+		$this->add ( array (
+		    'name' => 'etat_general_suiv',
+		    'type' => 'Select',
+		    'options' => array (
+		        'value_options' => array (
+		            0 => '',
+		            1 => iconv('ISO-8859-1', 'UTF-8', 'Asymptomatique').' (Score = 0)',
+		            2 => iconv('ISO-8859-1', 'UTF-8', 'Activité physique diminué mais autonome').' (Score = 1)',
+		            3 => iconv('ISO-8859-1', 'UTF-8', 'Incapacité de mener une activité normale ou travailler, mais alité moins de 50% du temps').' (Score = 2)',
+		            4 => iconv('ISO-8859-1', 'UTF-8', 'Incapacité de mener une activité normale et alité plus de 50% du temps').' (Score = 3)',
+		            5 => iconv('ISO-8859-1', 'UTF-8', 'Grabattaire (incapable de quitter le lit)').' (Score = 4)',
+		        )
+		    ),
+		    'attributes' => array (
+		        'id' => 'etat_general_suiv',
+		        'style' => 'float:right; width: 80%; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
+		) );
+		
 		
 		$this->add ( array (
 				'name' => 'muqueuses',
@@ -785,6 +836,23 @@ class ConsultationForm extends Form {
 						'id' => 'muqueuses',
 						'style' => 'float:right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		$this->add ( array (
+		    'name' => 'muqueuses_suiv',
+		    'type' => 'Select',
+		    'options' => array (
+		        'value_options' => array (
+		            0 => '',
+		            1 => iconv('ISO-8859-1', 'UTF-8', 'Normocolorées'),
+		            2 => iconv('ISO-8859-1', 'UTF-8', 'Pâles'),
+		            3 => iconv('ISO-8859-1', 'UTF-8', 'Ictériques'),
+		        )
+		    ),
+		    'attributes' => array (
+		        'id' => 'muqueuses_suiv',
+		        'style' => 'float:right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		
@@ -806,6 +874,23 @@ class ConsultationForm extends Form {
 		
 		
 		$this->add ( array (
+		    'name' => 'deshydratation_suiv',
+		    'type' => 'Select',
+		    'options' => array (
+		        'value_options' => array (
+		            0 => '',
+		            1 => iconv('ISO-8859-1', 'UTF-8', 'Oui'),
+		            2 => iconv('ISO-8859-1', 'UTF-8', 'Non'),
+		        )
+		    ),
+		    'attributes' => array (
+		        'id' => 'deshydratation_suiv',
+		        'style' => 'float:right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
+		) );
+		
+		
+		$this->add ( array (
 				'name' => 'oedeme_membres_inferieurs',
 				'type' => 'Select',
 				'options' => array (
@@ -821,13 +906,30 @@ class ConsultationForm extends Form {
 				)
 		) );
 		
+		
+		$this->add ( array (
+		    'name' => 'oedeme_membres_inferieurs_suiv',
+		    'type' => 'Select',
+		    'options' => array (
+		        'value_options' => array (
+		            0 => '',
+		            1 => iconv('ISO-8859-1', 'UTF-8', 'Oui'),
+		            2 => iconv('ISO-8859-1', 'UTF-8', 'Non'),
+		        )
+		    ),
+		    'attributes' => array (
+		        'id' => 'oedeme_membres_inferieurs_suiv',
+		        'style' => 'float:right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
+		) );
+		
 
 		$this->add ( array (
 				'name' => 'tension_arterielle_min',
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'tension_arterielle_min',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 10,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
@@ -836,15 +938,41 @@ class ConsultationForm extends Form {
 		
 		
 		$this->add ( array (
+		    'name' => 'tension_arterielle_min_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'tension_arterielle_min_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 10,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
+		) );
+		
+		
+		$this->add ( array (
 				'name' => 'tension_arterielle_max',
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'tension_arterielle_max',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'tension_arterielle_max_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'tension_arterielle_max_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		
@@ -853,11 +981,24 @@ class ConsultationForm extends Form {
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'coucheTA',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'coucheTA_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'coucheTA_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		
@@ -866,11 +1007,24 @@ class ConsultationForm extends Form {
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'deboutTA',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'deboutTA_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'deboutTA_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 
 		
@@ -879,11 +1033,24 @@ class ConsultationForm extends Form {
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'ipsTA',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'ipsTA_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'ipsTA_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		
@@ -892,23 +1059,50 @@ class ConsultationForm extends Form {
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'piedgaucheTA',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
 		) );
 		
+		
+		$this->add ( array (
+		    'name' => 'piedgaucheTA_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'piedgaucheTA_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
+		) );
+		
+		
 		$this->add ( array (
 				'name' => 'pieddroitTA',
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'pieddroitTA',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'pieddroitTA_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'pieddroitTA_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		
@@ -917,11 +1111,24 @@ class ConsultationForm extends Form {
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'poulsBatMin',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'poulsBatMin_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'poulsBatMin_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		
@@ -930,11 +1137,24 @@ class ConsultationForm extends Form {
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'frequence_respiratoire_cycles_min',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'frequence_respiratoire_cycles_min_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'frequence_respiratoire_cycles_min_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		
@@ -943,11 +1163,24 @@ class ConsultationForm extends Form {
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'diurese_horaire',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'diurese_horaire_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'diurese_horaire_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 
 		
@@ -955,12 +1188,27 @@ class ConsultationForm extends Form {
 				'name' => 'poids',
 				'type' => 'Number',
 				'attributes' => array (
-						'id' => 'poids',
-						'min' => 1,
-						'max' => 300,
-						'tabindex' => 11,
-						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+					'id' => 'poids',
+					'min' => 0,
+					'max' => 300,
+				    'onchange' => 'getValeurIMC(this.value)',
+					'tabindex' => 11,
+					'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'poids_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'poids_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'onchange' => 'getValeurIMCSuiv(this.value)',
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		
@@ -968,38 +1216,80 @@ class ConsultationForm extends Form {
 				'name' => 'taille',
 				'type' => 'Number',
 				'attributes' => array (
-						'id' => 'taille',
-						'min' => 1,
-						'max' => 300,
-						'tabindex' => 11,
-						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+					'id' => 'taille',
+					'min' => 0,
+					'max' => 300,
+				    'onchange' => 'getValeurIMC(this.value)',
+					'tabindex' => 11,
+					'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
 		) );
 		
 		
 		$this->add ( array (
-				'name' => 'tour_taille',
-				'type' => 'Number',
-				'attributes' => array (
-						'id' => 'tour_taille',
-						'min' => 1,
-						'max' => 300,
-						'tabindex' => 11,
-						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
-				)
+		    'name' => 'taille_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'taille_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'onchange' => 'getValeurIMCSuiv(this.value)',
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		
 		$this->add ( array (
-				'name' => 'imc_constante',
-				'type' => 'Number',
-				'attributes' => array (
-						'id' => 'imc_constante',
-						'min' => 1,
-						'max' => 300,
-						'tabindex' => 11,
-						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
-				)
+		    'name' => 'imc_constante',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'imc_constante',
+		        'min' => 0,
+		        'max' => 300,
+		        'readonly' => true,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 60px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
+		) );
+		
+		$this->add ( array (
+		    'name' => 'imc_constante_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'imc_constante_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'readonly' => true,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 60px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'tour_taille',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'tour_taille',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'tour_taille_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'tour_taille_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		
@@ -1008,47 +1298,121 @@ class ConsultationForm extends Form {
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'glycemie_capillaire',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'glycemie_capillaire_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'glycemie_capillaire_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		
 		$this->add ( array (
 				'name' => 'sucre',
-				'type' => 'Number',
+				'type' => 'Select',
+    		    'options' => array (
+    		        'value_options' => array (
+    		            0 => '',
+    		            1 => '1+',
+    		            2 => '2+',
+    		            3 => '3+',
+    		        )
+    		    ),
 				'attributes' => array (
 						'id' => 'sucre',
-						'min' => 1,
-						'max' => 300,
+						
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'sucre_suiv',
+		    'type' => 'Select',
+		    'options' => array (
+		        'value_options' => array (
+		            0 => '',
+		            1 => '1+',
+		            2 => '2+',
+		            3 => '3+',
+		        )
+		    ),
+		    'attributes' => array (
+		        'id' => 'sucre_suiv',
+		        
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		
 		$this->add ( array (
 				'name' => 'corps_cetonique',
-				'type' => 'Number',
+				'type' => 'Select',
+    		    'options' => array (
+    		        'value_options' => array (
+    		            0 => '',
+    		            1 => '1+',
+    		            2 => '2+',
+    		            3 => '3+',
+    		        )
+    		    ),
 				'attributes' => array (
 						'id' => 'corps_cetonique',
-						'min' => 1,
-						'max' => 300,
+						
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'corps_cetonique_suiv',
+		    'type' => 'Select',
+		    'options' => array (
+		        'value_options' => array (
+		            0 => '',
+		            1 => '1+',
+		            2 => '2+',
+		            3 => '3+',
+		        )
+		    ),
+		    'attributes' => array (
+		        'id' => 'corps_cetonique_suiv',
+		        
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		
 		$this->add ( array (
 				'name' => 'proteines',
-				'type' => 'Number',
+				'type' => 'Select',
+    		    'options' => array (
+    		        'value_options' => array (
+    		            0 => '',
+    		            1 => '1+',
+    		            2 => '2+',
+    		            3 => '3+',
+    		        )
+    		    ),
 				'attributes' => array (
 						'id' => 'proteines',
-						'min' => 1,
-						'max' => 300,
+						
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
@@ -1056,16 +1420,72 @@ class ConsultationForm extends Form {
 		
 		
 		$this->add ( array (
+		    'name' => 'proteines_suiv',
+		    'type' => 'Select',
+		    'options' => array (
+		        'value_options' => array (
+		            0 => '',
+		            1 => '1+',
+		            2 => '2+',
+		            3 => '3+',
+		        )
+		    ),
+		    'attributes' => array (
+		        'id' => 'proteines_suiv',
+		        
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
+		) );
+		
+		
+		$this->add ( array (
 				'name' => 'hematies',
-				'type' => 'Number',
+				'type' => 'Select',
+    		    'options' => array (
+    		        'value_options' => array (
+    		            0 => '',
+    		            1 => '1+',
+    		            2 => '2+',
+    		            3 => '3+',
+    		        )
+    		    ),
 				'attributes' => array (
 						'id' => 'hematies',
-						'min' => 1,
-						'max' => 300,
+						
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
 		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'hematies_suiv',
+		    'type' => 'Select',
+		    'options' => array (
+		        'value_options' => array (
+		            0 => '',
+		            1 => '1+',
+		            2 => '2+',
+		            3 => '3+',
+		        )
+		    ),
+		    'attributes' => array (
+		        'id' => 'hematies_suiv',
+		        
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
+		) );
+		
+		
+		
+		
+		
+		/***
+		 * LES Appareil d'appel ou système --- Les Appareil d'appel ou système
+		 * LES Appareil d'appel ou système --- Les Appareil d'appel ou système
+		 */
 		
 		
 		$this->add ( array (
@@ -1097,24 +1517,47 @@ class ConsultationForm extends Form {
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'glycemie_jeun',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
 		) );
 		
+		$this->add ( array (
+		    'name' => 'glycemie_jeun_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'glycemie_jeun_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
+		) );
 		
 		$this->add ( array (
 				'name' => 'hemoglobine_glyquee',
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'hemoglobine_glyquee',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		$this->add ( array (
+		    'name' => 'hemoglobine_glyquee_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'hemoglobine_glyquee_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		 
@@ -1123,11 +1566,24 @@ class ConsultationForm extends Form {
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'creatininemie',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'creatininemie_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'creatininemie_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		
@@ -1149,7 +1605,7 @@ class ConsultationForm extends Form {
 				),
 				'attributes' => array (
 						'id' => 'grsh',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 70px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
@@ -1158,15 +1614,54 @@ class ConsultationForm extends Form {
 		
 		
 		$this->add ( array (
+		    'name' => 'grsh_suiv',
+		    'type' => 'Select',
+		    'options' => array (
+		        'value_options' => array (
+		            0 => '',
+		            1 => iconv('ISO-8859-1', 'UTF-8', 'A-'),
+		            2 => iconv('ISO-8859-1', 'UTF-8', 'B-'),
+		            3 => iconv('ISO-8859-1', 'UTF-8', 'AB-'),
+		            4 => iconv('ISO-8859-1', 'UTF-8', 'O-'),
+		            5 => iconv('ISO-8859-1', 'UTF-8', 'A+'),
+		            6 => iconv('ISO-8859-1', 'UTF-8', 'B+'),
+		            7 => iconv('ISO-8859-1', 'UTF-8', 'AB+'),
+		            8 => iconv('ISO-8859-1', 'UTF-8', 'O+'),
+		        )
+		    ),
+		    'attributes' => array (
+		        'id' => 'grsh_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 70px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
+		) );
+		
+		
+		$this->add ( array (
 				'name' => 'tp',
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'tp',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'tp_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'tp_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		
@@ -1175,11 +1670,24 @@ class ConsultationForm extends Form {
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'tca',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'tca_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'tca_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		
@@ -1188,11 +1696,24 @@ class ConsultationForm extends Form {
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'hdl_c',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'hdl_c_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'hdl_c_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		
@@ -1201,11 +1722,24 @@ class ConsultationForm extends Form {
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'ldl_c',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'ldl_c_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'ldl_c_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		
@@ -1214,11 +1748,24 @@ class ConsultationForm extends Form {
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'uricemie',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'uricemie_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'uricemie_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		 
@@ -1227,7 +1774,7 @@ class ConsultationForm extends Form {
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'triglycerides',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
@@ -1236,15 +1783,40 @@ class ConsultationForm extends Form {
 		
 		
 		$this->add ( array (
+		    'name' => 'triglycerides_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'triglycerides_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
+		) );
+		
+		$this->add ( array (
 				'name' => 'microalbuminurie_pu24h',
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'microalbuminurie_pu24h',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'microalbuminurie_pu24h_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'microalbuminurie_pu24h_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 50px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
 		) );
 		
 		
@@ -1253,11 +1825,23 @@ class ConsultationForm extends Form {
 				'type' => 'Textarea',
 				'attributes' => array (
 						'id' => 'ecg',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 85%; max-width: 500px; min-width: 350px; height: 150px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
 				)
+		) );
+		
+		$this->add ( array (
+		    'name' => 'ecg_suiv',
+		    'type' => 'Textarea',
+		    'attributes' => array (
+		        'id' => 'ecg_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 85%; max-width: 500px; min-width: 350px; height: 150px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
+		    )
 		) );
 		
 		
@@ -1266,7 +1850,7 @@ class ConsultationForm extends Form {
 				'type' => 'Number',
 				'attributes' => array (
 						'id' => 'indice_pression_systolique',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 60px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
@@ -1275,15 +1859,40 @@ class ConsultationForm extends Form {
 		
 		
 		$this->add ( array (
+		    'name' => 'indice_pression_systolique_suiv',
+		    'type' => 'Number',
+		    'attributes' => array (
+		        'id' => 'indice_pression_systolique_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 60px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px;',
+		    )
+		) );
+		
+		
+		$this->add ( array (
 				'name' => 'rsd1',
 				'type' => 'Textarea',
 				'attributes' => array (
 						'id' => 'rsd1',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 85%; max-width: 500px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
 				)
+		) );
+		
+		$this->add ( array (
+		    'name' => 'rsd1_suiv',
+		    'type' => 'Textarea',
+		    'attributes' => array (
+		        'id' => 'rsd1_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 80%; max-width: 400px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
+		    )
 		) );
 		
 		
@@ -1292,11 +1901,24 @@ class ConsultationForm extends Form {
 				'type' => 'Textarea',
 				'attributes' => array (
 						'id' => 'rsd2',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 85%; max-width: 500px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'rsd2_suiv',
+		    'type' => 'Textarea',
+		    'attributes' => array (
+		        'id' => 'rsd2_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 80%; max-width: 400px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
+		    )
 		) );
 		
 		
@@ -1305,11 +1927,24 @@ class ConsultationForm extends Form {
 				'type' => 'Textarea',
 				'attributes' => array (
 						'id' => 'scanner',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 85%; max-width: 500px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'scanner_suiv',
+		    'type' => 'Textarea',
+		    'attributes' => array (
+		        'id' => 'scanner_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 80%; max-width: 400px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
+		    )
 		) );
 		
 		 
@@ -1318,11 +1953,23 @@ class ConsultationForm extends Form {
 				'type' => 'Textarea',
 				'attributes' => array (
 						'id' => 'echodoppler',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 85%; max-width: 500px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
 				)
+		) );
+		
+		$this->add ( array (
+		    'name' => 'echodoppler_suiv',
+		    'type' => 'Textarea',
+		    'attributes' => array (
+		        'id' => 'echodoppler_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 80%; max-width: 400px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
+		    )
 		) );
 		
 		
@@ -1331,7 +1978,7 @@ class ConsultationForm extends Form {
 				'type' => 'Textarea',
 				'attributes' => array (
 						'id' => 'echographie1',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 85%; max-width: 500px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
@@ -1339,15 +1986,39 @@ class ConsultationForm extends Form {
 		) );
 		
 		$this->add ( array (
+		    'name' => 'echographie1_suiv',
+		    'type' => 'Textarea',
+		    'attributes' => array (
+		        'id' => 'echographie1_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 80%; max-width: 400px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
+		    )
+		) );
+		
+		$this->add ( array (
 				'name' => 'echographie2',
 				'type' => 'Textarea',
 				'attributes' => array (
 						'id' => 'echographie2',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 85%; max-width: 500px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
 				)
+		) );
+		
+		$this->add ( array (
+		    'name' => 'echographie2_suiv',
+		    'type' => 'Textarea',
+		    'attributes' => array (
+		        'id' => 'echographie2_suiv',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 80%; max-width: 400px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
+		    )
 		) );
 		
 		$this->add ( array (
@@ -1376,13 +2047,13 @@ class ConsultationForm extends Form {
 								0 => '',
 								1 => iconv('ISO-8859-1', 'UTF-8', 'Acido-cétose'),
 								2 => iconv('ISO-8859-1', 'UTF-8', 'Coma hyperosmolaire'),
-								3 => iconv('ISO-8859-1', 'UTF-8', 'Néphropathie diabètique'),
-								4 => iconv('ISO-8859-1', 'UTF-8', 'Rétinopathie diabètique'),
+								3 => iconv('ISO-8859-1', 'UTF-8', 'Néphropathie diabétique'),
+								4 => iconv('ISO-8859-1', 'UTF-8', 'Rétinopathie diabétique'),
 								5 => iconv('ISO-8859-1', 'UTF-8', 'Neuropathie périphérique'),
 								6 => iconv('ISO-8859-1', 'UTF-8', 'ACOMI'),
 								7 => iconv('ISO-8859-1', 'UTF-8', 'AVC'),
 								8 => iconv('ISO-8859-1', 'UTF-8', 'IDM'),
-								9 => iconv('ISO-8859-1', 'UTF-8', 'Pied diabètique'),
+								9 => iconv('ISO-8859-1', 'UTF-8', 'Pied diabétique'),
 						)
 				),
 				'attributes' => array (
@@ -1414,7 +2085,7 @@ class ConsultationForm extends Form {
 				'type' => 'Textarea',
 				'attributes' => array (
 						'id' => 'evolution',
-						'min' => 1,
+						'min' => 0,
 						'max' => 300,
 						'tabindex' => 11,
 						'style' => 'float:right; width: 85%; max-width: 380px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
@@ -1447,6 +2118,79 @@ class ConsultationForm extends Form {
 				)
 		) );
 		
+		$this->add ( array (
+		    'name' => 'traitement_medical',
+		    'type' => 'Textarea',
+		    'attributes' => array (
+		        'id' => 'traitement_medical',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 85%; max-width: 380px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
+		    )
+		) );
+		
+		$this->add ( array (
+		    'name' => 'traitement_chirurgical',
+		    'type' => 'Textarea',
+		    'attributes' => array (
+		        'id' => 'traitement_chirurgical',
+		        'min' => 0,
+		        'max' => 300,
+		        'tabindex' => 11,
+		        'style' => 'float:right; width: 85%; max-width: 380px; min-width: 350px; max-height: 80px; min-height: 80px; text-align: right; height: 28px; font-family: time new roman; font-size: 19px; padding-left: 3px; margin-top: 2px; text-align: left;',
+		    )
+		) );
+		
+		
+		
+		$this->add ( array (
+		    'name' => 'examenPhysique',
+		    'type' => 'Hidden',
+		    'attributes' => array (
+		        'id' => 'examenPhysique'
+		    )
+		) );
+		
+		$this->add ( array (
+		    'name' => 'examenPhysiqueSuiv',
+		    'type' => 'Hidden',
+		    'attributes' => array (
+		        'id' => 'examenPhysiqueSuiv'
+		    )
+		) );
+		
+		$this->add ( array (
+		    'name' => 'complicationDiagEntree',
+		    'type' => 'Hidden',
+		    'attributes' => array (
+		        'id' => 'complicationDiagEntree'
+		    )
+		) );
+		
+		$this->add ( array (
+		    'name' => 'plaintesSuivi',
+		    'type' => 'Hidden',
+		    'attributes' => array (
+		        'id' => 'plaintesSuivi'
+		    )
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'conduite_a_suivre_suivi',
+		    'type' => 'Textarea',
+		    'options' => array (
+		        'label' =>  iconv ( 'ISO-8859-1', 'UTF-8', "Note sur la conduite"),
+		    ),
+		    'attributes' => array (
+		        'max' => 100,
+		        'min' => 0,
+		        'id' => 'conduite_a_suivre_suivi',
+		        'step' => 'any',
+		        'style' => 'float:left; max-height: 180px; min-height: 180px; max-width: 600px; min-width: 600px; font-family: time new roman; font-size: 18px; padding-left: 3px;',
+		    )
+		) );
 		
 	}
 }

@@ -126,6 +126,7 @@ class PatientForm extends Form {
 				),
 				'attributes' => array (
 						'id' => 'TELEPHONE',
+				        'required' => true,
 						'tabindex' => 7,
 				)
 		) );
@@ -209,6 +210,7 @@ class PatientForm extends Form {
 		    ),
 		    'attributes' => array (
 		        'id' => 'ORIGINE_GEOGRAPHIQUE',
+		        'required' => true,
 		        'tabindex' => 13,
 		    )
 		
@@ -278,6 +280,33 @@ class PatientForm extends Form {
 		
 		) );
 		
+		
+		$this->add ( array (
+		    'name' => 'COMMUNE_SAINTLOUIS',
+		    'type' => 'Select',
+		    'options' => array (
+		        'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Commune de Saint-Louis' )
+		    ),
+		    'attributes' => array (
+		        'id' => 'COMMUNE_SAINTLOUIS',
+		        'required' => true,
+		        'tabindex' => 7,
+		        'onchange' => "getListeQuartierSaintLouis(this.value);",
+		    )
+		) );
+		
+		$this->add ( array (
+		    'name' => 'QUARTIER_SAINTLOUIS',
+		    'type' => 'Select',
+		    'options' => array (
+		        'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Quartier à Saint-Louis' )
+		    ),
+		    'attributes' => array (
+		        'id' => 'QUARTIER_SAINTLOUIS',
+		        'required' => true,
+		        'tabindex' => 7,
+		    )
+		) );
 		
 		
 	}
