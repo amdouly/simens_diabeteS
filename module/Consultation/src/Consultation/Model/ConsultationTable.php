@@ -396,6 +396,107 @@ class ConsultationTable {
 	}
 	
 	
+	//********** RECUPERER LA LISTE DES HISTORIQUES CONSULTATIONS DU MEDECIN *********
+	//********** RECUPERER LA LISTE DES HISTORIQUES CONSULTATIONS DU MEDECIN *********
+	public function getListeHistoriquesConsultations(){
+	
+	    $db = $this->tableGateway->getAdapter();
+	    $date = (new \DateTime())->format('Y-m-d');
+	
+	    $aColumns = array('numero_dossier', 'Nom','Prenom','Datenaissance','Sexe', 'Adresse', 'id', 'id2');
+	
+	    //Liste des pateints admis aujourdhui et déjà consultés
+	    $sql2 = new Sql ($db );
+	    $subselect2 = $sql2->select()->from(array('cons'=>'consultation'))->columns(array('idpatient'))->where(array('date' => $date));
+	
+	    //Liste des pateints admis aujourdhui et déjà suivi
+	    $sql3 = new Sql ($db );
+	    $subselect3 = $sql3->select()->from(array('supa'=>'suivi_patient'))->columns(array('idpatient'))->where(array('date' => $date));
+	
+	    //Liste des patients admis aujourdhui et non encore consultés
+	    $sql = new Sql($db);
+	    $sQuery = $sql->select()
+	    ->from(array('pat'   => 'patient'))->columns(array('*'))
+	    ->join(array('pers'  => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
+	    ->join(array('admis' => 'admission'), 'admis.idpatient = pers.ID_PERSONNE' , array('dateadmission','idadmission'))
+	    ->join(array('cons' => 'consultation'), 'cons.idadmission = admis.idadmission', array('Idcons' => 'idcons', 'Date' => 'date') )
+	    ->where(array('dateadmission < ?' => $date, new NotIn ( 'pat.idpersonne', $subselect2 ),  new NotIn ( 'pat.idpersonne', $subselect3 )))
+	    ->order('admis.idadmission ASC')
+	    ->group('pat.idpersonne');
+	
+	    /* Data set length after filtering */
+	    $stat = $sql->prepareStatementForSqlObject($sQuery);
+	    $rResultFt = $stat->execute();
+	    $iFilteredTotal = count($rResultFt);
+	
+	    $rResult = $rResultFt;
+	
+	    $output = array(
+	        "iTotalDisplayRecords" => $iFilteredTotal,
+	        "aaData" => array()
+	    );
+	
+	    /*
+	     * $Control pour convertir la date en franï¿½ais
+	     */
+	    $Control = new DateHelper();
+	    	
+	    /*
+	     * ADRESSE URL RELATIF
+	     */
+	    $baseUrl = $_SERVER['REQUEST_URI'];
+	    $tabURI  = explode('public', $baseUrl);
+	    	
+	    /*
+	     * Prï¿½parer la liste
+	     */
+	    foreach ( $rResult as $aRow )
+	    {
+	        $row = array();
+	        for ( $i=0 ; $i<count($aColumns) ; $i++ )
+	        {
+	            if ( $aColumns[$i] != ' ' )
+	            {
+	                /* General output */
+	                if ($aColumns[$i] == 'Nom'){
+	                    $row[] = "<div>".$aRow[ $aColumns[$i]]."</div>";
+	                }
+	
+	                else if ($aColumns[$i] == 'Prenom'){
+	                    $row[] = "<div>".$aRow[ $aColumns[$i]]."</div>";
+	                }
+	
+	                else if ($aColumns[$i] == 'Datenaissance') {
+	                    	
+	                    $date_naissance = $aRow[ $aColumns[$i] ];
+	                    if($date_naissance){ $row[] = $Control->convertDate($aRow[ $aColumns[$i] ]); }else{ $row[] = null;}
+	
+	                }
+	
+	                else if ($aColumns[$i] == 'Adresse') {
+	                    $row[] = "<div>".$aRow[ $aColumns[$i] ]."</div>";
+	                }
+	
+	                else if ($aColumns[$i] == 'id') {
+	                    $html  ="<infoBulleVue> <a href='".$tabURI[0]."public/consultation/visualiser-historique-consultations?idcons=".$aRow[ 'Idcons' ]."&idpatient=".$aRow[ 'id' ]."'>";
+	                    $html .="<img style='display: inline; margin-right: 17%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='Visualiser'></a></infoBulleVue>";
+	                    	
+	                    $row[] = $html;
+	                }
+	
+	                else {
+	                    $row[] = $aRow[ $aColumns[$i] ];
+	                }
+	
+	            }
+	        }
+	        $output['aaData'][] = $row;
+	    }
+	
+	    return $output;
+	}
+	
+	
 	//********** RECUPERER LA LISTE DES CONSULTATIONS DU MEDECIN *********
 	//********** RECUPERER LA LISTE DES CONSULTATIONS DU MEDECIN *********
 	public function getListeHistoriquesConsultationsSuivis($idpatient){

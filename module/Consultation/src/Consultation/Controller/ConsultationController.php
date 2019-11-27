@@ -3074,4 +3074,251 @@ class ConsultationController extends AbstractActionController {
 	}
 	
 	
+	//HISTORIQUE DES CONSULTATIONS --- HISTORIQUE DES CONSULTATIONS
+	//HISTORIQUE DES CONSULTATIONS --- HISTORIQUE DES CONSULTATIONS
+	//HISTORIQUE DES CONSULTATIONS --- HISTORIQUE DES CONSULTATIONS
+	
+	public function listeHistoriqueConsultationsAjaxAction() {
+	     
+	    $output = $this->getConsultationTable ()->getListeHistoriquesConsultations();
+	    return $this->getResponse ()->setContent ( Json::encode ( $output, array ( 'enableJsonExprFinder' => true ) ) );
+	}
+	
+	public function listeHistoriqueConsultationsAction() {
+	    $this->layout ()->setTemplate ( 'layout/consultation' );
+	}
+	
+	public function visualiserHistoriqueConsultationsAction() {
+	
+	    $this->layout ()->setTemplate ( 'layout/consultation' );
+	
+	    $user = $this->layout()->user;
+	    $idmedecin = $user['id_personne'];
+	
+	    $idpatient = $this->params ()->fromQuery ( 'idpatient', 0 );
+	    $idcons = $this->params ()->fromQuery ( 'idcons' );
+	
+	    //var_dump($idcons); exit();
+	    
+	    $liste = $this->getConsultationTable ()->getInfoPatient ( $idpatient );
+	    $patient = $this->getPatientTable()->getPatient( $idpatient );
+	    $consultation = $this->getConsultationTable()->getConsultation($idcons)->getArrayCopy();
+	
+	    $form = new ConsultationForm ();
+	    $data = array (
+	        'idadmission' => $consultation['idadmission'],
+	        'idpatient' => $idpatient,
+	        'idcons' => $idcons,
+	    );
+	
+	    $listeProfessions = $this->getPersonneTable()->getListeProfessions();
+	    $listeEthnies = $this->getPersonneTable()->getListeEthnies();
+	    $listeStatutMatrimonial = $this->getPersonneTable()->getListeStatutMatrimonial();
+	    $listeRegimeMatrimonial = $this->getPersonneTable()->getListeRegimeMatrimonial();
+	    $listeSigne = $this->getPersonneTable()->getListeSigne();
+	    $listeRace = $this->getPersonneTable()->getListeRace();
+	
+	    $form->get('PROFESSION')->setvalueOptions($listeProfessions);
+	    $form->get('ETHNIE')->setvalueOptions($listeEthnies);
+	    $form->get('STATUT_MATRIMONIAL')->setvalueOptions($listeStatutMatrimonial);
+	    $form->get('REGIME_MATRIMONIAL')->setvalueOptions($listeRegimeMatrimonial);
+	
+	    $form->get('motif_admission1')->setvalueOptions($listeSigne);
+	    $form->get('motif_admission2')->setvalueOptions($listeSigne);
+	    $form->get('motif_admission3')->setvalueOptions($listeSigne);
+	    $form->get('motif_admission4')->setvalueOptions($listeSigne);
+	    $form->get('motif_admission5')->setvalueOptions($listeSigne);
+	
+	
+	     
+	    // Motifs admission --- Motifs admission
+	    // Motifs admission --- Motifs admission
+	    $motif_admission = $this->getConsultationTable()->getMotifAdmission( $idcons );
+	    $nbMotif = $this->getConsultationTable ()->nbMotifs ( $idcons );
+	    $k = 1;
+	    foreach ( $motif_admission as $Motifs ) {
+	        $data ['motif_admission' . $k++] = $Motifs ['idlistemotif'];
+	    }
+	     
+	    // Signes --- Signes
+	    // Signes --- Signes
+	    $signes = $this->getConsultationTable()->getSignes( $idcons );
+	    $data['duree_des_signes'] = $signes['duree'];
+	    $data['gravite_des_signes'] = $signes['gravite'];
+	     
+	    // Résumé histoire de la maladie
+	    // Résumé histoire de la maladie
+	    $histoireMaladie = $this->getConsultationTable()->getResumeHistoireMaladie( $idcons );
+	    $data['resume_histoire_maladie'] = $histoireMaladie['resume'];
+	     
+	
+	    /**
+	     * ANTECEDENT PERSONNELS --- ANTECEDENTS PERSONNELS
+	     * ANTECEDENT PERSONNELS --- ANTECEDENTS PERSONNELS
+	     * ANTECEDENT PERSONNELS --- ANTECEDENTS PERSONNELS
+	     */
+	    // Infos diabetique --- Infos diabetique
+	    // Infos diabetique --- Infos diabetique
+	    $infosDiabetique = $this->getConsultationTable()->getInfosDiabetique( $idpatient );
+	    $infosDiabetique = $infosDiabetique ? $infosDiabetique : array();
+	     
+	    // Autre terrain connu --- Autre terrain connu
+	    // Autre terrain connu --- Autre terrain connu
+	    $autreTerrainConnu = $this->getConsultationTable()->getAutreTerrainConnu( $idpatient );
+	    $autreTerrainConnu = $autreTerrainConnu ? $autreTerrainConnu : array();
+	
+	    // Les antécédents médicaux --- Les antécédents médicaux
+	    // Les antécédents médicaux --- Les antécédents médicaux
+	    $antMedicaux = $this->getConsultationTable()->getAntMedicaux( $idpatient );
+	    $antMedicaux = $antMedicaux ? $antMedicaux : array();
+	
+	    // Les antécédents chirurgicaux --- Les antécédents chirurgicaux
+	    // Les antécédents chirurgicaux --- Les antécédents chirurgicaux
+	    $antChirurgicaux = $this->getConsultationTable()->getAntChirurgicaux( $idpatient );
+	    $antChirurgicaux = $antChirurgicaux ? $antChirurgicaux : array();
+	
+	    $data = array_merge($data, $infosDiabetique, $autreTerrainConnu, $antMedicaux, $antChirurgicaux);
+	    /**
+	     * =================================================
+	     */
+	
+	
+	     
+	    //Examen général --- Examen général
+	    //Examen général --- Examen général
+	    $etatGeneral = $this->getConsultationTable()->getEtatGeneral( $idcons );
+	    $etatGeneral = $etatGeneral ? $etatGeneral : array();
+	     
+	    $data = array_merge($data, $etatGeneral);
+	     
+	    //Examen physique --- Examen physique
+	    //Examen physique --- Examen physique
+	    $examenPhysique = $this->getConsultationTable()->getExamenPhysique( $idcons );
+	     
+	    //Examens biologiques --- Examens biologiques
+	    //Examens biologiques --- Examens biologiques
+	    /* Glycémie à jeun*/
+	    $glycemieAJeun = $this->getConsultationTable()->getGlycemieAJeun( $idcons );
+	    $glycemieAJeun = $glycemieAJeun ? $glycemieAJeun : array();
+	
+	    /*Hémoglobine glyquée*/
+	    $hemoGlyquee = $this->getConsultationTable()->getHemoglobineGlyquee( $idcons );
+	    $hemoGlyquee = $hemoGlyquee ? $hemoGlyquee : array();
+	     
+	    /*Créatininémie*/
+	    $creatininemie = $this->getConsultationTable()->getInfosAnalyse("creatininemie", $idcons);
+	    $creatininemie = $creatininemie ? $creatininemie : array();
+	     
+	    /*Groupage rhesus*/
+	    $groupageRhesus = $this->getConsultationTable()->getInfosAnalyse("groupage_rhesus", $idcons);
+	    $groupageRhesus = $groupageRhesus ? $groupageRhesus : array();
+	     
+	     
+	    /*taux_prothrombine (TP)*/
+	    $Tp = $this->getConsultationTable()->getInfosAnalyse("taux_prothrombine", $idcons);
+	    $Tp = $Tp ? $Tp : array();
+	     
+	    /*temps_cephaline_active (TCA)*/
+	    $Tca = $this->getConsultationTable()->getInfosAnalyse("temps_cephaline_active", $idcons);
+	    $Tca = $Tca ? $Tca : array();
+	     
+	    /*cholesterol_hdl*/
+	    $hdl = $this->getConsultationTable()->getInfosAnalyse("cholesterol_hdl", $idcons);
+	    $hdl = $hdl ? $hdl : array();
+	     
+	    /*cholesterol_ldl*/
+	    $ldl = $this->getConsultationTable()->getInfosAnalyse("cholesterol_ldl", $idcons);
+	    $ldl = $ldl ? $ldl : array();
+	     
+	    /*uricemie*/
+	    $uricemie = $this->getConsultationTable()->getInfosAnalyse("uricemie", $idcons);
+	    $uricemie = $uricemie ? $uricemie : array();
+	     
+	    /*triglycerides*/
+	    $triglycerides = $this->getConsultationTable()->getInfosAnalyse("triglycerides", $idcons);
+	    $triglycerides = $triglycerides ? $triglycerides : array();
+	     
+	    /*Microalbuminurie*/
+	    $microAlbuminurie = $this->getConsultationTable()->getInfosAnalyse("microalbuminurie", $idcons);
+	    $microAlbuminurie = $microAlbuminurie ? $microAlbuminurie : array();
+	     
+	    $data = array_merge($data, $glycemieAJeun, $hemoGlyquee, $creatininemie, $groupageRhesus, $Tp, $Tca, $hdl, $ldl, $uricemie, $triglycerides, $microAlbuminurie);
+	     
+	    //Examens fonctionnels --- Examens fonctionnels
+	    //Examens fonctionnels --- Examens fonctionnels
+	    $ecg = $this->getConsultationTable()->getInfosAnalyse("ecg", $idcons);
+	    $ecg = $ecg ? $ecg : array();
+	     
+	    //Examens radiologiques --- Examens radiologiques
+	    //Examens radiologiques --- Examens radiologiques
+	    /*Radiologie*/
+	    $radio = $this->getConsultationTable()->getInfosAnalyse("radio", $idcons);
+	    $radio = $radio ? $radio : array();
+	     
+	    /*Scanner*/
+	    $scanner = $this->getConsultationTable()->getInfosAnalyse("scanner", $idcons);
+	    $scanner = $scanner ? $scanner : array();
+	     
+	    /*Echographie*/
+	    $echographie = $this->getConsultationTable()->getInfosAnalyse("echographie", $idcons);
+	    $echographie = $echographie ? $echographie : array();
+	     
+	    //Diagnostic à l'entrée --- Diagnostic à l'entrée
+	    //Diagnostic à l'entrée --- Diagnostic à l'entrée
+	    /*type de diabete*/
+	    $typediabete = $this->getConsultationTable()->getInfosAnalyse("type_diabete", $idcons);
+	    $typediabete = $typediabete ? $typediabete : array();
+	     
+	    $data = array_merge($data, $ecg, $radio, $scanner, $echographie, $typediabete);
+	     
+	    /*complication*/
+	    $complicationDiagEntree = $this->getConsultationTable()->getComplicationDiagEntree( $idcons );
+	
+	    //Traitement --- Traitement --- Traitement
+	    //Traitement --- Traitement --- Traitement
+	    /*Hospitalisation*/
+	    $hospitalisation = $this->getConsultationTable()->getInfosAnalyse("hospitalisation", $idcons);
+	    $hospitalisation = $hospitalisation ? $hospitalisation : array();
+	
+	    /*Traitement*/
+	    $traitement = $this->getConsultationTable()->getInfosAnalyse("traitement", $idcons);
+	    $traitement = $traitement ? $traitement : array();
+	     
+	    $data = array_merge($data, $hospitalisation, $traitement);
+	     
+	    $form->populateValues($data);
+	
+	
+	    //echo "<pre>";
+	    //var_dump($consultation); exit();
+	    //echo "</pre>";
+	     
+	    return array (
+	
+	        'form' => $form,
+	        'lesdetails' => $liste,
+	        'patient' => $patient,
+	
+	        /*ETAT CIVIL --- ETAT CIVIL*/
+	        'listeProfessions' => $listeProfessions,
+	        'listeEthnies' => $listeEthnies,
+	        'listeStatutMatrimonial' => $listeStatutMatrimonial,
+	        'listeRegimeMatrimonial' => $listeRegimeMatrimonial,
+	        'idcons' => $idcons,
+	        'date' => $consultation['date'],
+	        'heure' => $consultation['heure'],
+	
+	        /*MOTIF ADMISSION --- MOTIF ADMISSION*/
+	        'nbMotifs' => $nbMotif,
+	
+	        'examenPhysique' => $examenPhysique,
+	        'nbExamenPhysique' => $examenPhysique->count(),
+	         
+	        'complicationDiagEntree' => $complicationDiagEntree,
+	        'nbComplicationDiagEntree' => $complicationDiagEntree->count(),
+	         
+	        'listeRace' => $listeRace,
+	    );
+	
+	}
 }

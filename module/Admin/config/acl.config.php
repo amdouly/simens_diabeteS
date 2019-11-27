@@ -150,6 +150,10 @@ return array(
     								    'enregistrement-element-uv' => 'medecin',
     								    'modifier-element-uv' => 'medecin',
     								    'liste-element-select' => 'medecin',
+								    
+								        'liste-historique-consultations' => 'medecin',
+    								    'liste-historique-consultations-ajax' => 'medecin',
+								        'visualiser-historique-consultations' => 'medecin',
 								),
 						),
 				),
