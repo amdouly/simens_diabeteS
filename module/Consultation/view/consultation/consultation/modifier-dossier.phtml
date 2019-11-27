@@ -47,6 +47,7 @@ echo $this->form ()->openTag ( $form );
 <div id="contenu" >
     
     <?php echo $this->formRow($this->form->get('ID_PERSONNE'));?>
+    <?php echo $this->formRow($this->form->get('QUARTIER_SAINTLOUIS_MEMO'));?>
     
 	<div style='width: 100%;'>
     
@@ -68,17 +69,21 @@ echo $this->form ()->openTag ( $form );
 	 <div style='width: 80%; height: 150px; float:left;'>
 		<table id="form_patient" style="float: left;">
 
-			<tr class="comment-form-patient">
+			      <tr class="comment-form-patient">
                      <td style="width: 33%;"> <?php echo $this->formRow($this->form->get('NOM'));?></td>
-                     <td style="width: 33%;"> <?php echo $this->formRow($this->form->get('ADRESSE'));?></td>
+                     <td style="width: 33%;"> <?php echo $this->formRow($this->form->get('TELEPHONE'));?></td>
                      <td style="width: 33%;"> <?php echo $this->formRow($this->form->get('ETHNIE'));?></td>
 
                   </tr>
 
                   <tr class="comment-form-patient">
                      <td > <?php echo $this->formRow($this->form->get('PRENOM'));?></td>
-                     <td > <?php echo $this->formRow($this->form->get('TELEPHONE'));?></td>
-                     <td > <?php echo $this->formRow($this->form->get('RACE'));?></td>
+                     <td > <?php echo $this->formRow($this->form->get('TELEPHONE_2'));?></td>
+                     <td > 
+                       <?php echo $this->formRow($this->form->get('RACE'));?>
+                       <img onclick="ajouterUneRace();" style="cursor: pointer; position: relative; margin-top: 10px;" src="<?php echo $this->basePath().'/images_icons/light/plus.png'?>" title="Ajouter une race"/> 
+                       
+                     </td>
                   </tr>
 
                   <tr class="comment-form-patient">
@@ -95,10 +100,14 @@ echo $this->form ()->openTag ( $form );
                      <td > <?php echo $this->formRow($this->form->get('COMMUNE_SAINTLOUIS'));?></td>
                      <td > <?php echo $this->formRow($this->form->get('STATUT_MATRIMONIAL'));?></td>
                   </tr>
-
-				  <tr class="comment-form-patient">
-                     <td style="width: 33%;"> </td>
-                     <td > <?php echo $this->formRow($this->form->get('QUARTIER_SAINTLOUIS'));?></td>
+                  
+                  <tr class="comment-form-patient">
+                     <td > <?php echo $this->formRow($this->form->get('ADRESSE'));?> </td>
+                     <td >
+                       <?php echo $this->formRow($this->form->get('QUARTIER_SAINTLOUIS'));?>
+                       <img onclick="ajouterUnQartierDeSaintLouis();" style="cursor: pointer; position: relative; margin-top: 10px;" src="<?php echo $this->basePath().'/images_icons/light/plus.png'?>" title="Ajouter un quartier"/> 
+                       
+                     </td>
                      <td > <?php echo $this->formRow($this->form->get('REGIME_MATRIMONIAL'));?></td>
                   </tr>
 
@@ -147,10 +156,231 @@ echo $this->form ()->openTag ( $form );
 </div>
 
 
+
 <!-- LES BOUTONS "TERMINER" ou "VALIDER" -->
 
-<?php echo $this->form()->closeTag();
-?>
+<?php echo $this->form()->closeTag(); ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- GESTION DE L'INTERFACE D'AJOUT DES TYPES D'ELEMENTS ET ELEMENTS -->
+<!-- GESTION DE L'INTERFACE D'AJOUT DES TYPES D'ELEMENTS ET ELEMENTS -->
+<!-- GESTION DE L'INTERFACE D'AJOUT DES TYPES D'ELEMENTS ET ELEMENTS -->
+
+<div id="ajouterElements" style="display: none;" >
+
+    <table class="ligneElementsExistantes">
+        <tr>
+            <td>
+               <label id="labListeTypeElement"> Types de elements </label>
+               <div class="listeTypeElementsExistantes"> 
+                   <table> <!-- Contient la liste des types de elements --> </table>
+               </div>
+            </td>
+            <td>
+              <label id="labListeElement">  Elements </label>
+              <div class="listeElementsExistantes">
+                  <table> <!-- Contient la liste des elements --> </table>
+              </div>
+            </td>
+        </tr>
+    </table>
+    
+    <table class="ligneBoutonsAjout">
+        <tr>
+            <td>
+                <div class="boutonATP"> <button onclick="ajoutTypeElement();"> Ajouter un type de element </button> </div>
+            </td>
+            <td>
+                <div class="boutonAP"> <button onclick="ajoutElement();"> Ajouter un element </button> </div>
+            </td>
+        </tr>
+    </table>
+    
+    <div id="contenuInterfaceAjoutTypeElements">
+    
+    <table class="ligneInfosAjoutElements">
+        <tr> 
+           <td class="LIATP" align="left"><span> <img src='../../../images_icons/chevrons2.png'> Ajout de types d'&eacute;l&eacute;ments </span></td>
+           <td class="LIAP"  align="left"><span> <img src='../../../images_icons/chevrons2.png'> </span> <span> Ajout d'&eacute;l&eacute;ments </span></td>
+        </tr>
+    </table>
+    
+    <table class="interfaceAjoutElements">
+        <tr>
+            <td>
+               <div class="contenuIAPath">
+                  <table>
+                     <tr class="champsAjoutTP_0"> </tr>
+                     
+                     <tr>
+                        <td>
+                           <img class='iconeAnnulerAP' onclick='enleverUneLigneElement();' src='../../../images_icons/icone_minus.png' >
+                           <img class='iconeAjouterAP' onclick='ajouterUneNouvelleLigneElement();' src='../../../images_icons/icone_plus.png' >
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </td>
+        </tr>
+    </table>
+    
+    <table class="ligneBoutonsAnnulerValiderAjout">
+        <tr>
+            <td>
+                <div class="boutonAVAA"> <button onclick="annulerAjoutElement();"> Annuler </button> </div>
+            </td>
+            <td>
+                <div class="boutonAVAV"> <button onclick="validerAjoutElement();"> Valider </button> </div>
+            </td>
+        </tr>
+    </table>
+    
+    </div>
+    
+</div>
+
+
+
+
+<div id="modifierTypeElement" style="display: none;" >
+   <div class="affichageMessageInfos" align="center"> <div> MODIFIER LE TERME SUIVANT </div>  </div>
+   <table id="infosConfirmationModification"> </table>
+   <div class="affichageMessageInfos" align="center"> <div> PAR </div>  </div>
+   <div id="affichageMessageInfosRemplaceModification" align="center"> <input type='text'>  </div>
+</div>
+
+
+
+
+
+<!-- GESTION DE L'INTERFACE D'AJOUT DES ELEMENTS UN VOLET -->
+<!-- GESTION DE L'INTERFACE D'AJOUT DES ELEMENTS UN VOLET -->
+<!-- GESTION DE L'INTERFACE D'AJOUT DES ELEMENTS UN VOLET -->
+
+<div id="ajouterElementsUV" title="Gestion des informations" style="display: none;" >
+
+    <table class="ligneElementsExistantesUV">
+        <tr>
+            <td>
+              <label id="labListeElementUV">  Elements </label>
+              <div class="listeElementsExistantesUV">
+                  <table> <!-- Contient la liste des elements --> </table>
+              </div>
+            </td>
+        </tr>
+    </table>
+    
+    <table class="ligneBoutonsAjoutUV">
+        <tr>
+            <td>
+                <div class="boutonAPUV"> <button onclick="ajoutElementUV();">   </button> </div>
+            </td>
+        </tr>
+    </table>
+    
+    <div id="contenuInterfaceAjoutTypeElementsUV">
+    
+        <table class="ligneInfosAjoutElementsUV">
+            <tr> 
+                <td class="LIAPUV"  align="left"> <img src='../../../images_icons/chevrons2.png'> <span> Ajout d'&eacute;l&eacute;ments </span></td>
+            </tr>
+        </table>
+    
+        <table class="interfaceAjoutElementsUV">
+            <tr>
+                <td>
+                   <div class="contenuIAPath">
+                      <table>
+                         <tr class="champsAjoutTPUV_0"> </tr>
+                         
+                         <tr>
+                            <td>
+                               <img class='iconeAnnulerAPUV' onclick='enleverUneLigneElementUV();' src='../../../images_icons/icone_minus.png' >
+                               <img class='iconeAjouterAPUV' onclick='ajouterUneNouvelleLigneElementUV();' src='../../../images_icons/icone_plus.png' >
+                            </td>
+                         </tr>
+                      </table>
+                   </div>
+                </td>
+            </tr>
+        </table>
+        
+        <table class="ligneBoutonsAnnulerValiderAjout">
+            <tr>
+                <td>
+                    <div class="boutonAVAA"> <button onclick="annulerAjoutElementUV();"> Annuler </button> </div>
+                </td>
+                <td>
+                    <div class="boutonAVAV"> <button onclick="validerAjoutElementUV();"> Valider </button> </div>
+                </td>
+            </tr>
+        </table>
+    
+    </div>
+    
+</div>
+
+
+<div id="modifierTypeElementUV" style="display: none;" >
+   <div class="affichageMessageInfosUV" align="center"> <div> MODIFIER LE TERME SUIVANT </div>  </div>
+   <table id="infosConfirmationModificationUV"> </table>
+   <div class="affichageMessageInfosUV" align="center"> <div> PAR </div>  </div>
+   <div id="affichageMessageInfosRemplaceModificationUV" align="center"> <input type='text'>  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 
 
 <script> 
@@ -218,7 +448,8 @@ echo $this->form ()->openTag ( $form );
 
 
 	
-    $('#TELEPHONE').mask('00 000 00 00');
+    $('#TELEPHONE').mask('+221 70 000 00 00');
+    $('#TELEPHONE_2').mask('00 000 00 00');
 
 
     //Mettre le nom en Majuscule
@@ -246,5 +477,8 @@ echo $this->form ()->openTag ( $form );
 
 
     setTimeout(function(){ if( $('#DATE_NAISSANCE').val()){ $('#DATE_NAISSANCE').trigger('change'); } });
+
+    $("#COMMUNE_SAINTLOUIS").trigger('change');
+    setTimeout(function(){ $("#QUARTIER_SAINTLOUIS").val($("#QUARTIER_SAINTLOUIS_MEMO").val()); },1000);
 </script>
 

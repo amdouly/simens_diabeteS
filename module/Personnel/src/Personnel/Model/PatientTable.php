@@ -61,7 +61,6 @@ class PatientTable {
 	    $annee = $date ->format('Y');
 	
 	    $dernierPatient = $this->getDernierPatient($mois, $annee);
-	
 	    
 	    $donneesComp =  array(
 	        'idpersonne' => $idpersonne, 

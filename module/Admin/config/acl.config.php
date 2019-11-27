@@ -145,6 +145,11 @@ return array(
     								    'liste-elements-pour-interface-ajout' => 'medecin',
 								        'liste-quartier-select' => 'medecin',
     								    'modifier-element' => 'medecin',
+								    
+    								    'liste-elements-uv' => 'medecin',
+    								    'enregistrement-element-uv' => 'medecin',
+    								    'modifier-element-uv' => 'medecin',
+    								    'liste-element-select' => 'medecin',
 								),
 						),
 				),

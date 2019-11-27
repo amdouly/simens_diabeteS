@@ -1400,7 +1400,7 @@ function ajouterUneNouvellePlainte(){
 		        
 							   '<td style="width: 40%; padding-right: 25px;" class="PlainteDiagEntCol1">'+
 							     '<label class="modeleChampInputPlainte champInputPlainte_'+(nbLigne+1)+'" style="width: 100%; height:30px; text-align:left;">'+
-							       '<span id="suppPlainteEntree_'+(nbLigne+1)+'" onclick="suppPlainteEntree('+(nbLigne+1)+');" style="visibility: hidden; color: red; position: relative; font-family: arial; top: -10px; margin-left: 0px; font-size: 12px;">X</span>'+
+							       '<span id="suppPlainteEntree_'+(nbLigne+1)+'" class="suppPlainteEntreeVisualiser" onclick="suppPlainteEntree('+(nbLigne+1)+');" style="visibility: hidden; color: red; position: relative; font-family: arial; top: -10px; margin-left: 0px; font-size: 12px;">X</span>'+
 						           '<span style="font-size: 11px;">&#10148; </span><span>Plainte '+(nbLigne+1)+' </span>'+ 
 						           getModelePlainteSelect((nbLigne+1))+
 						         '</label>'+

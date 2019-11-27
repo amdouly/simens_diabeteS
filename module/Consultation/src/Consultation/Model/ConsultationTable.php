@@ -143,7 +143,7 @@ class ConsultationTable {
 		$sql = new Sql($db);
 		$sQuery = $sql->select()
 		->from(array('pat'   => 'patient'))->columns(array('*'))
-		->join(array('pers'  => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','Taille'=>'TAILLE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
+		->join(array('pers'  => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
 		->join(array('admis' => 'admission'), 'admis.idpatient = pers.ID_PERSONNE' , array('dateadmission','idadmission'))
 		->where(array('dateadmission' => $date, new NotIn ( 'pat.idpersonne', $subselect2 ),  new NotIn ( 'pat.idpersonne', $subselect3 )))
 		->order('admis.idadmission ASC');
@@ -152,7 +152,7 @@ class ConsultationTable {
 		$stat = $sql->prepareStatementForSqlObject($sQuery);
 		$rResultFt = $stat->execute();
 		$iFilteredTotal = count($rResultFt);
-			
+		
 		$rResult = $rResultFt;
 		
 		$output = array(
@@ -228,7 +228,7 @@ class ConsultationTable {
 		$sql2 = new Sql($db);
 		$sQuery2 = $sql2->select()
 		->from(array('pat' => 'patient'))->columns(array('*'))
-		->join(array('pers'  => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','Taille'=>'TAILLE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
+		->join(array('pers'  => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE', 'id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
 		->join(array('cons' => 'consultation'), 'cons.idpatient = pat.idpersonne', array('Idcons' => 'idcons', 'Date' => 'date') )
 		->where(array('cons.date' => $date) )
 		->order('cons.idcons DESC');
@@ -307,7 +307,7 @@ class ConsultationTable {
 		$sql4 = new Sql($db);
 		$sQuery4 = $sql4->select()
 		->from(array('pat' => 'patient'))->columns(array('*'))
-		->join(array('pers'  => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','Taille'=>'TAILLE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
+		->join(array('pers'  => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE', 'id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
 		->join(array('supa' => 'suivi_patient'), 'supa.idpatient = pat.idpersonne', array('Idsuiv' => 'idsuiv', 'Date' => 'date') )
 		->where(array('supa.date' => $date) )
 		->order('supa.idsuiv DESC');
@@ -400,8 +400,6 @@ class ConsultationTable {
 	//********** RECUPERER LA LISTE DES CONSULTATIONS DU MEDECIN *********
 	public function getListeHistoriquesConsultationsSuivis($idpatient){
 	
-	    //var_dump($idpatient); exit();
-	    
 	    $db = $this->tableGateway->getAdapter();
 	    $date = (new \DateTime())->format('Y-m-d');
 	
@@ -414,14 +412,14 @@ class ConsultationTable {
 	    $sql = new Sql($db);
 	    $sQuery = $sql->select()
 	    ->from(array('pat' => 'patient'))->columns(array('*'))
-	    ->join(array('pers' => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','Taille'=>'TAILLE','id'=>'ID_PERSONNE'))
-	    ->join(array('supa' => 'suivi_patient'), 'supa.idpatient = pat.idpersonne', array('Idsuiv' => 'idsuiv', 'Date' => 'date') )
+	    ->join(array('pers' => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE', 'id'=>'ID_PERSONNE'))
+	    ->join(array('supa' => 'suivi_patient'), 'supa.idpatient = pat.idpersonne', array('Idsuiv' => 'idsuiv', 'Date' => 'date', 'Heure' => 'heure') )
 	    ->join(array('pers2' => 'personne'), 'supa.idemploye = pers2.ID_PERSONNE' , array('NomMed'=>'NOM','PrenomMed'=>'PRENOM'))
-	    ->join(array('ma' => 'motif_admission'), 'ma.idcons = supa.idcons' , array('IdMotif'=>'idlistemotif'))
+	    ->join(array('ps' => 'plainte_suivi'), 'ps.idsuiv = supa.idsuiv' , array('idplainte'))
 	    ->where(array('supa.date != ?' => $date, 'supa.idpatient' => $idpatient) )
 	    
-	    ->order('supa.idsuiv DESC')
-	    ->group('supa.idpatient');
+	    ->order('supa.date DESC')
+	    ->group('supa.idsuiv');
 	    	
 	    /* Data set length after filtering */
 	    $stat = $sql->prepareStatementForSqlObject($sQuery);
@@ -443,6 +441,9 @@ class ConsultationTable {
 	    $baseUrl = $_SERVER['REQUEST_URI'];
 	    $tabURI  = explode('public', $baseUrl);
 	    	
+	    
+	    //return $rResultFt;
+	    
 	    /*
 	     * Pr�parer la liste
 	     */
@@ -460,16 +461,16 @@ class ConsultationTable {
 	    
 	                else if ($aColumns[$i] == 'Prenom'){
 	                    $listeSignes = $this->getListeSigne();
-	                    $row[] = "<div>".$listeSignes[$aRow['IdMotif']]."</div>";
+	                    $row[] = "<div>".$listeSignes[$aRow['idplainte']]."</div>";
 	                }
 	    
 	                else if ($aColumns[$i] == 'Date') {
-	                    $row[] = $Control->convertDate($aRow['Date']);
+	                    $row[] = $Control->convertDate($aRow['Date']).' - '.$Control->decouperTimeHm($aRow['Heure']);
 	                }
 	                
 	                else if ($aColumns[$i] == 'id') {
 	                    $html  ="<a href='".$tabURI[0]."public/consultation/visualiser-consultation-suivi?idpatient=".$aRow[ 'id' ]."&idsuiv=".$aRow[ 'Idsuiv' ]."'  target='_blank'>";
-	                    $html .="<img style='display: inline; margin-right: 17%;' src='".$tabURI[0]."public/images_icons/transfert_droite.png' title='Modifier le suivi'></a>";
+	                    $html .="<img style='display: inline; margin-right: 17%;' src='".$tabURI[0]."public/images_icons/transfert_droite.png' title='Visualiser le suivi'></a>";
 	                    
 	                    $row[] = $html;
 	                }
@@ -2319,7 +2320,7 @@ class ConsultationTable {
  	public function getListeElement($table)
  	{
  	    $sql = new Sql($this->tableGateway->getAdapter());
- 	    $select = $sql->select($table)->order('id ASC');
+ 	    $select = $sql->select($table)->order('libelle ASC');
  	    $result = $sql->prepareStatementForSqlObject($select)->execute();
  	
  	    $options = array();
@@ -2353,6 +2354,50 @@ class ConsultationTable {
  	    $sql = new Sql($this->tableGateway->getAdapter());
  	    $sQuery = $sql->update()->table($table)->set($donnees)->where(array('id' => $idElement));
  	    $sql->prepareStatementForSqlObject($sQuery)->execute();
+ 	}
+ 	
+ 	
+ 	public function getListeElementsUV($table)
+ 	{
+ 	    $sql = new Sql($this->tableGateway->getAdapter());
+ 	    $select = $sql->select($table)->order('libelle ASC');
+ 	    $result = $sql->prepareStatementForSqlObject($select)->execute();
+ 	
+ 	    $options = array();
+ 	    foreach ($result as $data) {
+ 	        $options[] = array('id' => $data['id'], 'libelle' => $data['libelle']);
+ 	    }
+ 	    return $options;
+ 	}
+ 	
+ 	
+ 	public function getInfosElementsUV($table, $libelle)
+ 	{
+ 	    $sql = new Sql ( $this->tableGateway->getAdapter () );
+ 	    $select = $sql->select ();
+ 	    $select->from( array('tab' => $table ));
+ 	    $select->where(array('libelle' => $libelle));
+ 	    return $sql->prepareStatementForSqlObject ( $select )->execute()->current();
+ 	}
+ 	
+ 	
+ 	public function addInfosElementsUV($tabElement, $table, $idemploye)
+ 	{
+ 	    $sql = new Sql($this->tableGateway->getAdapter());
+ 	
+ 	    for($i = 0 ; $i  < count($tabElement) ; $i++) {
+ 	
+ 	        $exist = $this->getInfosElementsUV($table, $tabElement[$i]);
+ 	
+ 	        if( !$exist ){
+ 	            $donnees['libelle'] = $tabElement[$i];
+ 	            $donnees['idemploye'] = $idemploye;
+ 	
+ 	            $sQuery = $sql->insert()->into($table)->values($donnees);
+ 	            $sql->prepareStatementForSqlObject($sQuery)->execute();
+ 	        }
+ 	    }
+ 	
  	}
  	
  	

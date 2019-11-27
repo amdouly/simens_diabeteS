@@ -122,13 +122,27 @@ class PatientForm extends Form {
 				'name' => 'TELEPHONE',
 				'type' => 'Text',
 				'options' => array (
-						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Téléphone' )
+						'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Téléphone personnel' )
 				),
 				'attributes' => array (
 						'id' => 'TELEPHONE',
 				        'required' => true,
 						'tabindex' => 7,
 				)
+		) );
+		
+		
+		$this->add ( array (
+		    'name' => 'TELEPHONE_2',
+		    'type' => 'Text',
+		    'options' => array (
+		        'label' => iconv ( 'ISO-8859-1', 'UTF-8', 'Téléphone secondaire' )
+		    ),
+		    'attributes' => array (
+		        'id' => 'TELEPHONE_2',
+		        'required' => true,
+		        'tabindex' => 7,
+		    )
 		) );
 		
 		
@@ -305,6 +319,14 @@ class PatientForm extends Form {
 		        'id' => 'QUARTIER_SAINTLOUIS',
 		        'required' => true,
 		        'tabindex' => 7,
+		    )
+		) );
+		
+		$this->add ( array (
+		    'name' => 'QUARTIER_SAINTLOUIS_MEMO',
+		    'type' => 'Hidden',
+		    'attributes' => array (
+		        'id' => 'QUARTIER_SAINTLOUIS_MEMO',
 		    )
 		) );
 		

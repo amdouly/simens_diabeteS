@@ -92,6 +92,19 @@ class PersonneTable {
         return $options;
     }
     
+    public function getListeRace()
+    {
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select('liste_race')->order('id ASC');
+        $result = $sql->prepareStatementForSqlObject($select)->execute();
+    
+        $options = array('' => '');
+        foreach ($result as $data) {
+            $options[$data['id']] = $data['libelle'];
+        }
+        return $options;
+    }
+    
     public function getListeSigne()
     {
     	$sql = new Sql($this->tableGateway->getAdapter());
@@ -112,15 +125,14 @@ class PersonneTable {
         $personne ['ADRESSE'] = ($donnees['ADRESSE'])?$donnees['ADRESSE']:null;
         
         $personne ['TELEPHONE'] = ($donnees['TELEPHONE'])?$donnees['TELEPHONE']:null;
+        $personne ['TELEPHONE_2'] = ($donnees['TELEPHONE_2'])?$donnees['TELEPHONE_2']:null;
         $personne ['AGE'] = ($donnees['AGE'])?$donnees['AGE']:null;
         $personne ['DATE_NAISSANCE'] = ($donnees['DATE_NAISSANCE'])? ((new DateHelper())->convertDateInAnglais($donnees['DATE_NAISSANCE'])):null ;
         $personne ['PROFESSION'] = ($donnees['PROFESSION'])?$donnees['PROFESSION']:null;
         $personne ['SEXE'] = ($donnees['SEXE'])?$donnees['SEXE']:null;
         $personne ['STATUT_MATRIMONIAL'] = ($donnees['STATUT_MATRIMONIAL'])?$donnees['STATUT_MATRIMONIAL']:null;
         $personne ['REGIME_MATRIMONIAL'] = ($donnees['REGIME_MATRIMONIAL'])?$donnees['REGIME_MATRIMONIAL']:null;
-        //$personne ['COMMUNE_SAINTLOUIS'] = ($donnees['COMMUNE_SAINTLOUIS'])?$donnees['COMMUNE_SAINTLOUIS']:null;
-        //$personne ['QUARTIER_SAINTLOUIS'] = ($donnees['QUARTIER_SAINTLOUIS'])?$donnees['QUARTIER_SAINTLOUIS']:null;
-
+       
         $idpersonne = null;
         $this->tableGateway->getAdapter()->getDriver()->getConnection()->beginTransaction();
         try {
@@ -142,15 +154,13 @@ class PersonneTable {
         $personne ['PRENOM'] = rtrim($donnees['PRENOM']);
         $personne ['ADRESSE'] = ($donnees['ADRESSE'])?$donnees['ADRESSE']:null;
         $personne ['TELEPHONE'] = ($donnees['TELEPHONE'])?$donnees['TELEPHONE']:null;
+        $personne ['TELEPHONE_2'] = ($donnees['TELEPHONE_2'])?$donnees['TELEPHONE_2']:null;
         $personne ['AGE'] = ($donnees['AGE'])?$donnees['AGE']:null;
         $personne ['DATE_NAISSANCE'] = ($donnees['DATE_NAISSANCE'])? ((new DateHelper())->convertDateInAnglais($donnees['DATE_NAISSANCE'])):null ;
         $personne ['PROFESSION'] = ($donnees['PROFESSION'])?$donnees['PROFESSION']:null;
         $personne ['SEXE'] = ($donnees['SEXE'])?$donnees['SEXE']:null;
         $personne ['STATUT_MATRIMONIAL'] = ($donnees['STATUT_MATRIMONIAL'])?$donnees['STATUT_MATRIMONIAL']:null;
         $personne ['REGIME_MATRIMONIAL'] = ($donnees['REGIME_MATRIMONIAL'])?$donnees['REGIME_MATRIMONIAL']:null;
-        //$personne ['COMMUNE_SAINTLOUIS'] = ($donnees['COMMUNE_SAINTLOUIS'])?$donnees['COMMUNE_SAINTLOUIS']:null;
-        //$personne ['QUARTIER_SAINTLOUIS'] = ($donnees['QUARTIER_SAINTLOUIS'])?$donnees['QUARTIER_SAINTLOUIS']:null;
-        
         
         $this->tableGateway->getAdapter()->getDriver()->getConnection()->beginTransaction();
         try {

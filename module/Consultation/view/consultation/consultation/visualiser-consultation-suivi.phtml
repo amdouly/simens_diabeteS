@@ -149,7 +149,7 @@ $(window).load(function () {
 			   	</td>
 
 			   	<td style=' font-family: police1;font-size: 12px;'>
-			   		<div ><a style="text-decoration: underline;">Race</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->patient->race;?></p></div>
+			   		<div ><a style="text-decoration: underline;">Race</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $listeRace[$this->patient->race];?></p></div>
 			   	</td>
 
 			 </tr>
@@ -248,10 +248,10 @@ $(window).load(function () {
              
              <table style="width:100%;" >
                <tr style="width: 100%">
-                  <td style="width: 20%;">
+                  <!--td style="width: 20%;">
  			         <div id='plainte_moins' class='examen_physique_pm' onclick='enleverUnePlainte();' style='display: none;'> &minus; </div> 
  			         <div id='plainte_plus'  class='examen_physique_pm' onclick='ajouterUneNouvellePlainte();' style='display: none;'> + </div>
- 			      </td>
+ 			      </td-->
  			      <td style="width: 80%;" ></td>
  			   </tr>
  			 </table>
@@ -273,6 +273,7 @@ $(window).load(function () {
     		    </script>
     	     <?php }?>
     	   
+    	     <script>$('.suppPlainteEntreeVisualiser').toggle(false);</script>
     	   
            </div>
            
@@ -550,10 +551,10 @@ $(window).load(function () {
                
  			   <table style="width:100%;" >
                   <tr style="width: 100%">
-                     <td style="width: 20%;">
+                     <!--td style="width: 20%;">
  			           <div id='examen_physique_moins_Suiv' class='examen_physique_pm' onclick='enleverExamenPhysiqueAppareilSystemeSuiv();'> &minus; </div> 
  			           <div id='examen_physique_plus_Suiv' class='examen_physique_pm' onclick='ajouterExamenPhysiqueAppareilSystemeSuiv();' style='display: none;'> + </div>
- 			         </td>
+ 			         </td-->
  			         <td style="width: 80%;" ></td>
  			      </tr>
  			   </table>
@@ -1157,3 +1158,4 @@ $(window).load(function () {
 
 <script> setTimeout(function(){ $(".AjoutImage").toggle(false); }); </script>
 <script> setTimeout(function(){ $(".pikachooseFermerSuppImg").toggle(false); },3000); </script>
+<script> $(".designStyleLabel input, .designStyleLabel select, .designStyleLabelTextarea textarea, .styleLabelInputChamps textarea").attr('disabled', true); </script>

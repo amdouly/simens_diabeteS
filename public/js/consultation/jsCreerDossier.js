@@ -316,8 +316,8 @@ function alertPatientExistant(myarray, myarrayId, myarrayAge, myarrayTelephone){
 				$('.alertNom').html(nomSaisi);
 				$('.alertAge').html(myarrayAge[valeurSaisie]);
 				if(myarrayId[valeurSaisie]){
-					$('.alertVisualiserLien').html("<a href='"+tabUrl[0]+"public/facturation/info-patient/id_patient/"+myarrayId[valeurSaisie]+"'>  <img style='width: 25px; height: 16px; cursor: pointer;' src='../images_icons/voir2.png' /> </a>");
-					$('.alertModifierLien').html("<a href='"+tabUrl[0]+"public/facturation/modifier/id_patient/"+myarrayId[valeurSaisie]+"'>  <img style='width: 24px; height: 25px; cursor: pointer;' src='../images_icons/2.png' /> </a>");					
+					$('.alertVisualiserLien').html("<a href='"+tabUrl[0]+"public/facturation/info-patient/id_patient/"+myarrayId[valeurSaisie]+"'>  <img style='width: 25px; height: 16px; cursor: pointer;' src='"+tabUrl[0]+"public/images_icons/voir2.png' /> </a>");
+					$('.alertModifierLien').html("<a href='"+tabUrl[0]+"public/facturation/modifier/id_patient/"+myarrayId[valeurSaisie]+"'>  <img style='width: 24px; height: 25px; cursor: pointer;' src='"+tabUrl[0]+"public/images_icons/2.png' /> </a>");					
 				}
 				if(myarrayTelephone[valeurSaisie]){ $('.alertTel').html(myarrayTelephone[valeurSaisie]); }else{ $('.alertTel').html('n&eacute;ant'); }
 				
@@ -350,8 +350,8 @@ function alertPatientExistant(myarray, myarrayId, myarrayAge, myarrayTelephone){
 				$('.alertNom').html(nomSaisi);
 				$('.alertAge').html(myarrayAge[valeurSaisie]);
 				if(myarrayId[valeurSaisie]){
-					$('.alertVisualiserLien').html("<a href='"+tabUrl[0]+"public/facturation/info-patient/id_patient/"+myarrayId[valeurSaisie]+"'>  <img style='width: 25px; height: 16px; cursor: pointer;' src='../images_icons/voir2.png' /> </a>");
-					$('.alertModifierLien').html("<a href='"+tabUrl[0]+"public/facturation/modifier/id_patient/"+myarrayId[valeurSaisie]+"'>  <img style='width: 24px; height: 25px; cursor: pointer;' src='../images_icons/2.png' /> </a>");					
+					$('.alertVisualiserLien').html("<a href='"+tabUrl[0]+"public/facturation/info-patient/id_patient/"+myarrayId[valeurSaisie]+"'>  <img style='width: 25px; height: 16px; cursor: pointer;' src='"+tabUrl[0]+"public/images_icons/voir2.png' /> </a>");
+					$('.alertModifierLien').html("<a href='"+tabUrl[0]+"public/facturation/modifier/id_patient/"+myarrayId[valeurSaisie]+"'>  <img style='width: 24px; height: 25px; cursor: pointer;' src='"+tabUrl[0]+"public/images_icons/2.png' /> </a>");					
 				}
 				if(myarrayTelephone[valeurSaisie]){ $('.alertTel').html(myarrayTelephone[valeurSaisie]); }else{ $('.alertTel').html('n&eacute;ant'); }
 				
@@ -384,8 +384,8 @@ function alertPatientExistant(myarray, myarrayId, myarrayAge, myarrayTelephone){
 				$('.alertNom').html(nomSaisi);
 				$('.alertAge').html(myarrayAge[valeurSaisie]);
 				if(myarrayId[valeurSaisie]){
-					$('.alertVisualiserLien').html("<a href='"+tabUrl[0]+"public/facturation/info-patient/id_patient/"+myarrayId[valeurSaisie]+"'>  <img style='width: 25px; height: 16px; cursor: pointer;' src='../images_icons/voir2.png' /> </a>");
-					$('.alertModifierLien').html("<a href='"+tabUrl[0]+"public/facturation/modifier/id_patient/"+myarrayId[valeurSaisie]+"'>  <img style='width: 24px; height: 25px; cursor: pointer;' src='../images_icons/2.png' /> </a>");					
+					$('.alertVisualiserLien').html("<a href='"+tabUrl[0]+"public/facturation/info-patient/id_patient/"+myarrayId[valeurSaisie]+"'>  <img style='width: 25px; height: 16px; cursor: pointer;' src='"+tabUrl[0]+"public/images_icons/voir2.png' /> </a>");
+					$('.alertModifierLien').html("<a href='"+tabUrl[0]+"public/facturation/modifier/id_patient/"+myarrayId[valeurSaisie]+"'>  <img style='width: 24px; height: 25px; cursor: pointer;' src='"+tabUrl[0]+"public/images_icons/2.png' /> </a>");					
 				}
 				if(myarrayTelephone[valeurSaisie]){ $('.alertTel').html(myarrayTelephone[valeurSaisie]); }else{ $('.alertTel').html('n&eacute;ant'); }
 				
@@ -456,6 +456,7 @@ function alertPatientExistant(myarray, myarrayId, myarrayAge, myarrayTelephone){
 var tableBdTypeElementSelect = "";
 var tableBdElementSelect = "";
 var libElementSelect = "";
+var inputChampSelect = "";
 
 /**
  * AJOUTER UN QUARTIER --- AJOUTER UN QUARTIER --- AJOUTER UN QUARTIER
@@ -467,6 +468,7 @@ function ajouterUnQartierDeSaintLouis(){
 	var libElement = 'quartier';
 	var tabTypeElemBD = 'commune_saint_louis';
 	var tabElementBD = 'quartier_saint_louis';
+        inputChampSelect = '#COMMUNE_SAINTLOUIS';
 	
 	tableBdTypeElementSelect = tabTypeElemBD;
 	tableBdElementSelect = tabElementBD;
@@ -506,7 +508,7 @@ var crerAttrTitleUneFois = 0;
 function ajouterElements(libTypeElement, libElement, tabTypeElemBD){
 	
 	if(crerAttrTitleUneFois == 0){ 
-		$("#ajouterElements").attr('title','Ajouter un '+libElement); 
+		$("#ajouterElements").attr('title','Gestion des '+libElement+'s'); 
 		$("#modifierTypeElement").attr('title','Modifier un '+libElement); 
 		crerAttrTitleUneFois = 1;
 	}
@@ -734,7 +736,7 @@ function enregistrementTypeElement(tabTypeElement){
 		data : {'tabTypeElement' : tabTypeElement},
 		success : function(data) {
 			
-			$('.listeTypeElementsExistantes table').html('<tr> <td style="margin-top: 35px; border: 1px solid #ffffff; text-align: center;"> Chargement </td> </tr>  <tr> <td align="center" style="border: 1px solid #ffffff; text-align: center;"> <img style="margin-top: 13px; width: 50px; height: 50px;" src="../images/loading/Chargement_1.gif" /> </td> </tr>');
+			$('.listeTypeElementsExistantes table').html('<tr> <td style="margin-top: 35px; border: 1px solid #ffffff; text-align: center;"> Chargement </td> </tr>  <tr> <td align="center" style="border: 1px solid #ffffff; text-align: center;"> <img style="margin-top: 13px; width: 50px; height: 50px;" src="'+tabUrl[0]+'public/images/loading/Chargement_1.gif" /> </td> </tr>');
 			recupererListeTypesElements();
 			$('.listeElementsExistantes table').html('');
 			recupererListeTypesElementsOptionSelect();
@@ -764,7 +766,7 @@ function enregistrementElement(tabTypeElement, tabElement){
 }
 
 function afficherListeElementDuType(id){
-	$('.listeElementsExistantes table').html('<tr> <td style="margin-top: 35px; border: 1px solid #ffffff; text-align: center;"> Chargement </td> </tr>  <tr> <td align="center" style="border: 1px solid #ffffff; text-align: center;"> <img style="margin-top: 13px; width: 50px; height: 50px;" src="../images/loading/Chargement_1.gif" /> </td> </tr>');
+	$('.listeElementsExistantes table').html('<tr> <td style="margin-top: 35px; border: 1px solid #ffffff; text-align: center;"> Chargement </td> </tr>  <tr> <td align="center" style="border: 1px solid #ffffff; text-align: center;"> <img style="margin-top: 13px; width: 50px; height: 50px;" src="'+tabUrl[0]+'public/images/loading/Chargement_1.gif" /> </td> </tr>');
 	$.ajax({
 		type : 'POST',
 		url : tabUrl[0] + 'public/consultation/liste-elements-pour-interface-ajout',
@@ -773,12 +775,11 @@ function afficherListeElementDuType(id){
 			var result = jQuery.parseJSON(data); 
 			$('.listeElementsExistantes table').html(result[0]);
 			
-			$('.LTPE1 a').html("<img src='../images_icons/light/triangle_right.png'>");
-			$('.iconeIndicateurChoix_'+result[1]+' a').html("<img src='../images_icons/greenarrowright.png'>");
+			$('.LTPE1 a').html("<img src='"+tabUrl[0]+"public/images_icons/light/triangle_right.png'>");
+			$('.iconeIndicateurChoix_'+result[1]+' a').html("<img src='"+tabUrl[0]+"public/images_icons/greenarrowright.png'>");
 		}
 	});
 }
-
 
 function modifierInfosTypeElement(id){
 	alert('Prochaines mises a jour pour les modifications !');
@@ -809,7 +810,7 @@ function modifierInfosElement(id){
 		        	var reponse = confirm("Confirmer la modification du terme suivant");
 					if (reponse == false) { return false; }
 					else{ 
-				      	$('.listeElementsExistantes table .LPE2_'+id+' span').html(libelleElement+ " <img style='margin-left: 5px; width: 18px; height: 18px;' src='../images/loading/Chargement_1.gif' />");
+				      	$('.listeElementsExistantes table .LPE2_'+id+' span').html(libelleElement+ " <img style='margin-left: 5px; width: 18px; height: 18px;' src='"+tabUrl[0]+"public/images/loading/Chargement_1.gif' />");
 			        	$( this ).dialog( "close" );
 			        	
 			        	$.ajax({
@@ -818,6 +819,8 @@ function modifierInfosElement(id){
 			        		url : tabUrl[0] + 'public/consultation/modifier-element',
 			        		data : {'idElement' : id, 'libelleElement' : libelleElementModif, 'tableBdElementSelect':tableBdElementSelect },
 			        		success : function(data) {
+			        			
+			        			$(inputChampSelect).val("").trigger('change');
 			        			
 			        			$('.listeElementsExistantes table .LPE2_'+id+' span').html(libelleElementModif);
 			        			$('#affichageMessageInfosRemplaceModification input').val('');
@@ -838,35 +841,300 @@ function modifierInfosElement(id){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * =========================================================================================================
  * ---------------------------------------------------------------------------------------------------------
  * =========================================================================================================
  * -------------------------------------- Interface A un Volet ---------------------------------------------
  * ---------------------------------------------------------------------------------------------------------
+ * =========================================================================================================
  */
 
+
+$(function() {
+    $( "#ajouterElementsUV button" ).button();
+});
+
+/**
+ * Legend : UV = Un volet ();
+ */
+
+var tableElementUV = "";
+var libElementUV = "";
+var idChampElement = "";
 
 
 /**
  * AJOUTER UNE RACE --- AJOUTER UNE RACE --- AJOUTER UNE RACE
  * AJOUTER UNE RACE --- AJOUTER UNE RACE --- AJOUTER UNE RACE
  */
-
 function ajouterUneRace(){
-	var libElementUnVolet = 'race';
-	var tabElementUnVoletBD = 'liste_race';
 	
-	tableBdTypeElementSelect = tabTypeElemBD;
-	tableBdElementSelect = tabElementBD;
-	libElementSelect = libElement;
+	libElementUV = 'race';
+	tableElementUV = 'liste_race';
+	idChampElement = 'RACE';
+
+	$("#labListeElementUV").html('Les '+libElementUV+'s');
+	$(".ligneBoutonsAjoutUV .boutonAPUV button").html('Ajouter une '+libElementUV);
 	
+	ajouterElementsUV(libElementUV, tableElementUV);
+	$(".ligneInfosAjoutElementsUV .LIAPUV span").html('Ajout de races');
+	$(".ligneInfosAjoutElementsUV .LIAPUV, .interfaceAjoutElementsUV, .ligneBoutonsAnnulerValiderAjout").toggle(false);
 	
-	ajouterElements(libTypeElement, libElement, tabTypeElemBD);
-	$('.ligneBoutonsAjout .boutonATP button').toggle(false);
-	$(".ligneInfosAjoutElements .LIAP span span").html('Ajout de races');
+	afficherListeElementUV();
+}
+
+
+/**
+ * AJOUTER UNE ETHNIE --- AJOUTER UNE ETHNIE --- AJOUTER UNE ETHNIE
+ * AJOUTER UNE ETHNIE --- AJOUTER UNE ETHNIE --- AJOUTER UNE ETHNIE
+ */
+function ajouterUneEthnie(){
 	
-	afficherListeElementDuType(0);
+	libElementUV = 'ethnie';
+	tableElementUV = 'liste_ethnie';
+	idChampElement = 'ETHNIE';
+
+	$("#labListeElementUV").html('Les '+libElementUV+'s');
+	$(".ligneBoutonsAjoutUV .boutonAPUV button").html('Ajouter une '+libElementUV);
+	
+	ajouterElementsUV(libElementUV, tableElementUV);
+	$(".ligneInfosAjoutElementsUV .LIAPUV span").html("Ajout d'ethnie");
+	$(".ligneInfosAjoutElementsUV .LIAPUV, .interfaceAjoutElementsUV, .ligneBoutonsAnnulerValiderAjout").toggle(false);
+	
+	afficherListeElementUV();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function ajouterElementsUV(libElementUV, tableElementUV){
+	
+	$( "#ajouterElementsUV" ).dialog({
+		resizable: false,
+	    height:680,
+	    width:350,
+	    autoOpen: false,
+	    modal: true,
+	    buttons: {
+	        "Fermer": function() {
+              $( this ).dialog( "close" );
+	        }
+	    }
+	});
+	
+	$("#ajouterElementsUV").dialog('open');
+	$(".ligneBoutonsAjoutUV").toggle(true);
+}
+
+
+function ajoutElementUV(){
+	
+	$('.ligneBoutonsAjoutUV').fadeOut(function(){
+		$(".ligneInfosAjoutElementsUV .LIAPUV").toggle(true);
+		$("#contenuInterfaceAjoutTypeElementsUV, .interfaceAjoutElementsUV, .ligneBoutonsAnnulerValiderAjout").toggle(true);
+	});
+
+	$('.interfaceAjoutElementsUV .identifCAPUV').remove();
+	
+	if($('.identifCAPUV').length == 0){
+		ajouterUneNouvelleLigneElementUV();
+	}
+}
+
+function ajouterUneNouvelleLigneElementUV(){
+	
+	var nbLigne = $('.identifCAPUV').length;
+	
+	var ligne ="<tr class='identifCAPUV  champsAjoutTPUV_"+(nbLigne+1)+"' style='width: 100%;'>"+
+               "<td style='width: 100%;'><input type='text' placeholder='Ecrire un nouvel element &agrave; ajouter' style='width: 96%;'> </td>"+
+               "</tr>";
+	
+	$('.interfaceAjoutElementsUV .champsAjoutTPUV_'+(nbLigne)).after(ligne);
+	
+	if((nbLigne+1) > 1){ 
+		$('.iconeAnnulerAPUV').toggle(true);
+	}else if((nbLigne+1) == 1){
+		$('.iconeAnnulerAPUV').toggle(false);
+	}
+	
+}
+
+function enleverUneLigneElementUV(){
+	
+	var nbLigne = $('.identifCAPUV').length; 
+	if(nbLigne > 1){
+		$('.champsAjoutTPUV_'+nbLigne).remove();
+		if(nbLigne == 2){ $('.iconeAnnulerAPUV').toggle(false); }
+	}
+
+}
+
+function annulerAjoutElementUV(){
+	$('#contenuInterfaceAjoutTypeElementsUV').fadeOut(function(){
+		$(".ligneBoutonsAjoutUV").toggle(true);
+	});
+}
+
+function afficherListeElementUV(){
+	
+	$('.listeElementsExistantesUV table').html('<tr> <td style="margin-top: 35px; border: 1px solid #ffffff; text-align: center;"> Chargement </td> </tr>  <tr> <td align="center" style="border: 1px solid #ffffff; text-align: center;"> <img style="margin-top: 13px; width: 50px; height: 50px;" src="'+tabUrl[0]+'public/images/loading/Chargement_1.gif" /> </td> </tr>');
+	$.ajax({
+		type : 'POST',
+		url : tabUrl[0] + 'public/consultation/liste-elements-uv',
+		data : {'tableElementUV':tableElementUV},
+		success : function(data) {
+			var result = jQuery.parseJSON(data); 
+			$('.listeElementsExistantesUV table').html(result);
+		}
+	});
+	
+}
+
+function validerAjoutElementUV(){
+	
+	var nbLigne = $('.identifCAPUV').length;
+	
+	var tabElement = new Array();
+	var j = 0;
+	for(var i=1; i<=nbLigne ; i++){
+		var valeurChamp = $('.champsAjoutTPUV_'+i+' input').val();
+		if(valeurChamp){
+			tabElement [j++] = valeurChamp;
+		}
+	}
+	
+	if(tabElement.length != 0){
+		var reponse = confirm("Confirmer l'enregistrement de(s) element(s)");
+		if (reponse == false) { return false; }
+		else{ enregistrementElementUV(tabElement); }
+	}
+			
+}
+
+function enregistrementElementUV(tabElement){
+	
+	$('.boutonAVAV button').attr('disabled', true);
+	$('.champsAjoutP select, .champsAjoutP input').attr('disabled', true);
+	$.ajax({
+		type : 'POST',
+		url : tabUrl[0] + 'public/consultation/enregistrement-element-uv',
+		data : {'tableElementUV' : tableElementUV, 'tabElement' : tabElement},
+		success : function(data) {
+			
+			afficherListeElementUV();
+			$('#contenuInterfaceAjoutTypeElementsUV .boutonAVAV button').attr('disabled', false);
+			ajoutElementUV();
+			getListeElementUV();
+		}
+	});
+}
+
+
+function modifierInfosElementUV(id){
+	
+	var libelleElement = $('.listeElementsExistantesUV table .LPE2_'+id+' span').html();
+	var html ="<tr><td>"+libelleElement+"</td></tr>";
+	
+	$('#infosConfirmationModificationUV').html(html);
+	
+	$( "#modifierTypeElementUV" ).dialog({
+		resizable: false,
+	    height:300,
+	    width:450,
+	    autoOpen: false,
+	    modal: true,
+	    buttons: {
+	    	"Annuler": function() {
+	    		$( this ).dialog( "close" );
+		    },
+	        "Modifier": function() {
+
+	        	var libelleElementModif = $('#affichageMessageInfosRemplaceModificationUV input').val();
+	        	if(libelleElementModif){
+	        		
+		        	var reponse = confirm("Confirmer la modification du terme suivant");
+					if (reponse == false) { return false; }
+					else{
+				      	$('.listeElementsExistantesUV table .LPE2_'+id+' span').html(libelleElement+ " <img style='margin-left: 5px; width: 18px; height: 18px;' src='"+tabUrl[0]+"public/images/loading/Chargement_1.gif' />");
+			        	$( this ).dialog( "close" );
+			        	
+			        	$.ajax({
+			        		type : 'POST',
+			        		url : tabUrl[0] + 'public/consultation/modifier-element-uv',
+			        		data : {'idElement' : id, 'libelleElement' : libelleElementModif, 'tableElementUV':tableElementUV },
+			        		success : function(data) {
+			        			
+			        			$('.listeElementsExistantesUV table .LPE2_'+id+' span').html(libelleElementModif);
+			        			$('#affichageMessageInfosRemplaceModificationUV input').val('');
+			        			
+			        			getListeElementUV();
+			        		}
+			        	});
+					}
+	        	}
+	        }
+	    }
+	});
+	
+	$("#modifierTypeElementUV").dialog('open');
+
+}
+
+
+function getListeElementUV(){
+	$.ajax({
+		type : 'POST',
+		url : tabUrl[0] + 'public/consultation/liste-element-select',
+		data : {'tableElementUV':tableElementUV},
+		success : function(data) {
+			var result = jQuery.parseJSON(data);
+			$("#"+idChampElement).html(result);
+		}
+	});
 }
 
 

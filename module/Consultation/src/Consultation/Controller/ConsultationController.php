@@ -121,6 +121,7 @@ class ConsultationController extends AbstractActionController {
 		$listeEthnies = $this->getPersonneTable()->getListeEthnies();
 		$listeStatutMatrimonial = $this->getPersonneTable()->getListeStatutMatrimonial();
 		$listeRegimeMatrimonial = $this->getPersonneTable()->getListeRegimeMatrimonial();
+		$listeRace = $this->getPersonneTable()->getListeRace();
 		
 		
 		$patient = $this->getPatientTable()->getPatient($idpatient);
@@ -283,7 +284,7 @@ class ConsultationController extends AbstractActionController {
 						   	</td>
 						   				
 						   	<td style=' font-family: police1;font-size: 12px; vertical-align: top;'>
-						   		<div id='aa'><a style='text-decoration: underline;'>Race</a><br><p style='font-weight: bold;font-size: 19px;'> ".$patient->race." </p></div>
+						   		<div id='aa'><a style='text-decoration: underline;'>Race</a><br><p style='font-weight: bold;font-size: 19px;'> ".$listeRace[$patient->race]." </p></div>
 						   	</td>
 			   		          		
 			            </tr>
@@ -369,6 +370,8 @@ class ConsultationController extends AbstractActionController {
 		$listeRegimeMatrimonial = $this->getPersonneTable()->getListeRegimeMatrimonial();
 		$listeCommuneSaintlouis = $this->getPersonneTable()->getListeCommuneSaintlouis();
 		//$listeQuartierSaintlouis = $this->getPersonneTable()->getListeQuartierSaintlouis();
+		$listeRace = $this->getPersonneTable()->getListeRace();
+		
 		
 		$form->get('PROFESSION')->setvalueOptions($listeProfessions);
 		$form->get('ETHNIE')->setvalueOptions($listeEthnies);
@@ -376,13 +379,15 @@ class ConsultationController extends AbstractActionController {
 		$form->get('REGIME_MATRIMONIAL')->setvalueOptions($listeRegimeMatrimonial);
 		$form->get('COMMUNE_SAINTLOUIS')->setvalueOptions($listeCommuneSaintlouis);
 		//$form->get('QUARTIER_SAINTLOUIS')->setvalueOptions($listeQuartierSaintlouis);
+		$form->get('RACE')->setvalueOptions($listeRace);
 		
 		
 		$request = $this->getRequest();
+		
 		if ($request->isPost()) {
 		
 		    $donnees = $this->getRequest()->getPost()->toArray();
-		   
+		    
 		    $personne = array();
 		    
 		    $fileBase64 = substr($this->params ()->fromPost ('fichier_tmp'), 23);
@@ -439,6 +444,7 @@ class ConsultationController extends AbstractActionController {
 	    $listeEthnies = $this->getPersonneTable()->getListeEthnies();
 	    $listeStatutMatrimonial = $this->getPersonneTable()->getListeStatutMatrimonial();
 	    $listeRegimeMatrimonial = $this->getPersonneTable()->getListeRegimeMatrimonial();
+	    $listeRace = $this->getPersonneTable()->getListeRace();
 	    
 	    $personne->photo = $personne->photo ? $personne->photo : 'identite.jpg';
 	    $personne->profession = ($personne->profession) ? $listeProfessions[$personne->profession] : '';
@@ -574,7 +580,7 @@ class ConsultationController extends AbstractActionController {
 			   	</td>
 	
 			   	<td style=' font-family: police1;font-size: 12px;'>
-			   		<div id='aa'><a style='text-decoration: underline;'>Race</a><br><p style='font-weight: bold;font-size: 19px;'> ".$patient->race." </p></div>
+			   		<div id='aa'><a style='text-decoration: underline;'>Race</a><br><p style='font-weight: bold;font-size: 19px;'> ".$listeRace[$patient->race]." </p></div>
 			   	</td>
 	
 			 </tr>
@@ -642,6 +648,7 @@ class ConsultationController extends AbstractActionController {
 	    $listeRegimeMatrimonial = $this->getPersonneTable()->getListeRegimeMatrimonial();
 	    $listeCommuneSaintlouis = $this->getPersonneTable()->getListeCommuneSaintlouis();
 	    //$listeQuartierSaintlouis = $this->getPersonneTable()->getListeQuartierSaintlouis();
+	    $listeRace = $this->getPersonneTable()->getListeRace();
 	    
 	
 	    $form->get('PROFESSION')->setvalueOptions($listeProfessions);
@@ -650,6 +657,8 @@ class ConsultationController extends AbstractActionController {
 	    $form->get('REGIME_MATRIMONIAL')->setvalueOptions($listeRegimeMatrimonial);
 	    $form->get('COMMUNE_SAINTLOUIS')->setvalueOptions($listeCommuneSaintlouis);
 	    //$form->get('QUARTIER_SAINTLOUIS')->setvalueOptions($listeQuartierSaintlouis);
+	    $form->get('RACE')->setvalueOptions($listeRace);
+	    
 	    
 	    $request = $this->getRequest();
 	    if ($request->isPost()) {
@@ -706,6 +715,7 @@ class ConsultationController extends AbstractActionController {
 	    $data['SEXE'] = $personne->sexe;
 	    $data['AGE'] = $personne->age;
 	    $data['TELEPHONE'] = $personne->telephone;
+	    $data['TELEPHONE_2'] = $personne->telephone_2;
 	    $data['PROFESSION'] = $personne->profession;
 	    $data['STATUT_MATRIMONIAL'] = $personne->statut_matrimonial;
 	    $data['REGIME_MATRIMONIAL'] = $personne->regime_matrimonial;
@@ -713,13 +723,14 @@ class ConsultationController extends AbstractActionController {
 	    $data['RACE'] = $patient->race;
 	    $data['ORIGINE_GEOGRAPHIQUE'] = $patient->origine_geographique;
 	    $data['COMMUNE_SAINTLOUIS'] = $patient->commune_saintlouis;
-	    $data['QUARTIER_SAINTLOUIS'] = $patient->quartier_saintlouis;
+	    $data['QUARTIER_SAINTLOUIS_MEMO'] = $patient->quartier_saintlouis;
 	    
 	    $photo = $personne->photo ? $personne->photo : 'identite.jpg';
 	    
 	    if($personne->date_naissance){ $data['DATE_NAISSANCE'] = (new DateHelper())->convertDate( $personne->date_naissance ); }
 	    $form->populateValues($data);
 
+	    //var_dump($data); exit();
 	    
 	    return array (
 	        'form' => $form,
@@ -967,7 +978,7 @@ class ConsultationController extends AbstractActionController {
 	
 	
 	public function consulterAction() {
-
+	    
 		$this->layout ()->setTemplate ( 'layout/consultation' );
 		
 		$user = $this->layout()->user;
@@ -990,6 +1001,7 @@ class ConsultationController extends AbstractActionController {
 		$listeStatutMatrimonial = $this->getPersonneTable()->getListeStatutMatrimonial();
 		$listeRegimeMatrimonial = $this->getPersonneTable()->getListeRegimeMatrimonial();
 		$listeSigne = $this->getPersonneTable()->getListeSigne();
+		$listeRace = $this->getPersonneTable()->getListeRace();
 		
 		$form->get('PROFESSION')->setvalueOptions($listeProfessions);
 		$form->get('ETHNIE')->setvalueOptions($listeEthnies);
@@ -1183,6 +1195,7 @@ class ConsultationController extends AbstractActionController {
 		    
 		    
 	        'typeDeConsultation' => $typeDeConsultation,
+		    'listeRace' => $listeRace,
 				
 		);
 		
@@ -1719,6 +1732,7 @@ class ConsultationController extends AbstractActionController {
 	    $listeStatutMatrimonial = $this->getPersonneTable()->getListeStatutMatrimonial();
 	    $listeRegimeMatrimonial = $this->getPersonneTable()->getListeRegimeMatrimonial();
 	    $listeSigne = $this->getPersonneTable()->getListeSigne();
+	    $listeRace = $this->getPersonneTable()->getListeRace();
 	
 	    $form->get('PROFESSION')->setvalueOptions($listeProfessions);
 	    $form->get('ETHNIE')->setvalueOptions($listeEthnies);
@@ -1918,6 +1932,8 @@ class ConsultationController extends AbstractActionController {
 	        
 	        'complicationDiagEntree' => $complicationDiagEntree,
 	        'nbComplicationDiagEntree' => $complicationDiagEntree->count(),
+	        
+	        'listeRace' => $listeRace,
 	    );
 	
 	}
@@ -2025,11 +2041,6 @@ class ConsultationController extends AbstractActionController {
 	
 	public function modifierConsultationSuiviAction(){
 
-	    //echo "<pre>";
-	    //$output = $this->getConsultationTable()->getListeHistoriquesConsultationsSuivis(20);
-	    //var_dump($output); exit();
-	    //echo "</pre>";
-	    
 	    $this->layout ()->setTemplate ( 'layout/consultation' );
 	    
 	    $user = $this->layout()->user;
@@ -2048,6 +2059,7 @@ class ConsultationController extends AbstractActionController {
 	    $listeStatutMatrimonial = $this->getPersonneTable()->getListeStatutMatrimonial();
 	    $listeRegimeMatrimonial = $this->getPersonneTable()->getListeRegimeMatrimonial();
 	    $listeSigne = $this->getPersonneTable()->getListeSigne();
+	    $listeRace = $this->getPersonneTable()->getListeRace();
 	    
 	    $form->get('PROFESSION')->setvalueOptions($listeProfessions);
 	    $form->get('ETHNIE')->setvalueOptions($listeEthnies);
@@ -2192,6 +2204,8 @@ class ConsultationController extends AbstractActionController {
 	        
 	        'examenPhysiqueSuivi' => $examenPhysiqueSuivi,
 	        'nbExamenPhysiqueSuivi' => $nbExamenPhysiqueSuivi,
+	        
+	        'listeRace' => $listeRace,
 	    );
 	    
 	}
@@ -2748,6 +2762,7 @@ class ConsultationController extends AbstractActionController {
 	    $listeEthnies = $this->getPersonneTable()->getListeEthnies();
 	    $listeStatutMatrimonial = $this->getPersonneTable()->getListeStatutMatrimonial();
 	    $listeRegimeMatrimonial = $this->getPersonneTable()->getListeRegimeMatrimonial();
+	    $listeRace = $this->getPersonneTable()->getListeRace();
 	     
 	    $form = new ConsultationForm ();
 	    $form->get('PROFESSION')->setvalueOptions($listeProfessions);
@@ -2850,6 +2865,8 @@ class ConsultationController extends AbstractActionController {
 	         
 	        'examenPhysiqueSuivi' => $examenPhysiqueSuivi,
 	        'nbExamenPhysiqueSuivi' => $nbExamenPhysiqueSuivi,
+	        
+	        'listeRace' => $listeRace,
 	    );
 	    
 	}
@@ -2923,9 +2940,9 @@ class ConsultationController extends AbstractActionController {
 	    $listeTypesElements = $this->getConsultationTable()->getListeTypeElementsOrdreDecroissant($tabTypeElement);
 	    for($i = 0 ; $i <  count($listeTypesElements); $i++){
 	        if($i == 0){
-	            $html .="<tr><td class='LTPE1  iconeIndicateurChoix_".$listeTypesElements[$i]['id']."'><a href='javascript:afficherListeElementDuType(".$listeTypesElements[$i]['id'].");'><img src='../images_icons/greenarrowright.png'></a></td> <td class='LTPE2  LTPE2_".$listeTypesElements[$i]['id']."' ><span>".str_replace("'", "'", $listeTypesElements[$i]['libelle'])."</span><img onclick='modifierInfosTypeElement(".$listeTypesElements[$i]['id'].");' class='imgLTPE2' src='../images_icons/light/pencil.png'> </td></tr>";
+	            $html .="<tr><td class='LTPE1  iconeIndicateurChoix_".$listeTypesElements[$i]['id']."'><a href='javascript:afficherListeElementDuType(".$listeTypesElements[$i]['id'].");'><img src='".$this->baseUrl()."public/images_icons/greenarrowright.png'></a></td> <td class='LTPE2  LTPE2_".$listeTypesElements[$i]['id']."' ><span>".str_replace("'", "'", $listeTypesElements[$i]['libelle'])."</span><img onclick='modifierInfosTypeElement(".$listeTypesElements[$i]['id'].");' class='imgLTPE2' src='".$this->baseUrl()."public/images_icons/light/pencil.png'> </td></tr>";
 	        }else{
-	            $html .="<tr><td class='LTPE1  iconeIndicateurChoix_".$listeTypesElements[$i]['id']."'><a href='javascript:afficherListeElementDuType(".$listeTypesElements[$i]['id'].");'><img src='../images_icons/light/triangle_right.png'></a></td> <td class='LTPE2  LTPE2_".$listeTypesElements[$i]['id']."' ><span>".str_replace("'", "'", $listeTypesElements[$i]['libelle'])."</span><img onclick='modifierInfosTypeElement(".$listeTypesElements[$i]['id'].");' class='imgLTPE2' src='../images_icons/light/pencil.png'> </td></tr>";
+	            $html .="<tr><td class='LTPE1  iconeIndicateurChoix_".$listeTypesElements[$i]['id']."'><a href='javascript:afficherListeElementDuType(".$listeTypesElements[$i]['id'].");'><img src='".$this->baseUrl()."public/images_icons/light/triangle_right.png'></a></td> <td class='LTPE2  LTPE2_".$listeTypesElements[$i]['id']."' ><span>".str_replace("'", "'", $listeTypesElements[$i]['libelle'])."</span><img onclick='modifierInfosTypeElement(".$listeTypesElements[$i]['id'].");' class='imgLTPE2' src='".$this->baseUrl()."public/images_icons/light/pencil.png'> </td></tr>";
 	        }
 	
 	    }
@@ -2956,20 +2973,20 @@ class ConsultationController extends AbstractActionController {
 	 */
 	public function listeElementsPourInterfaceAjoutAction()
 	{
-	    $tableBdTypeElementSelect = $this->params ()->fromPost ( 'tableBdTypeElementSelect' );
-	    $tableBdElementSelect = $this->params ()->fromPost ( 'tableBdElementSelect' );
+	    $tableBdTypeElementSelect = $this->params ()->fromPost ( 'tableBdTypeElementSelect', "" );
+	    $tableBdElementSelect = $this->params ()->fromPost ( 'tableBdElementSelect', "" );
 	    $idTypeElement = ( int ) $this->params ()->fromPost ( 'id', 0 );
 	
 	    if($idTypeElement == 0){
 	        $listeTypesElements = $this->getConsultationTable()->getListeTypeElementsOrdreDecroissant($tableBdTypeElementSelect);
-	        $idTypeElement = $listeTypesElements[0]['id'];
+	        $idTypeElement = ($listeTypesElements) ? $listeTypesElements[0]['id'] : 0;
 	    }
 	
 	    $listeElements = $this->getConsultationTable()->getListeElementAvecType($tableBdElementSelect, $idTypeElement);
 	
 	    $html  = "";
 	    for($i = 0 ; $i <  count($listeElements); $i++){
-	        $html .="<tr><td class='LPE2 LPE2_".$listeElements[$i]['id']."'> <span>".str_replace("'", "'", $listeElements[$i]['libelle'])."</span><img onclick='modifierInfosElement(".$listeElements[$i]['id'].");' class='imgLPE2' src='../images_icons/light/pencil.png'> </td> </tr>";
+	        $html .="<tr><td class='LPE2 LPE2_".$listeElements[$i]['id']."'> <span>".str_replace("'", "'", $listeElements[$i]['libelle'])."</span><img onclick='modifierInfosElement(".$listeElements[$i]['id'].");' class='imgLPE2' src='".$this->baseUrl()."public/images_icons/light/pencil.png'> </td> </tr>";
 	    }
 	
 	    $this->getResponse()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html' );
@@ -2990,5 +3007,71 @@ class ConsultationController extends AbstractActionController {
 	    $this->getResponse()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html' );
 	    return $this->getResponse ()->setContent(Json::encode ());
 	}
+	
+	
+	
+	/**
+	 * Liste des éléments pour un volet
+	 */
+	public function listeElementsUvAction()
+	{
+	    $tableElementUV = $this->params ()->fromPost ( 'tableElementUV', "" );
+	
+	    $listeElements = $this->getConsultationTable()->getListeElementsUV($tableElementUV);
+	
+	    $html  = "";
+	    for($i = 0 ; $i <  count($listeElements); $i++){
+	        $html .="<tr><td class='LPE2 LPE2_".$listeElements[$i]['id']."'> <span>".str_replace("'", "'", $listeElements[$i]['libelle'])."</span><img onclick='modifierInfosElementUV(".$listeElements[$i]['id'].");' class='imgLPE2' src='".$this->baseUrl()."public/images_icons/light/pencil.png'> </td> </tr>";
+	    }
+	
+	    $this->getResponse()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html' );
+	    return $this->getResponse ()->setContent(Json::encode ( $html ));
+	}
+	
+	
+	public function enregistrementElementUvAction(){
+
+	    $user = $this->layout()->user;
+	    $idemploye = $user['id_personne'];
+	     
+	    $tableElementUV = $this->params ()->fromPost ( 'tableElementUV', 0 );
+	    $tabElement = $this->params ()->fromPost ( 'tabElement' );
+	    
+	    $this->getConsultationTable()->addInfosElementsUV($tabElement, $tableElementUV, $idemploye);
+	     
+	    $this->getResponse()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html' );
+	    return $this->getResponse ()->setContent(Json::encode ( 1 ));
+	    
+	}
+	
+	public function modifierElementUVAction()
+	{
+	    $user = $this->layout()->user;
+	    $idemploye = $user['id_personne'];
+	
+	    $idElement = $this->params ()->fromPost ( 'idElement', 0 );
+	    $libelleElement = $this->params ()->fromPost ( 'libelleElement', 0 );
+	    $tableBdElementSelect = $this->params ()->fromPost ( 'tableElementUV' );
+	     
+	    $this->getConsultationTable()->updateInfosElements($tableBdElementSelect, $libelleElement, $idElement, $idemploye);
+	
+	    $this->getResponse()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html' );
+	    return $this->getResponse ()->setContent(Json::encode ());
+	}
+	
+	public function listeElementSelectAction()
+	{
+	    $tableElementUV = $this->params()->fromPost('tableElementUV');
+	
+	    $html  = "<option></option>";
+	    $listeSelect = $this->getConsultationTable()->getListeElementsUV($tableElementUV);
+	    for($i = 0 ; $i <  count($listeSelect); $i++){
+	        $html .="<option  value='".$listeSelect[$i]['id']."'>".str_replace("'", "'", $listeSelect[$i]['libelle'])."</option>";
+	    }
+	
+	    $this->getResponse()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html' );
+	    return $this->getResponse ()->setContent(Json::encode ( $html ));
+	}
+	
 	
 }

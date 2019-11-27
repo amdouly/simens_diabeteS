@@ -606,27 +606,25 @@ tr:hover /* Apparence au survol des lignes */
 
 
 
-#ajouterElements table, #ajouterElements table tr{
+#ajouterElements table, #ajouterElements table tr, #ajouterElementsUV table, #ajouterElementsUV table tr{
 	width: 100%;
 	vertical-align: top;
 }
 
-
-
-
-#ajouterElements .ligneElementsExistantes td{
+#ajouterElements .ligneElementsExistantes td, #ajouterElementsUV .ligneElementsExistantesUV td{
 	width: 50%; 
 	margin-left: 5px;
 }
 
-#ajouterElements .ligneElementsExistantes td label{
+#ajouterElements .ligneElementsExistantes td label, #ajouterElementsUV .ligneElementsExistantesUV td label{
 	width: 100%;
 	height: 25px;
 	font-size: 20px;
 	font-family: times new roman;
 	text-align: left;
 }
-#ajouterElements .ligneElementsExistantes td div{
+
+#ajouterElements .ligneElementsExistantes td div, #ajouterElementsUV .ligneElementsExistantesUV td div{
 	width: 96%;
 	height: 200px;
 	font-size: 17px;
@@ -668,13 +666,13 @@ tr:hover /* Apparence au survol des lignes */
 }
 
 
-#ajouterElements .listeElementsExistantes table tr{
+#ajouterElements .listeElementsExistantes table tr, #ajouterElementsUV .listeElementsExistantesUV table tr{
 	width: 100%;
 	font-size: 17px;
 	cursor: pointer;
 }
 
-#ajouterElements .listeElementsExistantes table td{
+#ajouterElements .listeElementsExistantes table td, #ajouterElementsUV .listeElementsExistantesUV table td{
 	padding-left: 6px;
 	padding-top: 5px;
 	padding-bottom: 5px;
@@ -689,7 +687,7 @@ tr:hover /* Apparence au survol des lignes */
 	width: 100%;
 }
 
-#ajouterElements .listeElementsExistantes table tr:hover{
+#ajouterElements .listeElementsExistantes table tr:hover, #ajouterElementsUV .listeElementsExistantesUV table tr:hover{
 	background: #e1e1e1; 
 }
 
@@ -709,7 +707,7 @@ tr:hover /* Apparence au survol des lignes */
 	margin-left: 5px;
 }
 
-#ajouterElements .ligneBoutonsAjout button{
+#ajouterElements .ligneBoutonsAjout button, #ajouterElementsUV .ligneBoutonsAjoutUV button{
 	border: 1px;
 	border-radius: 15px;
 	border: 1px solid #bdb9b9;
@@ -722,7 +720,7 @@ tr:hover /* Apparence au survol des lignes */
 	width: 70%;
 }
 
-.ligneBoutonsAjout .boutonAP button{
+.ligneBoutonsAjout .boutonAP button, .ligneBoutonsAjoutUV .boutonAPUV button{
 	width: 55%;
 }
 
@@ -751,7 +749,8 @@ tr:hover /* Apparence au survol des lignes */
 	margin-left: 15px;
 }
 
-#ajouterElements .ligneInfosAjoutElements .LIATP, #ajouterElements .ligneInfosAjoutElements .LIAP{
+#ajouterElements .ligneInfosAjoutElements .LIATP, #ajouterElements .ligneInfosAjoutElements .LIAP,
+#ajouterElementsUV .ligneInfosAjoutElementsUV .LIAPUV{
 	width: 50%;
 }
 
@@ -759,26 +758,31 @@ tr:hover /* Apparence au survol des lignes */
 	margin-top: -15px;
 }
 
+#ajouterElementsUV .LIAPUV img{
+	margin-top: -5px;
+}
 
 
 
 
 
-.interfaceAjoutElements .contenuIAPath table, .interfaceAjoutElements .contenuIAPath table tr{
+.interfaceAjoutElements .contenuIAPath table, .interfaceAjoutElements .contenuIAPath table tr,
+.interfaceAjoutElementsUV .contenuIAPath table, .interfaceAjoutElementsUV .contenuIAPath table tr{
 	width: 100%;
 }
 
-.interfaceAjoutElements .contenuIAPath td{
+.interfaceAjoutElements .contenuIAPath td,
+.interfaceAjoutElementsUV .contenuIAPath td{
 	width: 100%; 
 	margin-left: 5px;
 }
 
-.interfaceAjoutElements .contenuIAPath{
+.interfaceAjoutElements .contenuIAPath, .interfaceAjoutElementsUV .contenuIAPath{
 	height: 220px;
 	overflow-y: auto;
 }
 
-.interfaceAjoutElements .contenuIAPath td input[type='text']{
+.interfaceAjoutElements .contenuIAPath td input[type='text'], .interfaceAjoutElementsUV .contenuIAPath td input[type='text']{
 	width: 50%; 
 	height: 40px;
 	padding-left: 8px;
@@ -814,12 +818,12 @@ tr:hover /* Apparence au survol des lignes */
 
 
 
-#ajouterElements .ligneBoutonsAnnulerValiderAjout td{
+#ajouterElements .ligneBoutonsAnnulerValiderAjout td, .ligneBoutonsAnnulerValiderAjout td{
 	width: 50%;
 	height: 50px;
 }
 
-#ajouterElements .ligneBoutonsAnnulerValiderAjout button{
+#ajouterElements .ligneBoutonsAnnulerValiderAjout button, #ajouterElementsUV .ligneBoutonsAnnulerValiderAjout button{
 	border: 1px;
 	border-radius: 15px;
 	border: 1px solid #bdb9b9;
@@ -828,7 +832,7 @@ tr:hover /* Apparence au survol des lignes */
 	margin-top: 5px;
 }
 
-#ajouterElements .ligneBoutonsAnnulerValiderAjout .boutonAVAA{
+#ajouterElements .ligneBoutonsAnnulerValiderAjout .boutonAVAA, .ligneBoutonsAnnulerValiderAjout .boutonAVAA{
 	float: right; 
 }
 
@@ -855,7 +859,8 @@ tr:hover /* Apparence au survol des lignes */
 	visibility: visible;
 }
 
-#ajouterElements .listeElementsExistantes table tr:hover .imgLPE2{
+#ajouterElements .listeElementsExistantes table tr:hover .imgLPE2,
+#ajouterElementsUV .listeElementsExistantesUV table tr:hover .imgLPE2{
 	float: right; 
 	height: 18px; 
 	width: 18px;
@@ -864,7 +869,7 @@ tr:hover /* Apparence au survol des lignes */
 
 
 
-.affichageMessageInfos div{
+.affichageMessageInfos div, .affichageMessageInfosUV div{
 	color: gray;
 	margin-top: 13px;
 	margin-bottom: 13px;
@@ -880,25 +885,25 @@ tr:hover /* Apparence au survol des lignes */
 }
 
 
-#infosConfirmationModification{
+#infosConfirmationModification, #infosConfirmationModificationUV{
 	width: 100%; 
 	height: 10px; 
 }
 
-#infosConfirmationModification tr{
+#infosConfirmationModification tr, #infosConfirmationModificationUV tr{
 	width: 100%; 
 	height: 10px;
 	font-size: 15px;
 	background: #f1f1f1;
 }
 
-#infosConfirmationModification td{
+#infosConfirmationModification td, #infosConfirmationModificationUV td{
 	width: 95%; 
 	height: 25px; 
 	padding-left: 6px;
 }
 
-#affichageMessageInfosRemplaceModification input[type='text']{
+#affichageMessageInfosRemplaceModification input[type='text'], #affichageMessageInfosRemplaceModificationUV input[type='text']{
 	margin-top: 2px;
 	margin-bottom: 10px;
 	width: 90%;
@@ -908,3 +913,5 @@ tr:hover /* Apparence au survol des lignes */
 	font-family: times new roman;
 	border: 2px solid #bdb9b9;
 }
+
+
