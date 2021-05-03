@@ -2,8 +2,9 @@
 return array(
     'modules' => array(
     		'Admin',
+            'Statistique',
     		'Personnel',
-            'Consultation'
+            'Consultation',
     ),
 
     'module_listener_options' => array(
@@ -18,6 +19,6 @@ return array(
         ),
 
         
-    ),
+      ),   
    
 );

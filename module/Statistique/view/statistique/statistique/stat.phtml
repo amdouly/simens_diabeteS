@@ -1,0 +1,534 @@
+
+
+
+
+
+<?php 
+  echo $this->headScript()->appendFile($this->basePath().'/js/plugins/zingchart/zingchart.min.js');
+  echo $this->headScript()->appendFile($this->basePath().'/js/jquery.min.js');
+  echo $this->headScript()->appendFile($this->basePath().'/js/jquery.mask.min.js');
+  echo $this->headScript()->appendFile($this->basePath().'/js/plugins/jqueryCharts/canvasjs.min.js');
+?>
+  
+
+  <style type="text/css">
+  	
+  	div.stat{
+  		background-color: #D7E7F2;
+  		border: 1px solid #287CB1;
+  	}
+  	div.space{
+  		clear: both;
+  	}
+  	div#chartContainer{
+  		float: left;
+		}
+	div#chartContainer1{
+  		float: left;
+		
+	}
+
+	div#chartContainer3{
+  		float: left;
+		
+	}
+	div#chartContainer6{
+  		float: left;
+		
+	}
+	
+	
+
+  </style>
+
+<?php   
+/* 
+<style type="text/css">
+	.stat{
+		height: 200px;
+		display: grid;
+		grid-template-columns: 1fr  1fr  1fr;
+		grid-template-rows: 300px 300px;
+		grid-gap: 5px;
+	}
+
+	#chartContainer{
+		grid-column:1;
+		grid-row: 1;
+	}
+	
+</style>*/
+?> 
+<script type="text/javascript">
+	var donnees = new Array();
+</script>
+
+ <?php 
+ 
+ $resultTab1 = $this->result1[0];
+ $resultTab2 = $this->result1[1];
+ for ($i=0 ; $i<count($resultTab1); $i++) {
+ ?>
+
+<script type="text/javascript"> //alert("<?php //echo $res['ID_PERSONNE']; ?>") 
+   //donnees.push(<?php //echo $res['ID_PERSONNE']; ?>);
+
+ //alert("<?php echo $resultTab1[$i]; ?>");
+
+   var variable = { y: <?php echo $resultTab2[$resultTab1[$i]]; ?> , label:"<?php echo $resultTab1[$i]; ?>"};
+   donnees.push(variable);
+</script>
+ 
+<?php } ?>
+ 
+ <script>//alert(donnees);
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light1", // "light1", "light2", "dark1", "dark2"
+	title:{
+		text: "Visualisation du Patients Diabetes"
+	},
+	axisY: {
+		title: "Nombre de Patients"
+	},
+	data: [{        
+		type: "bar",  //change type to bar, line, area, pie, etc 
+		showInLegend: true, 
+		legendMarkerColor: "grey",
+		indexLabel:"{y}",
+		legendText: "Nombre de Patients par Sexe",
+		showInLegend: true,
+		dataPoints: donnees
+			
+	}]
+});
+
+var chart8 = new CanvasJS.Chart("chartContainer8", {
+	animationEnabled: true,
+	theme: "dark1", // "light1", "light2", "dark1", "dark2"
+	title:{
+		text: "Visualisation du Patients Diabetes"
+	},
+	axisY: {
+		title: "Nombre de Patients"
+	},
+	data: [{        
+		type: "bar",  
+		showInLegend: true, 
+		indexLabel:"{y}",
+		legendMarkerColor: "grey",
+		//indexLabel:"{y}",
+		legendText: "Nombre de Patients par Categorie Age",
+		dataPoints: donnees8
+			
+	}]
+});
+
+
+var chart1 = new CanvasJS.Chart("chartContainer1", {
+	animationEnabled: true,
+	theme: "light1", // "light1", "light2", "dark1", "dark2"
+	title:{
+		text: "Visualisation du Patients Diabetes"
+	},
+	axisY: {
+		title: "Nombre de Patients"
+	},
+	data: [{        
+		type: "column",  
+		showInLegend: true, 
+		legendMarkerColor: "grey",
+		indexLabel:"{y}",
+		legendText: "Nombre de Patients par Commune",
+		dataPoints: donnees1
+			
+	}]
+});
+
+var chart2 = new CanvasJS.Chart("chartContainer2", {
+	animationEnabled: true,
+	theme: "light1", // "light1", "light2", "dark1", "dark2"
+	title:{
+		text: "Visualisation du Patients Diabetes"
+	},
+	axisY: {
+		title: "Nombre de Patients"
+	},
+	data: [{        
+		type: "column",  
+		showInLegend: true, 
+		legendMarkerColor: "grey",
+		indexLabel:"{y}",
+		legendText: "Nombre de Patients par Quartier",
+		dataPoints: donnees2
+			
+	}]
+});
+
+var chart3 = new CanvasJS.Chart("chartContainer3", {
+	animationEnabled: true,
+	theme: "light1", // "light1", "light2", "dark1", "dark2"
+	title:{
+		text: "Visualisation du Patients Diabetes"
+	},
+	axisY: {
+		title: "Nombre de Patients"
+	},
+	data: [{        
+		type: "column",  
+		showInLegend: true, 
+		legendMarkerColor: "grey",
+		indexLabel:"{y}",
+		legendText: "Nombre de Patients par StatueMatrimoniale",
+		dataPoints: donnees3
+			
+	}]
+});
+
+var chart4 = new CanvasJS.Chart("chartContainer4", {
+	animationEnabled: true,
+	theme: "light1", // "light1", "light2", "dark1", "dark2"
+	title:{
+		text: "Visualisation du Patients Diabetes"
+	},
+	axisY: {
+		title: "Nombre de Patients"
+	},
+	data: [{        
+		type: "column",  
+		showInLegend: true, 
+		legendMarkerColor: "grey",
+		indexLabel:"{y}",
+		legendText: "Nombre de Patients par Profession",
+		dataPoints: donnees4
+			
+	}]
+});
+
+var chart5 = new CanvasJS.Chart("chartContainer5", {
+	animationEnabled: true,
+	theme: "light1", // "light1", "light2", "dark1", "dark2"
+	title:{
+		text: "Visualisation du Patients Diabetes"
+	},
+	axisY: {
+		title: "Nombre de Patients"
+	},
+	data: [{        
+		type: "column",  
+		showInLegend: true, 
+		legendMarkerColor: "grey",
+		indexLabel:"{y}",
+		legendText: "Nombre de Patients par Types Diabetes",
+		dataPoints: donnees5
+			
+	}]
+});
+
+var chart6 = new CanvasJS.Chart("chartContainer6", {
+	animationEnabled: true,
+	theme: "dark1", // "light1", "light2", "dark1", "dark2"
+	title:{
+		text: "Visualisation du Patients Diabetes"
+	},
+	axisY: {
+		title: "Nombre de Patients"
+	},
+	data: [{        
+		type: "column",  
+		showInLegend: true, 
+		legendMarkerColor: "grey",
+		indexLabel:"{y}",
+		legendText: "Nombre de Patients par Complication",
+		dataPoints: donnees6
+			
+	}]
+});
+
+var chart7 = new CanvasJS.Chart("chartContainer7", {
+	animationEnabled: true,
+	theme: "dark1", // "light1", "light2", "dark1", "dark2"
+	title:{
+		text: "Visualisation du Patients Diabetes"
+	},
+	axisY: {
+		title: "Nombre de Patients"
+	},
+	data: [{        
+		type: "column",  
+		showInLegend: true, 
+		legendMarkerColor: "grey",
+		indexLabel:"{y}",
+		legendText: "Nombre de Patients par Traitement Chirigical",
+		dataPoints: donnees7
+			
+	}]
+});
+
+chart.render();
+chart8.render();
+chart1.render();
+chart2.render();
+chart3.render();
+chart4.render();
+chart5.render();
+chart6.render();
+chart7.render();
+
+
+
+
+}
+    
+
+</script>
+
+
+
+
+
+<script type="text/javascript">
+	var donnees1 = new Array();
+</script>
+
+ 
+
+<?php 
+ 
+ $resultTab3 = $this->result2[0];
+ $resultTab4 = $this->result2[1];
+ for ($i=0 ; $i<count($resultTab3); $i++) {
+ ?>
+
+
+<script type="text/javascript"> //alert("<?php //echo $res['ID_PERSONNE']; ?>") 
+   //donnees.push(<?php //echo $res['ID_PERSONNE']; ?>);
+
+   var variable = { y: <?php echo $resultTab4[$resultTab3[$i]]; ?> , label:"<?php echo $resultTab3[$i]; ?>"};
+   donnees1.push(variable);
+</script>
+ 
+<?php } ?>
+ 
+ 
+
+
+
+<script type="text/javascript">
+	var donnees2 = new Array();
+</script>
+
+ <?php 
+ 
+ $resultTab5 = $this->result3[0];
+ $resultTab6 = $this->result3[1];
+ for ($i=0 ; $i<count($resultTab5); $i++) {
+ ?>
+<script type="text/javascript"> //alert("<?php //echo $res['ID_PERSONNE']; ?>") 
+   //donnees.push(<?php //echo $res['ID_PERSONNE']; ?>);
+
+   var variable = { y: <?php echo $resultTab6[$resultTab5[$i]]; ?> , label:"<?php echo $resultTab5[$i]; ?>"};
+   donnees2.push(variable);
+</script>
+ 
+<?php } ?>
+ 
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+	var donnees3 = new Array();
+</script>
+
+ 
+
+<?php 
+ 
+ $resultTab7 = $this->result4[0];
+ $resultTab8 = $this->result4[1];
+ for ($i=0 ; $i<count($resultTab7); $i++) {
+ ?>
+
+
+<script type="text/javascript"> //alert("<?php //echo $res['ID_PERSONNE']; ?>") 
+   //donnees.push(<?php //echo $res['ID_PERSONNE']; ?>);
+
+   var variable = { y: <?php echo $resultTab8[$resultTab7[$i]]; ?> , label:"<?php echo $resultTab7[$i]; ?>"};
+   donnees3.push(variable);
+</script>
+ 
+<?php } ?>
+ 
+ 
+
+
+
+
+<script type="text/javascript">
+	var donnees4 = new Array();
+</script>
+
+ 
+
+<?php 
+ 
+ $resultTab9 = $this->result5[0];
+ $resultTab10 = $this->result5[1];
+ for ($i=0 ; $i<count($resultTab9); $i++) {
+ ?>
+
+
+<script type="text/javascript"> //alert("<?php //echo $res['ID_PERSONNE']; ?>") 
+   //donnees.push(<?php //echo $res['ID_PERSONNE']; ?>);
+
+   var variable = { y: <?php echo $resultTab10[$resultTab9[$i]]; ?> , label:"<?php echo $resultTab9[$i]; ?>"};
+   donnees4.push(variable);
+</script>
+ 
+<?php } ?>
+ 
+
+
+
+
+
+
+<script type="text/javascript">
+	var donnees5 = new Array();
+</script>
+
+ 
+
+<?php 
+ 
+ $resultTab11 = $this->result6[0];
+ $resultTab12 = $this->result6[1];
+ for ($i=0 ; $i<count($resultTab11); $i++) {
+ ?>
+
+
+<script type="text/javascript"> //alert("<?php //echo $res['ID_PERSONNE']; ?>") 
+   //donnees.push(<?php //echo $res['ID_PERSONNE']; ?>);
+
+   var variable = { y: <?php echo $resultTab12[$resultTab11[$i]]; ?> , label:"<?php echo $resultTab11[$i]; ?>"};
+   donnees5.push(variable);
+</script>
+ 
+<?php } ?>
+ 
+ 
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+	var donnees6 = new Array();
+</script>
+
+ 
+
+<?php 
+ 
+ $resultTab13 = $this->result7[0];
+ $resultTab14 = $this->result7[1];
+ for ($i=0 ; $i<count($resultTab13); $i++) {
+ ?>
+
+
+<script type="text/javascript"> //alert("<?php //echo $res['ID_PERSONNE']; ?>") 
+   //donnees.push(<?php //echo $res['ID_PERSONNE']; ?>);
+
+   var variable = { y: <?php echo $resultTab14[$resultTab13[$i]]; ?> , label:"<?php echo $resultTab13[$i]; ?>"};
+   donnees6.push(variable);
+</script>
+ 
+<?php } ?>
+ 
+ 
+
+
+
+
+<script type="text/javascript">
+	var donnees7 = new Array();
+</script>
+
+ 
+
+<?php 
+ 
+ $resultTab15 = $this->result8[0];
+ $resultTab16 = $this->result8[1];
+ for ($i=0 ; $i<count($resultTab15); $i++) {
+ ?>
+
+
+<script type="text/javascript"> //alert("<?php //echo $res['ID_PERSONNE']; ?>") 
+   //donnees.push(<?php //echo $res['ID_PERSONNE']; ?>);
+
+   var variable = { y: <?php echo $resultTab16[$resultTab15[$i]]; ?> , label:"<?php echo $resultTab15[$i]; ?>"};
+   donnees7.push(variable);
+</script>
+ 
+<?php } ?>
+ 
+ 
+
+
+
+
+
+<script type="text/javascript">
+	var donnees8 = new Array();
+</script>
+
+ 
+
+<?php 
+ 
+ $resultTab17 = $this->result9[0];
+ $resultTab18 = $this->result9[1];
+ for ($i=0 ; $i<count($resultTab17); $i++) {
+ ?>
+
+
+<script type="text/javascript"> //alert("<?php //echo $res['ID_PERSONNE']; ?>") 
+   //donnees.push(<?php //echo $res['ID_PERSONNE']; ?>);
+
+   var variable = { y: <?php echo $resultTab18[$resultTab17[$i]]; ?> , label:"<?php echo $resultTab17[$i]; ?>"};
+   donnees8.push(variable);
+</script>
+ 
+<?php } ?>
+ 
+ 
+<div class="stat">
+	<div class="space"> &nbsp;</div>
+	<div id="chartContainer" style="height: 200px; width: 50%;"></div>
+	<div id="chartContainer8" style="height: 200px; width: 50%;"></div>
+	<div id="chartContainer1" style="height: 200px; width: 50%;"></div>
+	<div id="chartContainer2" style="height: 200px; width: 50%;"></div>
+	<div id="chartContainer3" style="height: 200px; width: 50%;"></div>
+	<div id="chartContainer4" style="height: 200px; width: 50%;"></div>
+	<div id="chartContainer5" style="height: 200px; width: 50%;"></div>
+	<div id="chartContainer6" style="height: 200px; width: 50%;"></div>
+	<div id="chartContainer7" style="height: 200px; width: 50%;"></div>
+	<div id="myChart" style="height: 200px; width: 50%;"></div>
+	
+	<div class="space"> &nbsp;</div>
+</div>
+
+
+
+

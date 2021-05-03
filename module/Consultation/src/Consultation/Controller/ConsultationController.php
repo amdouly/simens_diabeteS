@@ -134,7 +134,25 @@ class ConsultationController extends AbstractActionController {
 	    $patient->ethnie      = ($patient->ethnie)      ? $listeEthnies[$patient->ethnie] : '';
 	    $personne->regime_matrimonial = ($personne->regime_matrimonial) ? $listeRegimeMatrimonial[$personne->regime_matrimonial] : '';
 	    $personne->statut_matrimonial = ($personne->statut_matrimonial) ? $listeStatutMatrimonial[$personne->statut_matrimonial] : '';
+	    $listeCommuneSaintlouis = $this->getPersonneTable()->getListeCommuneSaintlouis();
+	    $listeQuartierSaintlouis = $this->getPersonneTable()->getListeQuartierSaintlouis();
+	    $listePays = $this->getPersonneTable()->getListePays();
 	    
+	    $adresse = "";
+	    if($patient->commune_saintlouis){
+	        $adresse = $listeCommuneSaintlouis[$patient->commune_saintlouis];
+	        if($patient->quartier_saintlouis){
+	            $adresse .= '<br> '.$listeQuartierSaintlouis[$patient->quartier_saintlouis];
+	        }
+	    }
+	     
+	    $departement = "";
+	    if($patient->departement && $patient->departement != 46){
+	        $departement .= "<div id='aa'><a style='text-decoration: underline;'>D&eacute;partement</a><br><p style='font-weight: bold;font-size: 19px;'> ".$this->listeDepartement($patient->departement)." </p></div>";
+	    }else if($patient->departement && $patient->departement == 46){
+	        $pays = "<div id='aa'><a style='text-decoration: underline;'>Pays</a><br><p style='font-weight: bold;font-size: 19px;'> ".$listePays[$patient->pays]." </p></div>";
+	        $departement .= $pays;
+	    }
 	    
 	    $html ="
 	  
@@ -249,7 +267,7 @@ class ConsultationController extends AbstractActionController {
 						   	</td>
 				
 						   	<td style='width:35%; font-family: police1;font-size: 12px; vertical-align: top;'>
-						   		<div id='aa'><a style='text-decoration: underline;'>Origine g&eacute;ographique</a><br><p style='font-weight: bold;font-size: 19px;'> ".$patient->origine_geographique."  </p></div>
+						   		<div id='aa'><a style='text-decoration: underline;'>Statut matrimonial</a><br><p style='font-weight: bold;font-size: 19px;'> ".$personne->statut_matrimonial."  </p></div>
 						   	</td>
 				
 						    <td style='width:38%; font-family: police1;font-size: 12px; vertical-align: top;'>
@@ -264,7 +282,7 @@ class ConsultationController extends AbstractActionController {
 			   	           </td>";
 	    
 						   $html .="<td style=' font-family: police1;font-size: 12px; vertical-align: top;'>
-						   <div id='aa'><a style='text-decoration: underline;'>Statut matrimonial</a><br><p style='font-weight: bold;font-size: 19px;'> ".$personne->statut_matrimonial." </p></div>
+						   <div id='aa'><a style='text-decoration: underline;'>R&eacute;gime matrimonial</a><br><p style='font-weight: bold;font-size: 19px;'> ".$personne->regime_matrimonial." </p></div>
 						   </td>";
 						   
 						   $html .="<td style=' font-family: police1;font-size: 12px; vertical-align: top;'>
@@ -280,7 +298,7 @@ class ConsultationController extends AbstractActionController {
 						   	</td>
 						   				
 						    <td style=' font-family: police1;font-size: 12px; vertical-align: top;'>
-						   		<div id='aa'><a style='text-decoration: underline;'>R&eacute;gime matrimonial</a><br><p style='font-weight: bold;font-size: 19px;'> ".$personne->regime_matrimonial." </p></div>
+						   		".$departement."
 						   	</td>
 						   				
 						   	<td style=' font-family: police1;font-size: 12px; vertical-align: top;'>
@@ -304,7 +322,7 @@ class ConsultationController extends AbstractActionController {
 						   </td>
 						   
 						   <td style='width: 195px; font-family: police1;font-size: 12px;'>
-						   	   <div id='aa'><a style='text-decoration: underline;'>Adresse</a><br><p style='font-weight: bold;font-size: 19px;'> ".$personne->adresse." </p></div>
+						   	   <div id='aa'><a style='text-decoration: underline;'>Adresse</a><br><p style='font-weight: bold;font-size: 19px;'> ".$adresse." </p></div>
 						   </td>
 						   
 						   <td  style='width: 195px; font-family: police1;font-size: 12px;'>
@@ -317,6 +335,7 @@ class ConsultationController extends AbstractActionController {
  					 <!-- FIN TABLEAU DES INFORMATIONS -->
            			 <!-- FIN TABLEAU DES INFORMATIONS -->
 			   		 <!-- FIN TABLEAU DES INFORMATIONS -->
+	                 <div id='barre' style='width: 100%; margin-left: 0px; '></div>
 				</td>
 	  
 				<td style='width: 10%;' >
@@ -352,7 +371,27 @@ class ConsultationController extends AbstractActionController {
 	
 	
 	
-	
+	private function listeDepartement($iddepartement) {
+	     
+	    $departement = array(
+	        
+	        1 => 'DAKAR', 2 => 'GUEDIAWAYE', 3 => 'PIKINE', 4 => 'RUFISQUE', 5 => 'BAMBEY', 6 => 'DIOURBEL', 7 => 'MBACKE',
+            8 => 'FATICK',9 => 'FOUNDIOUCK', 10 => 'GOSSAS',11 => 'BIRKELANE', 12 => 'KAFFRINE',		            
+            13 => 'KOUNGHEUL', 14 => 'MALEM HODDAR' , 'GUINGUINEO', 16 =>'KAOLACK', 
+            17 => 'NIORO', 'KEDOUGOU', 19 => 'SALEMATA', 20 => 'SARAYA',
+            21 => 'KOLDA', 22 => 'MEDINA YORO FOULAH', 23 => 'VELINGARA', 
+            24 => 'KEBEMER', 25 => 'LINGUERE', 26 => 'LOUGA',
+            27 => 'KANEL', 28 => 'MATAM', 29 => 'RANEROU',
+            30 => 'DAGANA', 31 => 'PODOR', 32 => 'SAINT LOUIS',
+            33 => 'BOUNKILING', 34 => 'GOUDOMP', 35 => 'SEDHIOU',
+            36 => 'BAKEL', 37 => 'GOUDIRY', 38 => 'KOUPENTOUM', 39 => 'TAMBACOUNDA',
+            40 => 'MBOUR', 41 => 'THIES', 42 => 'TIVAOUANE',
+            43 => 'BIGNONA', 44 => 'OUSSOUYE', 45 => 'ZIGUINCHOR',
+            46 => 'AUTRE ..'
+	   );
+	    
+	    return $departement[$iddepartement];
+	}
 	
 	
 	//GESTION DE CREATION DES DOSSIERS PATIENTS --- GESTION DE CREATION DES DOSSIERS PATIENTS
@@ -369,7 +408,7 @@ class ConsultationController extends AbstractActionController {
 		$listeStatutMatrimonial = $this->getPersonneTable()->getListeStatutMatrimonial();
 		$listeRegimeMatrimonial = $this->getPersonneTable()->getListeRegimeMatrimonial();
 		$listeCommuneSaintlouis = $this->getPersonneTable()->getListeCommuneSaintlouis();
-		//$listeQuartierSaintlouis = $this->getPersonneTable()->getListeQuartierSaintlouis();
+		$listePays = $this->getPersonneTable()->getListePays();
 		$listeRace = $this->getPersonneTable()->getListeRace();
 		
 		
@@ -378,7 +417,7 @@ class ConsultationController extends AbstractActionController {
 		$form->get('STATUT_MATRIMONIAL')->setvalueOptions($listeStatutMatrimonial);
 		$form->get('REGIME_MATRIMONIAL')->setvalueOptions($listeRegimeMatrimonial);
 		$form->get('COMMUNE_SAINTLOUIS')->setvalueOptions($listeCommuneSaintlouis);
-		//$form->get('QUARTIER_SAINTLOUIS')->setvalueOptions($listeQuartierSaintlouis);
+		$form->get('PAYS')->setvalueOptions($listePays);
 		$form->get('RACE')->setvalueOptions($listeRace);
 		
 		
@@ -387,7 +426,7 @@ class ConsultationController extends AbstractActionController {
 		if ($request->isPost()) {
 		
 		    $donnees = $this->getRequest()->getPost()->toArray();
-		    
+		      
 		    $personne = array();
 		    
 		    $fileBase64 = substr($this->params ()->fromPost ('fichier_tmp'), 23);
@@ -399,10 +438,10 @@ class ConsultationController extends AbstractActionController {
 		        $personne['PHOTO'] = $photo;
 		    }
 		    
-		    //Enregistrement données personne
+		    //Enregistrement donnÃ©es personne
 		    $idpersonne = $this->getPersonneTable() ->savePersonne($donnees, $personne);
 
-		    //Enregistrement données patient
+		    //Enregistrement donnÃ©es patient
 		    if($donnees['SEXE'] == 'Masculin'){ $sexe = 1; }else{ $sexe = 2; }
 		    $idemploye = $this->layout()->user['id_employe'];
 		    $this->getPatientTable()->savePatient($donnees, $idpersonne, $idemploye, $sexe);
@@ -417,16 +456,29 @@ class ConsultationController extends AbstractActionController {
 		);
 	}
 	
-	
+	 
 	public function listeDossiersPatientsAjaxAction() {
 	    $output = $this->getPatientTable()->getListePatientsAjax();
 	    return $this->getResponse ()->setContent ( Json::encode ( $output, array ( 'enableJsonExprFinder' => true ) ) );
 	}
 	
 	public function listeDossiersPatientsAction() {
+	    
+	    // $output = $this->getPatientTable()->getListePatientsAjax();
+	    //var_dump($output); exit();
+	    
 	    $this->layout ()->setTemplate ( 'layout/consultation' );
 	}
 	
+	public function supprimerPatientAction() {
+	    
+	    $idpatient = ( int ) $this->params ()->fromPost ( 'idpatient' );
+	    
+	    $response = $this->getPersonneTable()->deletePersonne($idpatient);
+	    
+	    $this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
+	    return $this->getResponse ()->setContent ( Json::encode ( $response ) );
+	}
 	
 	public function infosPatientAction() {
 	
@@ -445,6 +497,9 @@ class ConsultationController extends AbstractActionController {
 	    $listeStatutMatrimonial = $this->getPersonneTable()->getListeStatutMatrimonial();
 	    $listeRegimeMatrimonial = $this->getPersonneTable()->getListeRegimeMatrimonial();
 	    $listeRace = $this->getPersonneTable()->getListeRace();
+	    $listePays = $this->getPersonneTable()->getListePays();
+	    $listeCommuneSaintlouis = $this->getPersonneTable()->getListeCommuneSaintlouis();
+	    $listeQuartierSaintlouis = $this->getPersonneTable()->getListeQuartierSaintlouis();
 	    
 	    $personne->photo = $personne->photo ? $personne->photo : 'identite.jpg';
 	    $personne->profession = ($personne->profession) ? $listeProfessions[$personne->profession] : '';
@@ -452,6 +507,21 @@ class ConsultationController extends AbstractActionController {
 	    $personne->regime_matrimonial = ($personne->regime_matrimonial) ? $listeRegimeMatrimonial[$personne->regime_matrimonial] : '';
 	    $personne->statut_matrimonial = ($personne->statut_matrimonial) ? $listeStatutMatrimonial[$personne->statut_matrimonial] : '';
 	     
+	    $adresse = "";
+	    if($patient->commune_saintlouis){
+	       $adresse = $listeCommuneSaintlouis[$patient->commune_saintlouis];
+	       if($patient->quartier_saintlouis){
+	           $adresse .= '<br> '.$listeQuartierSaintlouis[$patient->quartier_saintlouis];
+	       }
+	    }
+	    
+	    $departement = "";
+	    if($patient->departement && $patient->departement != 46){
+	        $departement .= "<div id='aa'><a style='text-decoration: underline;'>D&eacute;partement</a><br><p style='font-weight: bold;font-size: 19px;'> ".$this->listeDepartement($patient->departement)." </p></div>";
+	    }else if($patient->departement && $patient->departement == 46){
+	        $pays = "<div id='aa'><a style='text-decoration: underline;'>Pays</a><br><p style='font-weight: bold;font-size: 19px;'> ".$listePays[$patient->pays]." </p></div>";
+	        $departement .= $pays;
+	    }
 	    
 	    $html ="
 	
@@ -545,7 +615,7 @@ class ConsultationController extends AbstractActionController {
 			   	</td>
 	
 			   	<td style='width:35%; font-family: police1;font-size: 12px;'>
-			   		<div id='aa'><a style='text-decoration: underline;'>Origine g&eacute;ographique</a><br><p style='font-weight: bold;font-size: 19px;'> ".$patient->origine_geographique."  </p></div>
+			   		<div id='aa'><a style='text-decoration: underline;'>Statut matrimonial</a><br><p style='font-weight: bold;font-size: 19px;'> ".$personne->statut_matrimonial."  </p></div>
 			   	</td>
 	
 			    <td style='width:38%; font-family: police1;font-size: 12px;'>
@@ -561,7 +631,7 @@ class ConsultationController extends AbstractActionController {
 	
 	    
 	        $html .="<td style=' font-family: police1;font-size: 12px;'>
-			   		<div id='aa'><a style='text-decoration: underline;'>Statut matrimonial</a><br><p style='font-weight: bold;font-size: 19px;'> ".$personne->statut_matrimonial." </p></div>
+			   		<div id='aa'><a style='text-decoration: underline;'>R&eacute;gime matrimonial</a><br><p style='font-weight: bold;font-size: 19px;'> ".$personne->regime_matrimonial." </p></div>
 			   	</td>";
 	
 	    $html .="<td style=' font-family: police1;font-size: 12px;'>
@@ -576,7 +646,7 @@ class ConsultationController extends AbstractActionController {
 			   	</td>
 	
 			    <td style=' font-family: police1;font-size: 12px;'>
-			   		<div id='aa'><a style='text-decoration: underline;'>R&eacute;gime matrimonial</a><br><p style='font-weight: bold;font-size: 19px;'> ".$personne->regime_matrimonial." </p></div>
+			   	".$departement."	
 			   	</td>
 	
 			   	<td style=' font-family: police1;font-size: 12px;'>
@@ -598,7 +668,7 @@ class ConsultationController extends AbstractActionController {
 			   	</td>
 	
 			    <td style='width: 195px; font-family: police1;font-size: 12px;'>
-			   		<div id='aa'><a style='text-decoration: underline;'>Adresse</a><br><p style='font-weight: bold;font-size: 19px;'> ".$personne->adresse." </p></div>
+			   		<div id='aa'><a style='text-decoration: underline;'>Adresse</a><br><p style='font-weight: bold;font-size: 19px;'> ".$adresse." </p></div>
 			   	</td>
 	
 			    <td  style='width: 195px; font-family: police1;font-size: 12px;'>
@@ -641,23 +711,23 @@ class ConsultationController extends AbstractActionController {
 	     
 	    $idpersonne = (int) $this->params()->fromRoute('val', 0);
 	    $form = new PatientForm();
-	
+	    
 	    $listeProfessions = $this->getPersonneTable()->getListeProfessions();
 	    $listeEthnies = $this->getPersonneTable()->getListeEthnies();
 	    $listeStatutMatrimonial = $this->getPersonneTable()->getListeStatutMatrimonial();
 	    $listeRegimeMatrimonial = $this->getPersonneTable()->getListeRegimeMatrimonial();
 	    $listeCommuneSaintlouis = $this->getPersonneTable()->getListeCommuneSaintlouis();
-	    //$listeQuartierSaintlouis = $this->getPersonneTable()->getListeQuartierSaintlouis();
+	    $listePays = $this->getPersonneTable()->getListePays();
 	    $listeRace = $this->getPersonneTable()->getListeRace();
 	    
-	
 	    $form->get('PROFESSION')->setvalueOptions($listeProfessions);
 	    $form->get('ETHNIE')->setvalueOptions($listeEthnies);
 	    $form->get('STATUT_MATRIMONIAL')->setvalueOptions($listeStatutMatrimonial);
 	    $form->get('REGIME_MATRIMONIAL')->setvalueOptions($listeRegimeMatrimonial);
 	    $form->get('COMMUNE_SAINTLOUIS')->setvalueOptions($listeCommuneSaintlouis);
-	    //$form->get('QUARTIER_SAINTLOUIS')->setvalueOptions($listeQuartierSaintlouis);
+	    $form->get('PAYS')->setvalueOptions($listePays);
 	    $form->get('RACE')->setvalueOptions($listeRace);
+	   
 	    
 	    
 	    $request = $this->getRequest();
@@ -686,11 +756,11 @@ class ConsultationController extends AbstractActionController {
 	            $personne['PHOTO'] = $photo;
 	        }
 	
-	        //Modifier données personne
+	        //Modifier donnÃ©es personne
 	        $this->getPersonneTable() ->updatePersonne($idpersonne, $donnees, $personne);
 	
 	
-	        //Modifier données patient
+	        //Modifier donnÃ©es patient
 	        $patient = $this->getPatientTable()->getPatient($idpersonne);
 	        
 
@@ -721,7 +791,8 @@ class ConsultationController extends AbstractActionController {
 	    $data['REGIME_MATRIMONIAL'] = $personne->regime_matrimonial;
 	    $data['ETHNIE'] = $patient->ethnie;
 	    $data['RACE'] = $patient->race;
-	    $data['ORIGINE_GEOGRAPHIQUE'] = $patient->origine_geographique;
+	    $data['PAYS'] = $patient->pays;
+	    $data['DEPARTEMENT'] = $patient->departement;
 	    $data['COMMUNE_SAINTLOUIS'] = $patient->commune_saintlouis;
 	    $data['QUARTIER_SAINTLOUIS_MEMO'] = $patient->quartier_saintlouis;
 	    
@@ -767,6 +838,8 @@ class ConsultationController extends AbstractActionController {
 	}
 	
 	public function listePatientsAdmettreAction() {
+	    //$output = $this->getPatientTable()->getListePatientsAAdmettre();
+	    //var_dump($output); exit();
 		$this->layout ()->setTemplate ( 'layout/consultation' );
 	}
 	
@@ -863,13 +936,13 @@ class ConsultationController extends AbstractActionController {
 	    $data['duree_des_signes'] = $signes['duree'];
 	    $data['gravite_des_signes'] = $signes['gravite'];
 	     
-	    // Résumé histoire de la maladie
-	    // Résumé histoire de la maladie
+	    // RÃ©sumÃ© histoire de la maladie
+	    // RÃ©sumÃ© histoire de la maladie
 	    $histoireMaladie = $this->getConsultationTable()->getResumeHistoireMaladie( $idcons );
 	    $data['resume_histoire_maladie'] = $histoireMaladie['resume'];
 	     
-	    //Examen général --- Examen général
-	    //Examen général --- Examen général
+	    //Examen gÃ©nÃ©ral --- Examen gÃ©nÃ©ral
+	    //Examen gÃ©nÃ©ral --- Examen gÃ©nÃ©ral
 	    $etatGeneral = $this->getConsultationTable()->getEtatGeneral( $idcons );
 	    $etatGeneral = $etatGeneral ? $etatGeneral : array();
 	     
@@ -882,15 +955,15 @@ class ConsultationController extends AbstractActionController {
 	    
 	    //Examens biologiques --- Examens biologiques
 	    //Examens biologiques --- Examens biologiques
-	    /* Glycémie à jeun*/
+	    /* GlycÃ©mie Ã  jeun*/
 	    $glycemieAJeun = $this->getConsultationTable()->getGlycemieAJeun( $idcons );
 	    $glycemieAJeun = $glycemieAJeun ? $glycemieAJeun : array();
 	    
-	    /*Hémoglobine glyquée*/
+	    /*HÃ©moglobine glyquÃ©e*/
 	    $hemoGlyquee = $this->getConsultationTable()->getHemoglobineGlyquee( $idcons );
 	    $hemoGlyquee = $hemoGlyquee ? $hemoGlyquee : array();
 	     
-	    /*Créatininémie*/
+	    /*CrÃ©atininÃ©mie*/
 	    $creatininemie = $this->getConsultationTable()->getInfosAnalyse("creatininemie", $idcons);
 	    $creatininemie = $creatininemie ? $creatininemie : array();
 	     
@@ -948,8 +1021,8 @@ class ConsultationController extends AbstractActionController {
 	    $echographie = $this->getConsultationTable()->getInfosAnalyse("echographie", $idcons);
 	    $echographie = $echographie ? $echographie : array();
 	     
-	    //Diagnostic à l'entrée --- Diagnostic à l'entrée
-	    //Diagnostic à l'entrée --- Diagnostic à l'entrée
+	    //Diagnostic Ã  l'entrÃ©e --- Diagnostic Ã  l'entrÃ©e
+	    //Diagnostic Ã  l'entrÃ©e --- Diagnostic Ã  l'entrÃ©e
 	    /*type de diabete*/
 	    $typediabete = $this->getConsultationTable()->getInfosAnalyse("type_diabete", $idcons);
 	    $typediabete = $typediabete ? $typediabete : array();
@@ -1003,6 +1076,29 @@ class ConsultationController extends AbstractActionController {
 		$listeSigne = $this->getPersonneTable()->getListeSigne();
 		$listeRace = $this->getPersonneTable()->getListeRace();
 		
+		$listeCommuneSaintlouis = $this->getPersonneTable()->getListeCommuneSaintlouis();
+		$listeQuartierSaintlouis = $this->getPersonneTable()->getListeQuartierSaintlouis();
+		$listePays = $this->getPersonneTable()->getListePays();
+		 
+		$adresse = "";
+		if($patient->commune_saintlouis){
+		    $adresse = $listeCommuneSaintlouis[$patient->commune_saintlouis];
+		    if($patient->quartier_saintlouis){
+		        $adresse .= '<br> '.$listeQuartierSaintlouis[$patient->quartier_saintlouis];
+		    }
+		}
+		
+		$departement = "";
+		if($patient->departement && $patient->departement != 46){
+		    $departement .= "<a style='text-decoration: underline;'>D&eacute;partement</a><br><p style='font-weight: bold;font-size: 19px;'> ".$this->listeDepartement($patient->departement)." </p>";
+		}else if($patient->departement && $patient->departement == 46){
+		    $pays = "<a style='text-decoration: underline;'>Pays</a><br><p style='font-weight: bold;font-size: 19px;'> ".$listePays[$patient->pays]." </p>";
+		    $departement .= $pays;
+		}
+		 
+		
+		
+		
 		$form->get('PROFESSION')->setvalueOptions($listeProfessions);
 		$form->get('ETHNIE')->setvalueOptions($listeEthnies);
 		$form->get('STATUT_MATRIMONIAL')->setvalueOptions($listeStatutMatrimonial);
@@ -1035,13 +1131,13 @@ class ConsultationController extends AbstractActionController {
 		$autreTerrainConnu = $this->getConsultationTable()->getAutreTerrainConnu( $idpatient );
 		$autreTerrainConnu = $autreTerrainConnu ? $autreTerrainConnu : array();
 		
-		// Les antécédents médicaux --- Les antécédents médicaux
-		// Les antécédents médicaux --- Les antécédents médicaux
+		// Les antÃ©cÃ©dents mÃ©dicaux --- Les antÃ©cÃ©dents mÃ©dicaux
+		// Les antÃ©cÃ©dents mÃ©dicaux --- Les antÃ©cÃ©dents mÃ©dicaux
 		$antMedicaux = $this->getConsultationTable()->getAntMedicaux( $idpatient );
 		$antMedicaux = $antMedicaux ? $antMedicaux : array();
 		
-		// Les antécédents chirurgicaux --- Les antécédents chirurgicaux
-		// Les antécédents chirurgicaux --- Les antécédents chirurgicaux
+		// Les antÃ©cÃ©dents chirurgicaux --- Les antÃ©cÃ©dents chirurgicaux
+		// Les antÃ©cÃ©dents chirurgicaux --- Les antÃ©cÃ©dents chirurgicaux
 		$antChirurgicaux = $this->getConsultationTable()->getAntChirurgicaux( $idpatient );
 		$antChirurgicaux = $antChirurgicaux ? $antChirurgicaux : array();
 		
@@ -1054,7 +1150,7 @@ class ConsultationController extends AbstractActionController {
 		
 		/**============================================================
 		 **============================================================
-		 * Donnees d'entrée automatique -- Donnees d'entrée automatique
+		 * Donnees d'entrÃ©e automatique -- Donnees d'entrÃ©e automatique
 		 *_____________________________________________________________
 		 *_____________________________________________________________
 		 */
@@ -1074,22 +1170,22 @@ class ConsultationController extends AbstractActionController {
 		/** 1=SUIVI ; 0=CONSULTATION*/
 		$typeDeConsultation = 0;
 		/**
-		 * Récupérer la premiere consultation générale du patient différente des consultations de suivi
+		 * RÃ©cupÃ©rer la premiere consultation gÃ©nÃ©rale du patient diffÃ©rente des consultations de suivi
 		 */
 		$consultationGlobale = $this->getConsultationTable ()->getConsultationPatientDifferentDeSuivi( $idpatient );
 		//var_dump($consultationGlobale); exit();
 		
 		/**
-		 * Vérifier si le patient a déjà une consultation de suivi
+		 * VÃ©rifier si le patient a dÃ©jÃ  une consultation de suivi
 		 */
 		$consultationSuivi = $this->getConsultationTable ()->getConsultationDeSuivi( $idpatient );
 		if(!$consultationSuivi){
 		    /**
 		     * S'il n y a pas de consultation de suivi
-		     * Vérifier si c'est la première consultation ou s'il sagit d'un suivi
+		     * VÃ©rifier si c'est la premiÃ¨re consultation ou s'il sagit d'un suivi
 		     */
 		    if ($consultationGlobale){
-		        /** S'il y a déjà une consultation globale => c'est un suivi */
+		        /** S'il y a dÃ©jÃ  une consultation globale => c'est un suivi */
 		        //echo 'un suivi'; exit();
 		        
 		        $typeDeConsultation = 1;
@@ -1196,6 +1292,9 @@ class ConsultationController extends AbstractActionController {
 		    
 	        'typeDeConsultation' => $typeDeConsultation,
 		    'listeRace' => $listeRace,
+		    
+		    'adresse' => $adresse,
+		    'departement' => $departement,
 				
 		);
 		
@@ -1516,8 +1615,8 @@ class ConsultationController extends AbstractActionController {
 	    // Signes --- Signes
 	    $this->getConsultationTable()->addSignes($tabDonnees, $idemploye);
 	    
-	    // Résumé histoire de la maladie
-	    // Résumé histoire de la maladie
+	    // RÃ©sumÃ© histoire de la maladie
+	    // RÃ©sumÃ© histoire de la maladie
 	    $this->getConsultationTable()->addResumeHistoireMaladie($tabDonnees, $idemploye);
 	    
 	    /**
@@ -1533,20 +1632,20 @@ class ConsultationController extends AbstractActionController {
 	    // Autre terrain connu --- Autre terrain connu
 	    $this->getConsultationTable()->addAutreTerrainConnu($tabDonnees, $idemploye);
 	    
-	    // Les antécédents médicaux --- Les antécédents médicaux
-	    // Les antécédents médicaux --- Les antécédents médicaux
+	    // Les antÃ©cÃ©dents mÃ©dicaux --- Les antÃ©cÃ©dents mÃ©dicaux
+	    // Les antÃ©cÃ©dents mÃ©dicaux --- Les antÃ©cÃ©dents mÃ©dicaux
 	    $this->getConsultationTable()->addAntMedicaux($tabDonnees, $idemploye);
 	    
-	    // Les antécédents chirurgicaux --- Les antécédents chirurgicaux
-	    // Les antécédents chirurgicaux --- Les antécédents chirurgicaux
+	    // Les antÃ©cÃ©dents chirurgicaux --- Les antÃ©cÃ©dents chirurgicaux
+	    // Les antÃ©cÃ©dents chirurgicaux --- Les antÃ©cÃ©dents chirurgicaux
 	    $this->getConsultationTable()->addAntChirurgicaux($tabDonnees, $idemploye);
 	    
 	    /**
 	     * =================================================
 	     */
 	    
-	    //Examen général --- Examen général
-	    //Examen général --- Examen général
+	    //Examen gÃ©nÃ©ral --- Examen gÃ©nÃ©ral
+	    //Examen gÃ©nÃ©ral --- Examen gÃ©nÃ©ral
 	    $this->getConsultationTable()->addEtatGeneral($tabDonnees, $idemploye);
 	    
 	    //Examen physique --- Examen physique
@@ -1555,13 +1654,13 @@ class ConsultationController extends AbstractActionController {
 	    
 	    //Examens biologiques --- Examens biologiques
 	    //Examens biologiques --- Examens biologiques
-	    /* Glycémie à jeun*/
+	    /* GlycÃ©mie Ã  jeun*/
 	    $this->getConsultationTable()->addGlycemieAJeun($tabDonnees, $idemploye);
 	    
-	    /*Hémoglobine glyquée*/
+	    /*HÃ©moglobine glyquÃ©e*/
 	    $this->getConsultationTable()->addHemoglobineGlyquee($tabDonnees, $idemploye);
 	    
-	    /*Créatininémie*/
+	    /*CrÃ©atininÃ©mie*/
 	    $this->getConsultationTable()->addCreatininemie($tabDonnees, $idemploye);
 	    
 	    /*Groupage rhesus*/
@@ -1604,8 +1703,8 @@ class ConsultationController extends AbstractActionController {
 	    $this->getConsultationTable()->addEchographie($tabDonnees, $idemploye);
 	    
 	    
-	    //Diagnostic à l'entrée --- Diagnostic à l'entrée
-	    //Diagnostic à l'entrée --- Diagnostic à l'entrée
+	    //Diagnostic Ã  l'entrÃ©e --- Diagnostic Ã  l'entrÃ©e
+	    //Diagnostic Ã  l'entrÃ©e --- Diagnostic Ã  l'entrÃ©e
 	    /*type de diabete*/
 	    $this->getConsultationTable()->addTypeDiabete($tabDonnees, $idemploye);
 	    /*complication*/
@@ -1641,8 +1740,8 @@ class ConsultationController extends AbstractActionController {
 	    // Plaintes de Suivi --- Plaintes de Suivi
 	    $this->getConsultationTable()->addPlaintesSuivi($tabDonnees, $idemploye);
 	    
-	    //Examen général --- Examen général
-	    //Examen général --- Examen général
+	    //Examen gÃ©nÃ©ral --- Examen gÃ©nÃ©ral
+	    //Examen gÃ©nÃ©ral --- Examen gÃ©nÃ©ral
 	    $this->getConsultationTable()->addEtatGeneralSuiv($tabDonnees, $idemploye);
 	    
 	    //Examen physique --- Examen physique
@@ -1651,13 +1750,13 @@ class ConsultationController extends AbstractActionController {
 	    
 	    //Examens biologiques --- Examens biologiques
 	    //Examens biologiques --- Examens biologiques
-	    /* Glycémie à jeun*/
+	    /* GlycÃ©mie Ã  jeun*/
 	    $this->getConsultationTable()->addGlycemieAJeunSuiv($tabDonnees, $idemploye);
 	    
-	    /*Hémoglobine glyquée*/
+	    /*HÃ©moglobine glyquÃ©e*/
 	    $this->getConsultationTable()->addHemoglobineGlyqueeSuiv($tabDonnees, $idemploye);
 	    
-	    /*Créatininémie*/
+	    /*CrÃ©atininÃ©mie*/
 	    $this->getConsultationTable()->addCreatininemieSuiv($tabDonnees, $idemploye);
 
 	    /*Groupage rhesus*/
@@ -1695,7 +1794,7 @@ class ConsultationController extends AbstractActionController {
 	    /*Echographie*/
 	    $this->getConsultationTable()->addEchographieSuiv($tabDonnees, $idemploye);
 	     
-	    /*Consuite à suivre*/
+	    /*Consuite Ã  suivre*/
 	    $this->getConsultationTable()->addConduiteASuivre($tabDonnees, $idemploye);
 	    
 	    //echo "<pre>";
@@ -1733,6 +1832,26 @@ class ConsultationController extends AbstractActionController {
 	    $listeRegimeMatrimonial = $this->getPersonneTable()->getListeRegimeMatrimonial();
 	    $listeSigne = $this->getPersonneTable()->getListeSigne();
 	    $listeRace = $this->getPersonneTable()->getListeRace();
+	    
+	    $listeCommuneSaintlouis = $this->getPersonneTable()->getListeCommuneSaintlouis();
+	    $listeQuartierSaintlouis = $this->getPersonneTable()->getListeQuartierSaintlouis();
+	    $listePays = $this->getPersonneTable()->getListePays();
+	    	
+	    $adresse = "";
+	    if($patient->commune_saintlouis){
+	        $adresse = $listeCommuneSaintlouis[$patient->commune_saintlouis];
+	        if($patient->quartier_saintlouis){
+	            $adresse .= '<br> '.$listeQuartierSaintlouis[$patient->quartier_saintlouis];
+	        }
+	    }
+	    
+	    $departement = "";
+	    if($patient->departement && $patient->departement != 46){
+	        $departement .= "<a style='text-decoration: underline;'>D&eacute;partement</a><br><p style='font-weight: bold;font-size: 19px;'> ".$this->listeDepartement($patient->departement)." </p>";
+	    }else if($patient->departement && $patient->departement == 46){
+	        $pays = "<a style='text-decoration: underline;'>Pays</a><br><p style='font-weight: bold;font-size: 19px;'> ".$listePays[$patient->pays]." </p>";
+	        $departement .= $pays;
+	    }
 	
 	    $form->get('PROFESSION')->setvalueOptions($listeProfessions);
 	    $form->get('ETHNIE')->setvalueOptions($listeEthnies);
@@ -1762,8 +1881,8 @@ class ConsultationController extends AbstractActionController {
 	    $data['duree_des_signes'] = $signes['duree'];
 	    $data['gravite_des_signes'] = $signes['gravite'];
 	    
-	    // Résumé histoire de la maladie
-	    // Résumé histoire de la maladie
+	    // RÃ©sumÃ© histoire de la maladie
+	    // RÃ©sumÃ© histoire de la maladie
 	    $histoireMaladie = $this->getConsultationTable()->getResumeHistoireMaladie( $idcons );
 	    $data['resume_histoire_maladie'] = $histoireMaladie['resume'];
 	    
@@ -1783,13 +1902,13 @@ class ConsultationController extends AbstractActionController {
 	    $autreTerrainConnu = $this->getConsultationTable()->getAutreTerrainConnu( $idpatient );
 	    $autreTerrainConnu = $autreTerrainConnu ? $autreTerrainConnu : array();
 	     
-	    // Les antécédents médicaux --- Les antécédents médicaux
-	    // Les antécédents médicaux --- Les antécédents médicaux
+	    // Les antÃ©cÃ©dents mÃ©dicaux --- Les antÃ©cÃ©dents mÃ©dicaux
+	    // Les antÃ©cÃ©dents mÃ©dicaux --- Les antÃ©cÃ©dents mÃ©dicaux
 	    $antMedicaux = $this->getConsultationTable()->getAntMedicaux( $idpatient );
 	    $antMedicaux = $antMedicaux ? $antMedicaux : array();
 	     
-	    // Les antécédents chirurgicaux --- Les antécédents chirurgicaux
-	    // Les antécédents chirurgicaux --- Les antécédents chirurgicaux
+	    // Les antÃ©cÃ©dents chirurgicaux --- Les antÃ©cÃ©dents chirurgicaux
+	    // Les antÃ©cÃ©dents chirurgicaux --- Les antÃ©cÃ©dents chirurgicaux
 	    $antChirurgicaux = $this->getConsultationTable()->getAntChirurgicaux( $idpatient );
 	    $antChirurgicaux = $antChirurgicaux ? $antChirurgicaux : array();
 	     
@@ -1800,8 +1919,8 @@ class ConsultationController extends AbstractActionController {
 	    	  
 	
 	    
-	    //Examen général --- Examen général
-	    //Examen général --- Examen général
+	    //Examen gÃ©nÃ©ral --- Examen gÃ©nÃ©ral
+	    //Examen gÃ©nÃ©ral --- Examen gÃ©nÃ©ral
 	    $etatGeneral = $this->getConsultationTable()->getEtatGeneral( $idcons );
 	    $etatGeneral = $etatGeneral ? $etatGeneral : array();
 	    
@@ -1813,15 +1932,15 @@ class ConsultationController extends AbstractActionController {
 	    
 	    //Examens biologiques --- Examens biologiques
 	    //Examens biologiques --- Examens biologiques
-	    /* Glycémie à jeun*/
+	    /* GlycÃ©mie Ã  jeun*/
 	    $glycemieAJeun = $this->getConsultationTable()->getGlycemieAJeun( $idcons );
 	    $glycemieAJeun = $glycemieAJeun ? $glycemieAJeun : array();
 
-	    /*Hémoglobine glyquée*/
+	    /*HÃ©moglobine glyquÃ©e*/
 	    $hemoGlyquee = $this->getConsultationTable()->getHemoglobineGlyquee( $idcons );
 	    $hemoGlyquee = $hemoGlyquee ? $hemoGlyquee : array(); 
 	    
-	    /*Créatininémie*/
+	    /*CrÃ©atininÃ©mie*/
 	    $creatininemie = $this->getConsultationTable()->getInfosAnalyse("creatininemie", $idcons);
 	    $creatininemie = $creatininemie ? $creatininemie : array();
 	    
@@ -1879,8 +1998,8 @@ class ConsultationController extends AbstractActionController {
 	    $echographie = $this->getConsultationTable()->getInfosAnalyse("echographie", $idcons);
 	    $echographie = $echographie ? $echographie : array();
 	    
-	    //Diagnostic à l'entrée --- Diagnostic à l'entrée
-	    //Diagnostic à l'entrée --- Diagnostic à l'entrée
+	    //Diagnostic Ã  l'entrÃ©e --- Diagnostic Ã  l'entrÃ©e
+	    //Diagnostic Ã  l'entrÃ©e --- Diagnostic Ã  l'entrÃ©e
 	    /*type de diabete*/
 	    $typediabete = $this->getConsultationTable()->getInfosAnalyse("type_diabete", $idcons);
 	    $typediabete = $typediabete ? $typediabete : array();
@@ -1934,6 +2053,9 @@ class ConsultationController extends AbstractActionController {
 	        'nbComplicationDiagEntree' => $complicationDiagEntree->count(),
 	        
 	        'listeRace' => $listeRace,
+	        
+	        'adresse' => $adresse,
+	        'departement' => $departement,
 	    );
 	
 	}
@@ -1943,8 +2065,8 @@ class ConsultationController extends AbstractActionController {
 	    $data = array ( );
 	    
 	
-	    //Examen général --- Examen général
-	    //Examen général --- Examen général
+	    //Examen gÃ©nÃ©ral --- Examen gÃ©nÃ©ral
+	    //Examen gÃ©nÃ©ral --- Examen gÃ©nÃ©ral
 	    $etatGeneral = $this->getConsultationTable()->getEtatGeneralSuiv($idsuiv );
 	    $etatGeneral = $etatGeneral ? $etatGeneral : array();
 	
@@ -1962,17 +2084,17 @@ class ConsultationController extends AbstractActionController {
 	     
 	    //Examens biologiques --- Examens biologiques
 	    //Examens biologiques --- Examens biologiques
-	    /* Glycémie à jeun*/
+	    /* GlycÃ©mie Ã  jeun*/
 	    $glycemieAJeun = $this->getConsultationTable()->getInfosAnalyseSuiv("glycemie_a_jeun", $idsuiv );
 	    $glycemieAJeun = $glycemieAJeun ? array("glycemie_jeun_suiv" => $glycemieAJeun['glycemie_jeun']) : array();
 	    
 	    //var_dump($glycemieAJeun); exit();
 	     
-	    /*Hémoglobine glyquée*/
+	    /*HÃ©moglobine glyquÃ©e*/
 	    $hemoGlyquee = $this->getConsultationTable()->getInfosAnalyseSuiv("hemoglobine_glyquee", $idsuiv );
 	    $hemoGlyquee = $hemoGlyquee ? array("hemoglobine_glyquee_suiv" => $hemoGlyquee['hemoglobine_glyquee']) : array();
 	
-	    /*Créatininémie*/
+	    /*CrÃ©atininÃ©mie*/
 	    $creatininemie = $this->getConsultationTable()->getInfosAnalyseSuiv("creatininemie", $idsuiv);
 	    $creatininemie = $creatininemie ? array('creatininemie_suiv' => $creatininemie['creatininemie']) : array();
 	
@@ -2027,8 +2149,8 @@ class ConsultationController extends AbstractActionController {
 	
 	    $data = array_merge($data, $radio, $scanner, $echographie);
 	
-	    //Conduite à tenir --- Conduite à tenir
-	    //Conduite à tenir --- Conduite à tenir
+	    //Conduite Ã  tenir --- Conduite Ã  tenir
+	    //Conduite Ã  tenir --- Conduite Ã  tenir
 	    $conduiteASuivre = $this->getConsultationTable()->getConduiteASuivre($idsuiv);
 	    $data['conduite_a_suivre_suivi'] = $conduiteASuivre['conduite_a_suivre'];
 	    
@@ -2060,6 +2182,26 @@ class ConsultationController extends AbstractActionController {
 	    $listeRegimeMatrimonial = $this->getPersonneTable()->getListeRegimeMatrimonial();
 	    $listeSigne = $this->getPersonneTable()->getListeSigne();
 	    $listeRace = $this->getPersonneTable()->getListeRace();
+	    
+	    $listeCommuneSaintlouis = $this->getPersonneTable()->getListeCommuneSaintlouis();
+	    $listeQuartierSaintlouis = $this->getPersonneTable()->getListeQuartierSaintlouis();
+	    $listePays = $this->getPersonneTable()->getListePays();
+	    
+	    $adresse = "";
+	    if($patient->commune_saintlouis){
+	        $adresse = $listeCommuneSaintlouis[$patient->commune_saintlouis];
+	        if($patient->quartier_saintlouis){
+	            $adresse .= '<br> '.$listeQuartierSaintlouis[$patient->quartier_saintlouis];
+	        }
+	    }
+	     
+	    $departement = "";
+	    if($patient->departement && $patient->departement != 46){
+	        $departement .= "<a style='text-decoration: underline;'>D&eacute;partement</a><br><p style='font-weight: bold;font-size: 19px;'> ".$this->listeDepartement($patient->departement)." </p>";
+	    }else if($patient->departement && $patient->departement == 46){
+	        $pays = "<a style='text-decoration: underline;'>Pays</a><br><p style='font-weight: bold;font-size: 19px;'> ".$listePays[$patient->pays]." </p>";
+	        $departement .= $pays;
+	    }
 	    
 	    $form->get('PROFESSION')->setvalueOptions($listeProfessions);
 	    $form->get('ETHNIE')->setvalueOptions($listeEthnies);
@@ -2093,13 +2235,13 @@ class ConsultationController extends AbstractActionController {
 	    $autreTerrainConnu = $this->getConsultationTable()->getAutreTerrainConnu( $idpatient );
 	    $autreTerrainConnu = $autreTerrainConnu ? $autreTerrainConnu : array();
 	    
-	    // Les antécédents médicaux --- Les antécédents médicaux
-	    // Les antécédents médicaux --- Les antécédents médicaux
+	    // Les antÃ©cÃ©dents mÃ©dicaux --- Les antÃ©cÃ©dents mÃ©dicaux
+	    // Les antÃ©cÃ©dents mÃ©dicaux --- Les antÃ©cÃ©dents mÃ©dicaux
 	    $antMedicaux = $this->getConsultationTable()->getAntMedicaux( $idpatient );
 	    $antMedicaux = $antMedicaux ? $antMedicaux : array();
 	    
-	    // Les antécédents chirurgicaux --- Les antécédents chirurgicaux
-	    // Les antécédents chirurgicaux --- Les antécédents chirurgicaux
+	    // Les antÃ©cÃ©dents chirurgicaux --- Les antÃ©cÃ©dents chirurgicaux
+	    // Les antÃ©cÃ©dents chirurgicaux --- Les antÃ©cÃ©dents chirurgicaux
 	    $antChirurgicaux = $this->getConsultationTable()->getAntChirurgicaux( $idpatient );
 	    $antChirurgicaux = $antChirurgicaux ? $antChirurgicaux : array();
 	    
@@ -2112,7 +2254,7 @@ class ConsultationController extends AbstractActionController {
 	    
 	    /**============================================================
 	     **============================================================
-	     * Donnees d'entrée automatique -- Donnees d'entrée automatique
+	     * Donnees d'entrÃ©e automatique -- Donnees d'entrÃ©e automatique
 	     *_____________________________________________________________
 	     *_____________________________________________________________
 	     */
@@ -2127,12 +2269,12 @@ class ConsultationController extends AbstractActionController {
 	    
 	    
 	    /**
-	     * Récupérer la premiere consultation générale du patient différente des consultations de suivi
+	     * RÃ©cupÃ©rer la premiere consultation gÃ©nÃ©rale du patient diffÃ©rente des consultations de suivi
 	     */
 	    $consultationGlobale = $this->getConsultationTable ()->getConsultationPatientDifferentDeSuivi( $idpatient );
 	    
 	    /**
-	     * Vérifier si le patient a déjà une consultation de suivi
+	     * VÃ©rifier si le patient a dÃ©jÃ  une consultation de suivi
 	     */
 	    $consultationSuivi = $this->getConsultationTable ()->getConsultationDeSuiviDuPatient( $idsuiv, $idpatient );
 	    
@@ -2206,6 +2348,9 @@ class ConsultationController extends AbstractActionController {
 	        'nbExamenPhysiqueSuivi' => $nbExamenPhysiqueSuivi,
 	        
 	        'listeRace' => $listeRace,
+	        
+	        'adresse' => $adresse,
+	        'departement' => $departement,
 	    );
 	    
 	}
@@ -2226,7 +2371,7 @@ class ConsultationController extends AbstractActionController {
 	
 	
 	/**
-	 * Pour enregistrer les modifications liées à la consultation globale
+	 * Pour enregistrer les modifications liÃ©es Ã  la consultation globale
 	 */
 	public function enregistrementModificationConsultationGlobale($tabDonnees, $idemploye){
 	    
@@ -2242,8 +2387,8 @@ class ConsultationController extends AbstractActionController {
 	    // Signes --- Signes
 	    $this->getConsultationTable()->updateSignes($tabDonnees, $idemploye);
 	     
-	    // Résumé histoire de la maladie
-	    // Résumé histoire de la maladie
+	    // RÃ©sumÃ© histoire de la maladie
+	    // RÃ©sumÃ© histoire de la maladie
 	    $this->getConsultationTable()->updateResumeHistoireMaladie($tabDonnees, $idemploye);
 	     
 	    /**
@@ -2259,12 +2404,12 @@ class ConsultationController extends AbstractActionController {
 	    // Autre terrain connu --- Autre terrain connu
 	    $this->getConsultationTable()->addAutreTerrainConnu($tabDonnees, $idemploye);
 	    
-	    // Les antécédents médicaux --- Les antécédents médicaux
-	    // Les antécédents médicaux --- Les antécédents médicaux
+	    // Les antÃ©cÃ©dents mÃ©dicaux --- Les antÃ©cÃ©dents mÃ©dicaux
+	    // Les antÃ©cÃ©dents mÃ©dicaux --- Les antÃ©cÃ©dents mÃ©dicaux
 	    $this->getConsultationTable()->addAntMedicaux($tabDonnees, $idemploye);
 	     
-	    // Les antécédents chirurgicaux --- Les antécédents chirurgicaux
-	    // Les antécédents chirurgicaux --- Les antécédents chirurgicaux
+	    // Les antÃ©cÃ©dents chirurgicaux --- Les antÃ©cÃ©dents chirurgicaux
+	    // Les antÃ©cÃ©dents chirurgicaux --- Les antÃ©cÃ©dents chirurgicaux
 	    $this->getConsultationTable()->addAntChirurgicaux($tabDonnees, $idemploye);
 	     
 	    /**
@@ -2272,8 +2417,8 @@ class ConsultationController extends AbstractActionController {
 	     */
 	    
 	    
-	    //Examen général --- Examen général
-	    //Examen général --- Examen général
+	    //Examen gÃ©nÃ©ral --- Examen gÃ©nÃ©ral
+	    //Examen gÃ©nÃ©ral --- Examen gÃ©nÃ©ral
 	    $this->getConsultationTable()->updateEtatGeneral($tabDonnees, $idemploye);
 	     
 	    //Examen physique --- Examen physique
@@ -2282,13 +2427,13 @@ class ConsultationController extends AbstractActionController {
 	    
 	    //Examens biologiques --- Examens biologiques
 	    //Examens biologiques --- Examens biologiques
-	    /* Glycémie à jeun*/
+	    /* GlycÃ©mie Ã  jeun*/
 	    $this->getConsultationTable()->addGlycemieAJeun($tabDonnees, $idemploye);
 	     
-	    /*Hémoglobine glyquée*/
+	    /*HÃ©moglobine glyquÃ©e*/
 	    $this->getConsultationTable()->addHemoglobineGlyquee($tabDonnees, $idemploye);
 	     
-	    /*Créatininémie*/
+	    /*CrÃ©atininÃ©mie*/
 	    $this->getConsultationTable()->addCreatininemie($tabDonnees, $idemploye);
 	     
 	    /*Groupage rhesus*/
@@ -2331,8 +2476,8 @@ class ConsultationController extends AbstractActionController {
 	    $this->getConsultationTable()->addEchographie($tabDonnees, $idemploye);
 	     
 	     
-	    //Diagnostic à l'entrée --- Diagnostic à l'entrée
-	    //Diagnostic à l'entrée --- Diagnostic à l'entrée
+	    //Diagnostic Ã  l'entrÃ©e --- Diagnostic Ã  l'entrÃ©e
+	    //Diagnostic Ã  l'entrÃ©e --- Diagnostic Ã  l'entrÃ©e
 	    /*type de diabete*/
 	    $this->getConsultationTable()->addTypeDiabete($tabDonnees, $idemploye);
 	    
@@ -2368,8 +2513,8 @@ class ConsultationController extends AbstractActionController {
 	    // Plaintes de Suivi --- Plaintes de Suivi
 	    $this->getConsultationTable()->addPlaintesSuivi($tabDonnees, $idemploye);
 	     
-	    //Examen général --- Examen général
-	    //Examen général --- Examen général
+	    //Examen gÃ©nÃ©ral --- Examen gÃ©nÃ©ral
+	    //Examen gÃ©nÃ©ral --- Examen gÃ©nÃ©ral
 	    $this->getConsultationTable()->updateEtatGeneralSuiv($tabDonnees, $idemploye);
 	     
 	    //Examen physique --- Examen physique
@@ -2378,13 +2523,13 @@ class ConsultationController extends AbstractActionController {
 	     
 	    //Examens biologiques --- Examens biologiques
 	    //Examens biologiques --- Examens biologiques
-	    /* Glycémie à jeun*/
+	    /* GlycÃ©mie Ã  jeun*/
 	    $this->getConsultationTable()->addGlycemieAJeunSuiv($tabDonnees, $idemploye);
 	     
-	    /*Hémoglobine glyquée*/
+	    /*HÃ©moglobine glyquÃ©e*/
 	    $this->getConsultationTable()->addHemoglobineGlyqueeSuiv($tabDonnees, $idemploye);
 	     
-	    /*Créatininémie*/
+	    /*CrÃ©atininÃ©mie*/
 	    $this->getConsultationTable()->addCreatininemieSuiv($tabDonnees, $idemploye);
 	    
 	    /*Groupage rhesus*/
@@ -2422,7 +2567,7 @@ class ConsultationController extends AbstractActionController {
 	    /*Echographie*/
 	    $this->getConsultationTable()->addEchographieSuiv($tabDonnees, $idemploye);
 	    
-	    /*Consuite à suivre*/
+	    /*Consuite Ã  suivre*/
 	    $this->getConsultationTable()->addConduiteASuivre($tabDonnees, $idemploye);
 	    
 	     
@@ -2763,6 +2908,26 @@ class ConsultationController extends AbstractActionController {
 	    $listeStatutMatrimonial = $this->getPersonneTable()->getListeStatutMatrimonial();
 	    $listeRegimeMatrimonial = $this->getPersonneTable()->getListeRegimeMatrimonial();
 	    $listeRace = $this->getPersonneTable()->getListeRace();
+	    
+	    $listeCommuneSaintlouis = $this->getPersonneTable()->getListeCommuneSaintlouis();
+	    $listeQuartierSaintlouis = $this->getPersonneTable()->getListeQuartierSaintlouis();
+	    $listePays = $this->getPersonneTable()->getListePays();
+	    
+	    $adresse = "";
+	    if($patient->commune_saintlouis){
+	        $adresse = $listeCommuneSaintlouis[$patient->commune_saintlouis];
+	        if($patient->quartier_saintlouis){
+	            $adresse .= '<br> '.$listeQuartierSaintlouis[$patient->quartier_saintlouis];
+	        }
+	    }
+	     
+	    $departement = "";
+	    if($patient->departement && $patient->departement != 46){
+	        $departement .= "<a style='text-decoration: underline;'>D&eacute;partement</a><br><p style='font-weight: bold;font-size: 19px;'> ".$this->listeDepartement($patient->departement)." </p>";
+	    }else if($patient->departement && $patient->departement == 46){
+	        $pays = "<a style='text-decoration: underline;'>Pays</a><br><p style='font-weight: bold;font-size: 19px;'> ".$listePays[$patient->pays]." </p>";
+	        $departement .= $pays;
+	    }
 	     
 	    $form = new ConsultationForm ();
 	    $form->get('PROFESSION')->setvalueOptions($listeProfessions);
@@ -2774,7 +2939,7 @@ class ConsultationController extends AbstractActionController {
 	         
 	    /**============================================================
 	     **============================================================
-	     * Donnees d'entrée automatique -- Donnees d'entrée automatique
+	     * Donnees d'entrÃ©e automatique -- Donnees d'entrÃ©e automatique
 	     *_____________________________________________________________
 	     *_____________________________________________________________
 	     */
@@ -2789,12 +2954,12 @@ class ConsultationController extends AbstractActionController {
 	      
 	        
 	    /**
-	     * Récupérer la premiere consultation générale du patient différente des consultations de suivi
+	     * RÃ©cupÃ©rer la premiere consultation gÃ©nÃ©rale du patient diffÃ©rente des consultations de suivi
 	     */
 	    $consultationGlobale = $this->getConsultationTable ()->getConsultationPatientDifferentDeSuivi( $idpatient );
 	     
 	    /**
-	     * Vérifier si le patient a déjà une consultation de suivi
+	     * VÃ©rifier si le patient a dÃ©jÃ  une consultation de suivi
 	     */
 	    $consultationSuivi = $this->getConsultationTable ()->getConsultationDeSuiviDuPatient( $idsuiv, $idpatient );
 	     
@@ -2867,6 +3032,9 @@ class ConsultationController extends AbstractActionController {
 	        'nbExamenPhysiqueSuivi' => $nbExamenPhysiqueSuivi,
 	        
 	        'listeRace' => $listeRace,
+	        
+	        'adresse' => $adresse,
+	        'departement' => $departement,
 	    );
 	    
 	}
@@ -2969,7 +3137,7 @@ class ConsultationController extends AbstractActionController {
 	
 	
 	/**
-	 * Liste des éléments pour un type donné
+	 * Liste des Ã©lÃ©ments pour un type donnÃ©
 	 */
 	public function listeElementsPourInterfaceAjoutAction()
 	{
@@ -3011,7 +3179,7 @@ class ConsultationController extends AbstractActionController {
 	
 	
 	/**
-	 * Liste des éléments pour un volet
+	 * Liste des Ã©lÃ©ments pour un volet
 	 */
 	public function listeElementsUvAction()
 	{
@@ -3098,7 +3266,6 @@ class ConsultationController extends AbstractActionController {
 	    $idpatient = $this->params ()->fromQuery ( 'idpatient', 0 );
 	    $idcons = $this->params ()->fromQuery ( 'idcons' );
 	
-	    //var_dump($idcons); exit();
 	    
 	    $liste = $this->getConsultationTable ()->getInfoPatient ( $idpatient );
 	    $patient = $this->getPatientTable()->getPatient( $idpatient );
@@ -3117,6 +3284,26 @@ class ConsultationController extends AbstractActionController {
 	    $listeRegimeMatrimonial = $this->getPersonneTable()->getListeRegimeMatrimonial();
 	    $listeSigne = $this->getPersonneTable()->getListeSigne();
 	    $listeRace = $this->getPersonneTable()->getListeRace();
+	    
+	    $listeCommuneSaintlouis = $this->getPersonneTable()->getListeCommuneSaintlouis();
+	    $listeQuartierSaintlouis = $this->getPersonneTable()->getListeQuartierSaintlouis();
+	    $listePays = $this->getPersonneTable()->getListePays();
+	    	
+	    $adresse = "";
+	    if($patient->commune_saintlouis){
+	        $adresse = $listeCommuneSaintlouis[$patient->commune_saintlouis];
+	        if($patient->quartier_saintlouis){
+	            $adresse .= '<br> '.$listeQuartierSaintlouis[$patient->quartier_saintlouis];
+	        }
+	    }
+	    
+	    $departement = "";
+	    if($patient->departement && $patient->departement != 46){
+	        $departement .= "<a style='text-decoration: underline;'>D&eacute;partement</a><br><p style='font-weight: bold;font-size: 19px;'> ".$this->listeDepartement($patient->departement)." </p>";
+	    }else if($patient->departement && $patient->departement == 46){
+	        $pays = "<a style='text-decoration: underline;'>Pays</a><br><p style='font-weight: bold;font-size: 19px;'> ".$listePays[$patient->pays]." </p>";
+	        $departement .= $pays;
+	    }
 	
 	    $form->get('PROFESSION')->setvalueOptions($listeProfessions);
 	    $form->get('ETHNIE')->setvalueOptions($listeEthnies);
@@ -3146,8 +3333,8 @@ class ConsultationController extends AbstractActionController {
 	    $data['duree_des_signes'] = $signes['duree'];
 	    $data['gravite_des_signes'] = $signes['gravite'];
 	     
-	    // Résumé histoire de la maladie
-	    // Résumé histoire de la maladie
+	    // RÃ©sumÃ© histoire de la maladie
+	    // RÃ©sumÃ© histoire de la maladie
 	    $histoireMaladie = $this->getConsultationTable()->getResumeHistoireMaladie( $idcons );
 	    $data['resume_histoire_maladie'] = $histoireMaladie['resume'];
 	     
@@ -3167,13 +3354,13 @@ class ConsultationController extends AbstractActionController {
 	    $autreTerrainConnu = $this->getConsultationTable()->getAutreTerrainConnu( $idpatient );
 	    $autreTerrainConnu = $autreTerrainConnu ? $autreTerrainConnu : array();
 	
-	    // Les antécédents médicaux --- Les antécédents médicaux
-	    // Les antécédents médicaux --- Les antécédents médicaux
+	    // Les antÃ©cÃ©dents mÃ©dicaux --- Les antÃ©cÃ©dents mÃ©dicaux
+	    // Les antÃ©cÃ©dents mÃ©dicaux --- Les antÃ©cÃ©dents mÃ©dicaux
 	    $antMedicaux = $this->getConsultationTable()->getAntMedicaux( $idpatient );
 	    $antMedicaux = $antMedicaux ? $antMedicaux : array();
 	
-	    // Les antécédents chirurgicaux --- Les antécédents chirurgicaux
-	    // Les antécédents chirurgicaux --- Les antécédents chirurgicaux
+	    // Les antÃ©cÃ©dents chirurgicaux --- Les antÃ©cÃ©dents chirurgicaux
+	    // Les antÃ©cÃ©dents chirurgicaux --- Les antÃ©cÃ©dents chirurgicaux
 	    $antChirurgicaux = $this->getConsultationTable()->getAntChirurgicaux( $idpatient );
 	    $antChirurgicaux = $antChirurgicaux ? $antChirurgicaux : array();
 	
@@ -3184,8 +3371,8 @@ class ConsultationController extends AbstractActionController {
 	
 	
 	     
-	    //Examen général --- Examen général
-	    //Examen général --- Examen général
+	    //Examen gÃ©nÃ©ral --- Examen gÃ©nÃ©ral
+	    //Examen gÃ©nÃ©ral --- Examen gÃ©nÃ©ral
 	    $etatGeneral = $this->getConsultationTable()->getEtatGeneral( $idcons );
 	    $etatGeneral = $etatGeneral ? $etatGeneral : array();
 	     
@@ -3197,15 +3384,15 @@ class ConsultationController extends AbstractActionController {
 	     
 	    //Examens biologiques --- Examens biologiques
 	    //Examens biologiques --- Examens biologiques
-	    /* Glycémie à jeun*/
+	    /* GlycÃ©mie Ã  jeun*/
 	    $glycemieAJeun = $this->getConsultationTable()->getGlycemieAJeun( $idcons );
 	    $glycemieAJeun = $glycemieAJeun ? $glycemieAJeun : array();
 	
-	    /*Hémoglobine glyquée*/
+	    /*HÃ©moglobine glyquÃ©e*/
 	    $hemoGlyquee = $this->getConsultationTable()->getHemoglobineGlyquee( $idcons );
 	    $hemoGlyquee = $hemoGlyquee ? $hemoGlyquee : array();
 	     
-	    /*Créatininémie*/
+	    /*CrÃ©atininÃ©mie*/
 	    $creatininemie = $this->getConsultationTable()->getInfosAnalyse("creatininemie", $idcons);
 	    $creatininemie = $creatininemie ? $creatininemie : array();
 	     
@@ -3263,8 +3450,8 @@ class ConsultationController extends AbstractActionController {
 	    $echographie = $this->getConsultationTable()->getInfosAnalyse("echographie", $idcons);
 	    $echographie = $echographie ? $echographie : array();
 	     
-	    //Diagnostic à l'entrée --- Diagnostic à l'entrée
-	    //Diagnostic à l'entrée --- Diagnostic à l'entrée
+	    //Diagnostic Ã  l'entrÃ©e --- Diagnostic Ã  l'entrÃ©e
+	    //Diagnostic Ã  l'entrÃ©e --- Diagnostic Ã  l'entrÃ©e
 	    /*type de diabete*/
 	    $typediabete = $this->getConsultationTable()->getInfosAnalyse("type_diabete", $idcons);
 	    $typediabete = $typediabete ? $typediabete : array();
@@ -3318,7 +3505,44 @@ class ConsultationController extends AbstractActionController {
 	        'nbComplicationDiagEntree' => $complicationDiagEntree->count(),
 	         
 	        'listeRace' => $listeRace,
+	        
+	        'adresse' => $adresse,
+	        'departement' => $departement,
 	    );
 	
 	}
+
+	public function tablAction()
+     {
+     	$this->layout ()->setTemplate ( 'layout/consultation' );
+           //$view = new ViewModel();
+         $result1 = $this->getConsultationTable()->nbPersonneSex();
+         $result2 = $this->getConsultationTable()->nbPatintCom();
+         $result3 = $this->getConsultationTable()->nbPatintQua();
+         $result4 = $this->getConsultationTable()->nbPatintSm();
+         $result5 = $this->getConsultationTable()->nbPatintPr();
+         $result6 = $this->getConsultationTable()->nbPatintTd();
+         $result7 = $this->getConsultationTable()->nbPatintcomp();
+         $result8 = $this->getConsultationTable()->nbPatintTrai();
+         $result9 = $this->getConsultationTable()->nbPatintAge();
+        
+           //  echo "<pre>";
+          //var_dump($result4); exit();
+        
+           // echo "</pre>";
+
+         return array (
+                
+                'result1' => $result1,
+                'result2' => $result2,
+                'result3' => $result3,
+                'result4' => $result4,
+                'result5' => $result5,
+                'result6' => $result6,
+                'result7' => $result7,
+                'result8' => $result8,
+                'result9' => $result9,
+
+                );
+     }
 }

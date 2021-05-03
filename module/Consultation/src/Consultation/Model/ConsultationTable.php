@@ -29,7 +29,7 @@ class ConsultationTable {
 	
 	
 	/**
-	 * Récupérer la premiere consultation générale du patient différente des consultations de suivi
+	 * RÃ©cupÃ©rer la premiere consultation gÃ©nÃ©rale du patient diffÃ©rente des consultations de suivi
 	 */
 	public function getConsultationPatientDifferentDeSuivi($idpatient){
 	    $sql = new Sql ($this->tableGateway->getAdapter());
@@ -40,7 +40,7 @@ class ConsultationTable {
 	}
 	
 	/**
-	 * Vérifier si le patient a déjà une consultation de suivi
+	 * VÃ©rifier si le patient a dÃ©jÃ  une consultation de suivi
 	 */
 	public function getConsultationDeSuivi($idpatient){
 	    $sql = new Sql ($this->tableGateway->getAdapter());
@@ -131,15 +131,15 @@ class ConsultationTable {
 		
 		$aColumns = array('numero_dossier', 'Nom','Prenom','Datenaissance','Sexe', 'Adresse', 'id', 'id2');
 		
-		//Liste des pateints admis aujourdhui et déjà consultés 
+		//Liste des pateints admis aujourdhui et dÃ©jÃ  consultÃ©s 
 		$sql2 = new Sql ($db );
 		$subselect2 = $sql2->select()->from(array('cons'=>'consultation'))->columns(array('idpatient'))->where(array('date' => $date));
 		
-		//Liste des pateints admis aujourdhui et déjà suivi
+		//Liste des pateints admis aujourdhui et dÃ©jÃ  suivi
 		$sql3 = new Sql ($db );
 		$subselect3 = $sql3->select()->from(array('supa'=>'suivi_patient'))->columns(array('idpatient'))->where(array('date' => $date));
 		
-		//Liste des patients admis aujourdhui et non encore consultés 
+		//Liste des patients admis aujourdhui et non encore consultÃ©s 
 		$sql = new Sql($db);
 		$sQuery = $sql->select()
 		->from(array('pat'   => 'patient'))->columns(array('*'))
@@ -161,7 +161,7 @@ class ConsultationTable {
 		);
 		
 		/*
-		 * $Control pour convertir la date en franï¿½ais
+		 * $Control pour convertir la date en franÃ¯Â¿Â½ais
 		*/
 		$Control = new DateHelper();
 			
@@ -172,7 +172,7 @@ class ConsultationTable {
 		$tabURI  = explode('public', $baseUrl);
 			
 		/*
-		 * Prï¿½parer la liste
+		 * PrÃ¯Â¿Â½parer la liste
 		*/
  		foreach ( $rResult as $aRow )
  		{
@@ -223,7 +223,7 @@ class ConsultationTable {
 		
 		/*
 		 * SQL queries
-		* Liste des patients admis déjà consultés aujourd'hui (POUR LA CONSULTATION GLOBALE)
+		* Liste des patients admis dÃ©jÃ  consultÃ©s aujourd'hui (POUR LA CONSULTATION GLOBALE)
 		*/
 		$sql2 = new Sql($db);
 		$sQuery2 = $sql2->select()
@@ -243,7 +243,7 @@ class ConsultationTable {
 		$tabURI  = explode('public', $baseUrl);
 			
 		/*
-		 * Prï¿½parer la liste
+		 * PrÃ¯Â¿Â½parer la liste
 		*/
 		foreach ( $rResult as $aRow )
 		{
@@ -302,7 +302,7 @@ class ConsultationTable {
 
 		/*
 		 * SQL queries
-		 * Liste des patients admis déjà consultés aujourd'hui (POUR LA CONSULTATION DE SUIVI)
+		 * Liste des patients admis dÃ©jÃ  consultÃ©s aujourd'hui (POUR LA CONSULTATION DE SUIVI)
 		 */
 		$sql4 = new Sql($db);
 		$sQuery4 = $sql4->select()
@@ -323,7 +323,7 @@ class ConsultationTable {
 		$tabURI  = explode('public', $baseUrl);
 			
 		/*
-		 * Prï¿½parer la liste
+		 * PrÃ¯Â¿Â½parer la liste
 		 */
 		foreach ( $rResult as $aRow )
 		{
@@ -405,15 +405,15 @@ class ConsultationTable {
 	
 	    $aColumns = array('numero_dossier', 'Nom','Prenom','Datenaissance','Sexe', 'Adresse', 'id', 'id2');
 	
-	    //Liste des pateints admis aujourdhui et déjà consultés
+	    //Liste des pateints admis aujourdhui et dÃ©jÃ  consultÃ©s
 	    $sql2 = new Sql ($db );
 	    $subselect2 = $sql2->select()->from(array('cons'=>'consultation'))->columns(array('idpatient'))->where(array('date' => $date));
 	
-	    //Liste des pateints admis aujourdhui et déjà suivi
+	    //Liste des pateints admis aujourdhui et dÃ©jÃ  suivi
 	    $sql3 = new Sql ($db );
 	    $subselect3 = $sql3->select()->from(array('supa'=>'suivi_patient'))->columns(array('idpatient'))->where(array('date' => $date));
 	
-	    //Liste des patients admis aujourdhui et non encore consultés
+	    //Liste des patients admis aujourdhui et non encore consultÃ©s
 	    $sql = new Sql($db);
 	    $sQuery = $sql->select()
 	    ->from(array('pat'   => 'patient'))->columns(array('*'))
@@ -437,7 +437,7 @@ class ConsultationTable {
 	    );
 	
 	    /*
-	     * $Control pour convertir la date en franï¿½ais
+	     * $Control pour convertir la date en franÃ¯Â¿Â½ais
 	     */
 	    $Control = new DateHelper();
 	    	
@@ -448,7 +448,7 @@ class ConsultationTable {
 	    $tabURI  = explode('public', $baseUrl);
 	    	
 	    /*
-	     * Prï¿½parer la liste
+	     * PrÃ¯Â¿Â½parer la liste
 	     */
 	    foreach ( $rResult as $aRow )
 	    {
@@ -508,7 +508,7 @@ class ConsultationTable {
 	
 	    /*
 	     * SQL queries
-	     * Liste des patients admis déjà consultés aujourd'hui (POUR LA CONSULTATION DE SUIVI)
+	     * Liste des patients admis dÃ©jÃ  consultÃ©s aujourd'hui (POUR LA CONSULTATION DE SUIVI)
 	     */
 	    $sql = new Sql($db);
 	    $sQuery = $sql->select()
@@ -546,7 +546,7 @@ class ConsultationTable {
 	    //return $rResultFt;
 	    
 	    /*
-	     * Prï¿½parer la liste
+	     * PrÃ¯Â¿Â½parer la liste
 	     */
 	    foreach ( $rResult as $aRow )
 	    {
@@ -2081,15 +2081,15 @@ class ConsultationTable {
 		$donnees['temoin'] = 0;
 		foreach ($result as $resultat){
 			if($resultat['idtypebandelette'] == 1){
-				$donnees['albumine'] = 1; //C'est à coché
+				$donnees['albumine'] = 1; //C'est Ã  cochÃ©
 				$donnees['croixalbumine'] = $resultat['croix_bandelette'];
 			}
 			if($resultat['idtypebandelette'] == 2){
-				$donnees['sucre'] = 1; //C'est à coché
+				$donnees['sucre'] = 1; //C'est Ã  cochÃ©
 				$donnees['croixsucre'] = $resultat['croix_bandelette'];
 			}
 			if($resultat['idtypebandelette'] == 3){
-				$donnees['corpscetonique'] = 1; //C'est à coché
+				$donnees['corpscetonique'] = 1; //C'est Ã  cochÃ©
 				$donnees['croixcorpscetonique'] = $resultat['croix_bandelette'];
 			}
 			
@@ -2404,7 +2404,7 @@ class ConsultationTable {
  	        
  	        $exist = $this->getInfosElements($table, $tabTypeElement[$i], $tabElement[$i]);
  	        
- 	        if( !$exist ){
+ 	        if(!$exist ){
  	            if(!$this->array_empty($tabTypeElement)){ $donnees['idtypeelement'] = $tabTypeElement[$i]; }
  	            
  	            $donnees['libelle'] = $tabElement[$i];
@@ -2502,6 +2502,278 @@ class ConsultationTable {
  	}
  	
  	
+
+
+
+ 	public function nbPersonneSex(){
+    
+    
+	    $sql = new Sql ($this->tableGateway->getAdapter());
+	    
+	    $select=$sql->select();
+	    $select->from(array('pat'   => 'patient'))
+	    ->join(array('pers'  => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE',array('SEXE'));
+
+	    $resultat = $sql->prepareStatementForSqlObject($select)->execute();
+
+        $tab = array();
+        $tabSexe = array( );
+	    foreach ($resultat as $value) {
+	    	# code...
+	    	 $tab[] = $value['SEXE'];
+	    	 if(!in_array($value['SEXE'], $tabSexe)){
+	    	 $tabSexe[] = $value['SEXE']; }
+	    }
+
+	    return array($tabSexe, array_count_values($tab));
+	    
+        }
+
+
+	 public function nbPatintCom(){
+    
+    
+	    $sql = new Sql ($this->tableGateway->getAdapter());
+	    
+	    $select=$sql->select();
+	    $select->from(array('p' => 'patient'))
+	     ->join(array('co'  => 'commune_saint_louis'), 'p.commune_saintlouis = co.id',array('libelle'));
+
+
+ 		 $resultat = $sql->prepareStatementForSqlObject($select)->execute();
+
+         $tab1 = array();
+         $tabCom = array();
+	    foreach ($resultat as $value) {
+	    	# code...
+
+	    	 $tab1[] = $value['libelle'];
+	    	  $tab=array_replace($tab1, array_fill_keys(array_keys($tab1,NULL), 'COM. SAINT-LOUIS'));
+	    	
+	    	 if(!in_array($value['libelle'], $tabCom)){
+	    	 $tabCom[] = $value['libelle']; }
+	    	
+	    	
+	    }
+
+	     return array($tabCom, array_count_values($tab));
+	    }
+
+
+
+
+	    public function nbPatintQua(){
+   
+
+ 		 $sql = new Sql ($this->tableGateway->getAdapter());
+	    
+	    $select=$sql->select();
+	    $select->from(array('p' => 'patient'))
+	    ->join(array('qa'  => 'quartier_saint_louis'), 'p.quartier_saintlouis = qa.id',array('libelle'));
+
+
+
+ 		 $resultat = $sql->prepareStatementForSqlObject($select)->execute();
+
+        $tab2 = array();
+        $tabQuart = array();
+	    foreach ($resultat as $value) {
+	    	# code...
+	    	 $tab2[] = $value['libelle'];
+	    	 $tab=array_replace($tab2, array_fill_keys(array_keys($tab2,NULL),'NgallÃ¨le'));
+	    	 if(!in_array($value['libelle'], $tabQuart)){
+	    	 $tabQuart[] = $value['libelle']; }
+	    	
+	    }
+
+	    return array($tabQuart, array_count_values($tab));
+	    }
+
+	    
+	    public function nbPatintSm(){
+    
+
+
+	    $sql = new Sql ($this->tableGateway->getAdapter());
+	    
+	    $select=$sql->select();
+	    $select->from(array('pat'   => 'patient'))
+	    ->join(array('pers'  => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE')
+        ->join(array('ls'  => 'liste_statut_matrimonial'),'pers.STATUT_MATRIMONIAL=ls.id',array('libelle'));
+
+	    $resultat = $sql->prepareStatementForSqlObject($select)->execute();
+
+        $tab = array();
+        $tabSat = array( );
+	    foreach ($resultat as $value) {
+	    	# code...
+	    	 $tab2[] = $value['libelle'];
+	    	 $tab=array_replace($tab2, array_fill_keys(array_keys($tab2,'NULL'),'NON_RENSEIGNER'));
+	    	 //$tab = array_map(function($tab2){ return (is_null($tab2))? 'NON_RENSEIGNER' :$tab2; },$tab);
+	    	 //if ($value['libelle']='NULL') {
+	    	 	# code...
+	    	 //	array_push($tabSat,"NON_RENSEIGNER");
+	    	 //}
+	    	 if(!in_array($value['libelle'], $tabSat)){
+	    	 $tabSat[] = $value['libelle']; }
+	    }
+
+	    return array($tabSat, array_count_values($tab));
+    
+	    }
+
+
+	    public function nbPatintPr(){
+
+    	$sql = new Sql ($this->tableGateway->getAdapter());
+	    
+	    $select=$sql->select();
+	    $select->from(array('pat'   => 'patient'))
+	    ->join(array('pers'  => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE')
+        ->join(array('ls'  => 'liste_profession'),'pers.PROFESSION=ls.id',array('libelle'));
+
+	    $resultat = $sql->prepareStatementForSqlObject($select)->execute();
+
+        $tab = array();
+        $tabPro = array( );
+	    foreach ($resultat as $value) {
+	    	# code...
+	    	 $tab2[] = $value['libelle'];
+	    	 $tab=array_replace($tab2, array_fill_keys(array_keys($tab2,NULL),'NON_RENSEIGNER'));
+	    	 if(!in_array($value['libelle'], $tabPro)){
+	    	 $tabPro[] = $value['libelle']; }
+	    }
+
+	    return array($tabPro, array_count_values($tab));
+    	
+	    }
+
+
+	    
+	     public function nbPatintTd(){
+
+    	  $sql = new Sql ($this->tableGateway->getAdapter());
+	    
+	    $select=$sql->select();
+	    $select->from(array('pat'   => 'patient'))
+	    ->join(array('con'  => 'consultation'), 'pat.idpersonne = con.idpatient')
+	    ->join(array('t'  => 'type_diabete'),'con.idcons=t.idcons',array('type_diabete'));
+	    $resultat = $sql->prepareStatementForSqlObject($select)->execute();
+
+        $tab = array();
+        $tabdia = array( );
+	    foreach ($resultat as $value) {
+	    	# code...
+	    	 $tab[] = $value['type_diabete'];
+	    	 if(!in_array($value['type_diabete'], $tabdia)){
+	    	 $tabdia[] = $value['type_diabete']; }
+	    }
+
+	    return array($tabdia, array_count_values($tab));
+	    }
+
+
+	     public function nbPatintcomp(){
+    	
+    	$sql = new Sql ($this->tableGateway->getAdapter());
+	    
+	    $select=$sql->select();
+	    $select->from(array('pat'   => 'patient'))
+	    ->join(array('con'  => 'consultation'), 'pat.idpersonne = con.idpatient')
+	    ->join(array('com'  => 'complication_cons'), 'con.idcons = com.idcons')
+        ->join(array('ls'  => 'liste_complication'),'com.idcomplication=ls.id',array('libelle'));
+
+	    $resultat = $sql->prepareStatementForSqlObject($select)->execute();
+
+        $tab = array();
+        $tabcomp = array( );
+	    foreach ($resultat as $value) {
+	    	# code...
+	    	 $tab[] = $value['libelle'];
+	    	 //$tab=array_replace($tab2, array_fill_keys(array_keys($tab2,NULL),''));
+	    	 if(!in_array($value['libelle'], $tabcomp)){
+	    	 $tabcomp[] = $value['libelle']; }
+	    }
+
+	    return array($tabcomp, array_count_values($tab));
+    	
+	    }
+
+
+
+	     public function nbPatintTrai(){
+    	
+    	$sql = new Sql ($this->tableGateway->getAdapter());
+	    
+	    $select=$sql->select();
+	    $select->from(array('pat'   => 'patient'))
+	    ->join(array('con'  => 'consultation'), 'pat.idpersonne = con.idpatient')
+        ->join(array('tr'  => 'traitement'),'con.idcons = tr.idcons',array('traitement_chirurgical'));
+
+	    $resultat = $sql->prepareStatementForSqlObject($select)->execute();
+
+        $tab = array();
+        $tabtr = array( );
+	    foreach ($resultat as $value) {
+	    	# code...
+	    	 $tab[] = $value['traitement_chirurgical'];
+	    	 //$tab=array_replace($tab2, array_fill_keys(array_keys($tab2,NULL),''));
+	    	 if(!in_array($value['traitement_chirurgical'], $tabtr)){
+	    	 $tabtr[] = $value['traitement_chirurgical']; }
+	    }
+
+	    return array($tabtr, array_count_values($tab));
+    	
+	    }
+
+
+
+
+	     public function nbPatintAge(){
+    
+ 		
+	    $sql = new Sql ($this->tableGateway->getAdapter());
+	    
+	    $select=$sql->select();
+	    $select->from(array('pat'   => 'patient'))
+	    ->join(array('pers'  => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE',array('AGE'))->order('AGE ASC');
+
+	    $resultat = $sql->prepareStatementForSqlObject($select)->execute();
+
+
+	   
+
+          $tab = array();
+          $tabAge = array();
+          $tabAgeInterval = array();
+	      foreach ($resultat as $value) {
+	    	# code...
+	    	 //$tab=$value['AGE'];
+	    	 if ($value['AGE']<= 30) {
+	    	  	 array_push($tabAge,"15-30");
+	    	  }
+	    	  elseif ($value['AGE'] <= 45) {
+	    	  	array_push($tabAge,"31-45");
+	    	  }
+	    	  elseif ($value['AGE'] <= 60) {
+	    	  	array_push($tabAge,"46-60"); 
+	    	  }
+	    	  elseif ($value['AGE'] <= 75) {
+	    	  	array_push($tabAge,"61-75");
+	    	  }
+	    	  elseif ($value['AGE'] <= 90) {
+	    	  	array_push($tabAge,"76-90");
+	    	  }
+
+	    	  $tab = $tabAge;
+
+		    }
+	    	
+
+//var_dump(array_values(array_flip( array_count_values($tab)))); exit();
+	     return array(array_values(array_flip( array_count_values($tab))), array_count_values($tab));
+	    }
+
  	
  	
 }

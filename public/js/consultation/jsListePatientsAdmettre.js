@@ -80,7 +80,7 @@
     function initialisation(){	
     	
      var asInitVals = new Array();
-	 oTable = $('#patientAdmis').dataTable
+	 oTable = $('#patientAAdmettre').dataTable
 	 ( {
 		        
 		  "sPaginationType": "full_numbers",
@@ -118,36 +118,32 @@
 	{					
 		oTable.fnFilter( this.value );
 	});
-	
-	$("tfoot input").keyup( function () {
+
+	$("thead input").keyup( function () {
 		/* Filter on the column (the index) of this element */
-		oTable.fnFilter( this.value, $("tfoot input").index(this) );
+		oTable.fnFilter( this.value, $("thead input").index(this) );
 	} );
-	
-	/*
-	 * Support functions to provide a little bit of 'user friendlyness' to the textboxes in 
-	 * the footer
-	 */
-	$("tfoot input").each( function (i) {
+
+	$("thead input").each( function (i) {
 		asInitVals[i] = this.value;
 	} );
-	
-	$("tfoot input").focus( function () {
+
+	$("thead input").focus( function () {
 		if ( this.className == "search_init" )
 		{
 			this.className = "";
 			this.value = "";
 		}
 	} );
-	
-	$("tfoot input").blur( function (i) {
+
+	$("thead input").blur( function (i) {
 		if ( this.value == "" )
 		{
 			this.className = "search_init";
-			this.value = asInitVals[$("tfoot input").index(this)];
+			this.value = asInitVals[$("thead input").index(this)];
 		}
 	} );
-
+	
     $(".boutonAnnuler").html('<button type="submit" id="terminer" style=" font-family: police2; font-size: 17px; font-weight: bold;"> Annuler </button>');
     $(".boutonTerminer").html('<button type="submit" id="terminer" style=" font-family: police2; font-size: 17px; font-weight: bold;"> Valider </button>');
 

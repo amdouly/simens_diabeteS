@@ -1,0 +1,219 @@
+<!-- MES STYLES -->
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/consultation/styleListeConsultations.css');?>
+<!-- MES JS -->
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/jqueryCharts/jquery.canvasjs.min.js');?>
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/facturation/informationsStatistiques.js');?>
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/zingchart/zingchart.min.js');?>
+    		        
+
+
+<!-- JS & CSS de anychart -->  
+<!-- JS & CSS de anychart -->
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/anychart/js/anychart-base.min.js');?>
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/anychart/js/anychart-ui.min.js');?>
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/anychart/js/anychart-cartesian-3d.min.js');?>
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/anychart/js/anychart-exports.min.js');?>
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/anychart/css/anychart-ui.min.css');?>
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/anychart/fonts/css/anychart-font.min.css');?>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+	var donnees = new Array();
+</script>
+
+ <?php 
+ 
+ $resultTab1 = $this->result1[0];
+ $resultTab2 = $this->result1[1];
+ for ($i=0 ; $i<count($resultTab1); $i++) {
+ ?>
+
+<script type="text/javascript"> //alert("<?php //echo $res['ID_PERSONNE']; ?>") 
+   //donnees.push(<?php //echo $res['ID_PERSONNE']; ?>);
+
+ //alert("<?php echo $resultTab1[$i]; ?>");
+
+   var variable = { y: <?php echo $resultTab2[$resultTab1[$i]]; ?> , label:"<?php echo $resultTab1[$i]; ?>"};
+   donnees.push(variable);
+</script>
+ 
+<?php } ?>
+
+<script type="text/javascript">
+	var donnees1 = new Array();
+</script>
+
+ 
+
+<?php 
+ 
+ $resultTab3 = $this->result2[0];
+ $resultTab4 = $this->result2[1];
+ for ($i=0 ; $i<count($resultTab3); $i++) {
+ ?>
+
+
+<script type="text/javascript"> //alert("<?php //echo $res['ID_PERSONNE']; ?>") 
+   //donnees.push(<?php //echo $res['ID_PERSONNE']; ?>);
+
+   var variable = { y: <?php echo $resultTab4[$resultTab3[$i]]; ?> , label:"<?php echo $resultTab3[$i]; ?>"};
+   donnees1.push(variable);
+</script>
+ 
+<?php } ?>
+
+<script> 
+	var nbPatientSM   = <?php echo $this->resultSM; ?> // 
+    var nbPatientSF   = <?php echo $this->resultSF; ?> //
+ 
+
+
+ $(document).ready(function($) {
+
+
+
+
+function patientsSexeAnyChart() {
+
+		anychart.onDocumentReady(function () {
+		    // create column chart pie3d
+		    var chart = anychart.column3d();
+
+		    // turn on chart animation
+		    chart.animation(true);
+
+		    // set chart title text settings
+		    chart.title('');
+
+		    // create area series with passed data
+		    chart.column(//donnees
+		    	[
+    	        ['Feminin', nbPatientSF],
+    	        ['Masculin', nbPatientSM]
+    	    ]
+		    	);
+
+		    chart.tooltip()
+		            .position('center-top')
+		            .anchor('center-bottom')
+		            .offsetX(0)
+		            .offsetY(5)
+		            .format('{%Value}');
+
+		    // set scale minimum
+		    chart.yScale().minimum(0);
+
+		    // set yAxis labels formatter
+		    chart.yAxis().labels().format('{%Value}{groupsSeparator: }');
+
+		    chart.tooltip().positionMode('point');
+		    chart.interactivity().hoverMode('by-x');
+
+		    chart.xAxis().title('');
+		    chart.yAxis().title('');
+
+		    // set container id for the chart
+		    chart.container('patientsSexe');
+
+		    // initiate chart drawing
+		    chart.draw();
+		});
+
+	}
+
+
+
+
+
+
+function patientsComAnyChart() {
+
+		anychart.onDocumentReady(function () {
+		    // create column chart
+		    var chart = anychart.column3d();
+
+		    // turn on chart animation
+		    chart.animation(true);
+
+		    // set chart title text settings
+		    chart.title('');
+
+		    // create area series with passed data
+		    chart.column(donnees1
+		    	);
+
+		    chart.tooltip()
+		            .position('center-top')
+		            .anchor('center-bottom')
+		            .offsetX(0)
+		            .offsetY(5)
+		            .format('{%Value}');
+
+		    // set scale minimum
+		    chart.yScale().minimum(0);
+
+		    // set yAxis labels formatter
+		    chart.yAxis().labels().format('{%Value}{groupsSeparator: }');
+
+		    chart.tooltip().positionMode('point');
+		    chart.interactivity().hoverMode('by-x');
+
+		    chart.xAxis().title('');
+		    chart.yAxis().title('');
+
+		    // set container id for the chart
+		    chart.container('patientsCom');
+
+		    // initiate chart drawing
+		    chart.draw();
+		});
+
+	}
+
+function patientsSexpAnyChart(){
+        
+    	anychart.onDocumentReady(function () {
+        	
+    	    // create pie chart with passed data
+    	    var chart = anychart.pie3d([
+    	        ['Feminin', nbPatientSF],
+    	        ['Masculin', nbPatientSM]
+    	    ]);
+
+       	    // turn on chart animation
+		    chart.animation(true);
+		    
+    	    // set chart title text settings
+    	    chart.title('')
+    	    // set chart radius
+    	    .radius('43%');
+
+    	    // set container id for the chart
+    	    chart.container('patientsSexp');
+    	    // initiate chart drawing
+    	    chart.draw();
+    	});
+    }
+
+patientsSexeAnyChart();
+patientsComAnyChart();
+patientsSexpAnyChart();
+
+
+ });
+
+</script>
+
+
+<div id="patientsSexe" style="height: 200px; width: 50%;">
+	
+</div>
+<div id="patientsCom" style="height: 200px; width: 50%;">
+</div>
+<div id="patientsSexp" style="height: 200px; width: 50%;"></div>

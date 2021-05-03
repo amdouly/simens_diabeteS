@@ -13,6 +13,33 @@ class PersonneTable {
         $this->tableGateway = $tableGateway;
     }
     
+    public function deletePersonne($idpersonne){
+        
+        if(!in_array($idpersonne, $this->getListeDesPatientsAdmis())){
+            $this->tableGateway->delete(array("ID_PERSONNE" =>$idpersonne));
+            return 1;
+        }
+        return 0;
+    }
+    
+    public function getListeDesPatientsAdmis(){
+        $db = $this->tableGateway->getAdapter();
+
+        $sql = new Sql($db);
+        $sQuery = $sql->select()
+        ->from(array('pat'   => 'patient'))->columns(array('*'))
+        ->join(array('pers'  => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE' , array('idpatient'=>'ID_PERSONNE'))
+        ->join(array('admis' => 'admission'), 'admis.idpatient = pers.ID_PERSONNE' , array('*'))
+        ->group('admis.idpatient');
+    
+        $tab = array();
+        $resultat = $sql->prepareStatementForSqlObject($sQuery)->execute();
+        foreach ($resultat as $result){
+            $tab[] = $result['idpatient'];
+        }
+    
+        return $tab;
+    }
     
     public function getListeProfessions()
     {
@@ -88,6 +115,19 @@ class PersonneTable {
         $options = array('' => '');
         foreach ($result as $data) {
             $options[$data['id']] = $data['libelle'];
+        }
+        return $options;
+    }
+    
+    public function getListePays()
+    {
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select('pays')->order('id ASC');
+        $result = $sql->prepareStatementForSqlObject($select)->execute();
+    
+        $options = array('' => '');
+        foreach ($result as $data) {
+            $options[$data['id']] = $data['nom_fr_fr'];
         }
         return $options;
     }

@@ -99,10 +99,10 @@ class PersonnelTable {
 				'DATE_NAISSANCE'  => $date,
 				'LIEU_NAISSANCE'  => $personnel->lieu_naissance,
 				'NATIONALITE_ACTUELLE'  => $personnel->nationalite,
-				'SITUATION_MATRIMONIALE' => $personnel->situation_matrimoniale,
+				'STATUT_MATRIMONIAL' => $personnel->situation_matrimoniale,
 				'ADRESSE'  => $personnel->adresse,
 				'TELEPHONE'  => $personnel->telephone,
-				'EMAIL'  => $personnel->email,
+			    'EMAIL'  => $personnel->email,
 				'SEXE'  => $personnel->sexe,
 				'PROFESSION'  => $personnel->profession,
 				'PHOTO'  => $nomphoto,
@@ -111,6 +111,7 @@ class PersonnelTable {
 		$id_personne = (int)$personnel->id_personne;
 		
 		if($id_personne == 0) {
+		    //var_dump($data); exit();
 			$id_personne_inserer = $this->tableGateway->getLastInsertValue($this->tableGateway->insert($data));
 			$this->saveEmploye($id_personne_inserer, $personnel->type_personnel, $personnel->date_enregistrement);
 			return($id_personne_inserer);

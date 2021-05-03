@@ -11,7 +11,8 @@ class Patient implements InputFilterAwareInterface {
 	public $idpersonne;
 	public $ethnie;
 	public $race;
-	public $origine_geographique;
+	public $pays;
+	public $departement;
 	public $commune_saintlouis;
 	public $quartier_saintlouis;
 	public $date_enregistrement;
@@ -22,7 +23,8 @@ class Patient implements InputFilterAwareInterface {
 		$this->idpersonne = (! empty ( $data ['idpersonne'] )) ? $data ['idpersonne'] : null;
 		$this->ethnie = (! empty ( $data ['ethnie'] )) ? $data ['ethnie'] : null;
 		$this->race = (! empty ( $data ['race'] )) ? $data ['race'] : null;
-		$this->origine_geographique = (! empty ( $data ['origine_geographique'] )) ? $data ['origine_geographique'] : null;
+		$this->pays = (! empty ( $data ['pays'] )) ? $data ['pays'] : null;
+		$this->departement = (! empty ( $data ['departement'] )) ? $data ['departement'] : null;
 		$this->commune_saintlouis = (! empty ( $data ['commune_saintlouis'] )) ? $data ['commune_saintlouis'] : null;
 		$this->quartier_saintlouis = (! empty ( $data ['quartier_saintlouis'] )) ? $data ['quartier_saintlouis'] : null;
 		$this->numero_dossier = (! empty ( $data ['numero_dossier'] )) ? $data ['numero_dossier'] : null;

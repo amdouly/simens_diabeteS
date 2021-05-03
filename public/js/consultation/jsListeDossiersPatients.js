@@ -1,7 +1,9 @@
     var base_url = window.location.toString();
 	var tabUrl = base_url.split("public");
+	
+	
 	//BOITE DE DIALOG POUR LA CONFIRMATION DE SUPPRESSION
-    function confirmation(idfacturation){
+    function confirmation(idpatient){
 	  $( "#confirmation" ).dialog({
 	    resizable: false,
 	    height:170,
@@ -12,18 +14,18 @@
 	        "Oui": function() {
 	            $( this ).dialog( "close" ); 
 	            
-	            var chemin = tabUrl[0]+'public/facturation/supprimer-facturation';
 	            $.ajax({
 	                type: 'POST',
-	                url: chemin ,
-	                data:{ 'idfacturation':idfacturation },
+	                url: tabUrl[0]+'public/consultation/supprimer-patient' ,
+	                data:{ 'idpatient':idpatient },
 	                success: function(data) {
 	                	     var result = jQuery.parseJSON(data);  
-	                	     if(result == 1){
-	                	    	 alert('impossible de supprimer il y a des analyses ayant deja des resultats '); return false;
+
+	                	     if(result == 0){
+	                	    	 alert('Impossible de supprimer, ce patient a deja des donnees de consultation'); return false;
 	                	     } else {
-		                	     $("#"+idfacturation).parent().parent().parent().fadeOut(function(){ 
-		                	    	 $(location).attr("href",tabUrl[0]+"public/facturation/liste-patients-admis");
+		                	     $("#"+idpatient).parent().parent().fadeOut(function(){ 
+		                	    	 $(location).attr("href",tabUrl[0]+"public/consultation/liste-dossiers-patients");
 		                	     });
 	                	     }
 	                	     
@@ -41,8 +43,8 @@
 	  });
     }
     
-    function supprimer(idfacturation){
-   	   confirmation(idfacturation);
+    function supprimerPatient(idpatient){
+   	   confirmation(idpatient);
        $("#confirmation").dialog('open');
    	}
     

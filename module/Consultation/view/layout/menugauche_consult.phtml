@@ -81,22 +81,52 @@ $(window).load(function () {
 	
 	
 	<!-- MENU *** STATISTIQUES*** -->
-	<!-- li id="menu_statistiques"><a href="">
-	    <span style="margin-left:0px; color: #48ce77; font-weight:bold; font-size:20px; font-family:Times New Roman;"> <img id="image" style="display: inline;" src='<?php // echo $this->basePath().'/images_icons/plus-green1.png'?>' /> Statistiques</span></a> 
+	<!-- MENU *** Amadou LY*** -->
+
+	<li id="menu_statistiques"><a href="">
+	    <span style="margin-left:0px; color: #48ce77; font-weight:bold; font-size:20px; font-family:Times New Roman;"> <img id="image" style="display: inline;" src='<?php echo $this->basePath().'/images_icons/plus-green1.png'?>' /> Statistiques</span></a> 
 	</li>
 	
 	<li id="plus_menu_statistiques" style="background: #4a5765;" >
 
-	   <div id="menuDesStatistiques" style="margin-left:30px; height:40px; padding-top:20px;"><a href="<?php // echo $this->basePath()."/consultation/informations-statistiques";?>" >
-	       <img style="margin-left:5px; margin-top: -7px; width: 16px; height: 16px;" src='<?php // echo $this->basePath().'/images_icons/statistics_16.png'?>' />
-	       <span id="menu_statistiques_style" style="font-size:15px; color: white; font-family:Times New Roman;">Informations</span></a>
+		<div id="menuDesStatistiques" style="margin-left:30px; height:40px; padding-top:20px;"><a href="<?php echo $this->basePath()."/statistique/tab";?>" >
+	       <img style="margin-left:5px; margin-top: -7px; width: 16px; height: 16px;" src='<?php  echo $this->basePath().'/images_icons/81.png'?>' />
+	       <span id="menu_statistiques_style" style="font-size:15px; color: white; font-family:Times New Roman;">Tableau de Bord</span></a>
+	   </div>
+
+	   <div id="menuDesStatistiques" style="margin-left:30px; height:40px; padding-top:20px;"><a href="<?php echo $this->basePath()."/statistique/acc";?>" >
+	       <img style="margin-left:5px; margin-top: -7px; width: 16px; height: 16px;" src='<?php  echo $this->basePath().'/images_icons/81.png'?>' />
+	       <span id="menu_statistiques_style" style="font-size:15px; color: white; font-family:Times New Roman;">Statistique Descriptive</span></a>
+	   </div>
+	   <div id="menuDesStatistiques" style="margin-left:30px; height:40px; padding-top:20px;"><a href="<?php echo $this->basePath()."/statistique/";?>" >
+	       <img style="margin-left:5px; margin-top: -7px; width: 16px; height: 16px;" src='<?php  echo $this->basePath().'/images_icons/Folders2.png'?>' />
+	       <span id="menu_statistiques_style" style="font-size:15px; color: white; font-family:Times New Roman;">Prediction</span></a>
 	   </div>
 	   
 	</li-->
 	
 	
-</ul>
 
+
+<!-- MENU *** EXPORTATION*** -->
+	<!-- MENU *** Amadou LY*** -->
+
+	<li id="menuExport"><a href="">
+	    <span style="margin-left:0px; color: #48ce77; font-weight:bold; font-size:20px; font-family:Times New Roman;"> <img id="image" style="display: inline;" src='<?php echo $this->basePath().'/images_icons/plus-green1.png'?>' /> Exporter</span></a> 
+	</li>
+		<li id="plus_menu_Export" style="background: #4a5765;" >
+
+		<div id="menuExport" style="margin-left:30px; height:40px; padding-top:20px;"><a href="http://localhost/phpmyadmin/db_export.php?db=simens-diabete" >
+	       <img style="margin-left:5px; margin-top: -7px; width: 16px; height: 16px;" src='<?php  echo $this->basePath().'/images_icons/81.png'?>' />
+	       <span id="menu_Export_style" style="font-size:15px; color: white; font-family:Times New Roman;">Toutes Les Données</span></a>
+	   </div>
+
+	   <div id="menuExport" style="margin-left:30px; height:40px; padding-top:20px;"><a href="<?php echo $this->basePath()."/statistique/exportp";?>" >
+	       <img style="margin-left:5px; margin-top: -7px; width: 16px; height: 16px;" src='<?php  echo $this->basePath().'/images_icons/81.png'?>' />
+	       <span id="menu_Export_style" style="font-size:15px; color: white; font-family:Times New Roman;">Personnalisé</span></a>
+	   </div>
+	</li-->
+</ul>
 
 <?php
 //CHOISIR LE MENU A AFFICHER SELON QUE C'EST LE MEDECIN OU LE SURVEILLANT
@@ -249,6 +279,39 @@ $('#menu_statistiques').click(function(){
 	$("#menu_statistiques").replaceWith("<li id='menu_statistiques' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> Statistiques </span></a></li>");
 	dep_menu_statistiques1();
 $('#plus_menu_statistiques').animate({
+height : 'toggle'
+},1000);
+return false;
+});
+
+
+function dep_menu_export1(){
+	$('#menuExport').click(function(){
+		$("#menuExport").replaceWith("<li id='menuExport'><a style='cursor: pointer;'><span style='margin-left:0px; color: #48ce77; font-weight:bold; font-size:20px; font-family:Times New Roman; cursor: pointer;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/plus-green1.png' alt='Liste' /> Exporter </span></a></li>");
+		dep_menu_export2();
+	    $('#plus_menu_Export').animate({
+	        height : 'toggle'
+	    },1000);
+	 return false;
+	});
+}
+
+function dep_menu_export2(){
+	$('#menuExport').click(function(){
+		$("#menuExport").replaceWith("<li id='menuExport' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> Exporter </span></a></li>");
+		dep_menu_export1();
+	    $('#plus_menu_Export').animate({
+	        height : 'toggle'
+	    },1000);
+	 return false;
+	});
+}
+
+$('#plus_menu_Export').toggle(false);
+$('#menuExport').click(function(){
+	$("#menuExport").replaceWith("<li id='menuExport' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> Exporter </span></a></li>");
+	dep_menu_export1();
+$('#plus_menu_Export').animate({
 height : 'toggle'
 },1000);
 return false;

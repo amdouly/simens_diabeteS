@@ -33,6 +33,7 @@ $(window).load(function () {
 $form = $this->form;
 $form->setAttribute ( 'action', $this->url ( 'consultation', array ('action' => 'creer-dossier') ) );
 $form->setAttribute ('enctype','multipart/form-data');
+$form->setAttribute ('name', 'formCreationDossier');
 $this->form->prepare ();
 echo $this->form ()->openTag ( $form );
 ?>
@@ -83,22 +84,30 @@ echo $this->form ()->openTag ( $form );
                        <div class="age" style="float: left; width: 33%;"> <?php echo $this->formRow($this->form->get('AGE'));?> </div>
                        <div class="date_naiss" style="float: left; width: 60%;"> <?php echo $this->formRow($this->form->get('DATE_NAISSANCE'));?> </div>
                      </td >
-                     <td > <?php echo $this->formRow($this->form->get('ORIGINE_GEOGRAPHIQUE'));?> </td>
+                     <td > <?php echo $this->formRow($this->form->get('DEPARTEMENT'));?> </td>
                      <td > <?php echo $this->formRow($this->form->get('PROFESSION'));?></td>
                   </tr>
 
                   <tr class="comment-form-patient">
                      <td > <?php echo $this->formRow($this->form->get('SEXE'));?></td>
-                     <td > <?php echo $this->formRow($this->form->get('COMMUNE_SAINTLOUIS'));?></td>
-                     <td > <?php echo $this->formRow($this->form->get('STATUT_MATRIMONIAL'));?></td>
+                     <td ><span class="adresse-saint-louis"> 
+                           <?php echo $this->formRow($this->form->get('COMMUNE_SAINTLOUIS'));?> 
+                          </span>
+             
+                          <span class="adresse-origine-geographique" style="display: none;"> 
+                           <?php echo $this->formRow($this->form->get('PAYS'));?> 
+                          </span>
+                     </td>
+                     <td ><span> <?php echo $this->formRow($this->form->get('STATUT_MATRIMONIAL'));?></span></td>
                   </tr>
                   
                   <tr class="comment-form-patient">
-                     <td > <?php echo $this->formRow($this->form->get('ADRESSE'));?> </td>
+                     <td > <!--  ?php echo $this->formRow($this->form->get('ADRESSE'));?--> </td>
                      <td >
+                       <span class="adresse-saint-louis">
                        <?php echo $this->formRow($this->form->get('QUARTIER_SAINTLOUIS'));?>
-                       <img onclick="ajouterUnQartierDeSaintLouis();" style="cursor: pointer; position: relative; margin-top: 10px;" src="<?php echo $this->basePath().'/images_icons/light/plus.png'?>" title="Ajouter un quartier"/> 
-                       
+                       <img class="adresse-saint-louis-icon" onclick="ajouterUnQartierDeSaintLouis();" style="cursor: pointer; position: relative; margin-top: 10px;" src="<?php echo $this->basePath().'/images_icons/light/plus.png'?>" title="Ajouter un quartier"/> 
+                       </span>
                      </td>
                      <td > <?php echo $this->formRow($this->form->get('REGIME_MATRIMONIAL'));?></td>
                   </tr>
@@ -122,10 +131,12 @@ echo $this->form ()->openTag ( $form );
 	  </td>
 	  
 	  <td style="width: 10%;" id="thoughtbot">
-		<button type="submit" id="terminer"
+		<button type="submit" id="terminer" class="boutonValider"
 			style=" font-family: police2; font-size: 17px; font-weight: bold;">
 			Terminer
 		</button>
+		
+		<button type="submit" class="boutonValidationEnvoiDonnees" style="display: none;"></button>
 	  </td>
 	  
 	  <td style="width: 38%;"></td>
@@ -156,6 +167,19 @@ echo $this->form ()->openTag ( $form );
 
 
 
+<script type="text/javascript">
+
+$('.boutonValider').click(function(){
+ 	 
+	if($('#formCreationDossier')[0].checkValidity() == true){
+		//formulaire valide et envoi des donnees
+		$(this).attr('disabled', true);
+		$('.boutonValidationEnvoiDonnees').trigger('click');
+	}
+
+});
+
+</script>
 
 
 
@@ -433,8 +457,9 @@ echo $this->form ()->openTag ( $form );
 
     
 
-    $('#TELEPHONE').mask('+221 70 000 00 00');
+    $('#TELEPHONE').mask('00 000 00 00');
     $('#TELEPHONE_2').mask('00 000 00 00');
+    $('#DEPARTEMENT').val(32);
 
 
     //Mettre le nom en Majuscule

@@ -1137,4 +1137,25 @@ function getListeElementUV(){
 	});
 }
 
+function getListeAutreAAjouter(id) {
 
+	$('#PAYS').attr('required', false);
+	
+	if( id == 46 ){ //AUTRES Pays 
+		$('.adresse-saint-louis').toggle(false);
+		$('.adresse-saint-louis select').val('').attr({'required':false});
+		$('.adresse-origine-geographique').toggle(true);
+		$('#PAYS').attr('required', true);
+	}else if(id == 32){ //Saint-louis
+		$('.adresse-saint-louis').toggle(true);
+		$('.adresse-saint-louis select').attr({'required':true,'disabled':false});
+		$('.adresse-saint-louis-icon').toggle(true);
+		$('.adresse-origine-geographique').toggle(false);
+	}else{
+		$('.adresse-origine-geographique').toggle(false);
+		$('.adresse-saint-louis').toggle(true);
+		$('.adresse-saint-louis select').val('').attr({'required':false,'disabled':true});
+		$('.adresse-saint-louis-icon').toggle(false);
+	}
+	
+}

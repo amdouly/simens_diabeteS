@@ -31,23 +31,6 @@ class PatientForm extends Form {
 				)
 		) );
 
-		$this->add ( array (
-				'name' => 'SEXE',
-				'type' => 'Select',
-				'options' => array (
-						'label' => 'Sexe',
-						'value_options' => array (
-								'' => '',
-								'Masculin' => 'Masculin',
-								iconv ( 'ISO-8859-1', 'UTF-8','Féminin') => iconv ( 'ISO-8859-1', 'UTF-8','Féminin')
-						)
-				),
-				'attributes' => array (
-						'id' => 'SEXE',
-						'required' => true,
-						'tabindex' => 1,
-				)
-		) );
 		
 		$this->add ( array (
 				'name' => 'NOM',
@@ -104,6 +87,23 @@ class PatientForm extends Form {
 				)
 		) );
 
+		$this->add ( array (
+		    'name' => 'SEXE',
+		    'type' => 'Select',
+		    'options' => array (
+		        'label' => 'Sexe',
+		        'value_options' => array (
+		            '' => '',
+		            'Masculin' => 'Masculin',
+		            iconv ( 'ISO-8859-1', 'UTF-8','Féminin') => iconv ( 'ISO-8859-1', 'UTF-8','Féminin')
+		        )
+		    ),
+		    'attributes' => array (
+		        'id' => 'SEXE',
+		        'required' => true,
+		        'tabindex' => 5,
+		    )
+		) );
 		
 		$this->add ( array (
 				'name' => 'LIEU_NAISSANCE',
@@ -113,7 +113,7 @@ class PatientForm extends Form {
 				),
 				'attributes' => array (
 						'id' => 'LIEU_NAISSANCE',
-						'tabindex' => 6,
+						'tabindex' => 26,
 				)
 		) );
 		
@@ -170,7 +170,7 @@ class PatientForm extends Form {
 				),
 				'attributes' => array (
 						'id' => 'ADRESSE',
-						'tabindex' => 9,
+						'tabindex' => 7,
 				)
 		) );
 		
@@ -216,15 +216,45 @@ class PatientForm extends Form {
 		) );
 		
 		
+		
 		$this->add ( array (
-		    'name' => 'ORIGINE_GEOGRAPHIQUE',
-		    'type' => 'Text',
+		    'name' => 'DEPARTEMENT',
+		    'type' => 'Select',
 		    'options' => array (
-		        'label' => iconv ( 'ISO-8859-1', 'UTF-8','Origine géographique'),
+		        'label' => iconv ( 'ISO-8859-1', 'UTF-8','Département'),
+		        'value_options' => array (
+		            1 => 'DAKAR', 2 => 'GUEDIAWAYE', 3 => 'PIKINE', 4 => 'RUFISQUE', 5 => 'BAMBEY', 6 => 'DIOURBEL', 7 => 'MBACKE',
+		            8 => 'FATICK',9 => 'FOUNDIOUCK', 10 => 'GOSSAS',11 => 'BIRKELANE', 12 => 'KAFFRINE',		            
+                    13 => 'KOUNGHEUL', 14 => 'MALEM HODDAR' , 'GUINGUINEO', 16 =>'KAOLACK', 
+		            17 => 'NIORO', 'KEDOUGOU', 19 => 'SALEMATA', 20 => 'SARAYA',
+		            21 => 'KOLDA', 22 => 'MEDINA YORO FOULAH', 23 => 'VELINGARA', 
+		            24 => 'KEBEMER', 25 => 'LINGUERE', 26 => 'LOUGA',
+		            27 => 'KANEL', 28 => 'MATAM', 29 => 'RANEROU',
+		            30 => 'DAGANA', 31 => 'PODOR', 32 => 'SAINT LOUIS',
+		            33 => 'BOUNKILING', 34 => 'GOUDOMP', 35 => 'SEDHIOU',
+		            36 => 'BAKEL', 37 => 'GOUDIRY', 38 => 'KOUPENTOUM', 39 => 'TAMBACOUNDA',
+		            40 => 'MBOUR', 41 => 'THIES', 42 => 'TIVAOUANE',
+		            43 => 'BIGNONA', 44 => 'OUSSOUYE', 45 => 'ZIGUINCHOR',
+		            46 => 'AUTRE ..'
+		        )
 		    ),
 		    'attributes' => array (
-		        'id' => 'ORIGINE_GEOGRAPHIQUE',
+		        'id' => 'DEPARTEMENT',
 		        'required' => true,
+		        'tabindex' => 13,
+		        'onchange' => "getListeAutreAAjouter(this.value);",
+		    )
+		
+		) );
+		
+		$this->add ( array (
+		    'name' => 'PAYS',
+		    'type' => 'Select',
+		    'options' => array (
+		        'label' => iconv ( 'ISO-8859-1', 'UTF-8','Pays'),
+		    ),
+		    'attributes' => array (
+		        'id' => 'PAYS',
 		        'tabindex' => 13,
 		    )
 		

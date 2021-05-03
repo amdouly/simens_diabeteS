@@ -103,7 +103,7 @@ $(window).load(function () {
 			   	</td>
 
 			   	<td style='width:35%; font-family: police1;font-size: 12px;'>
-		   		<div ><a style="text-decoration: underline;">Origine g&eacute;ographique</a><br><p style='font-weight: bold;font-size: 19px;'><?php  echo $this->patient->origine_geographique; ?></p></div>
+			   		<div ><a style="text-decoration: underline;">Statut matrimonial</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['STATUT_MATRIMONIAL']?$this->listeStatutMatrimonial[$this->lesdetails['STATUT_MATRIMONIAL']]:'';?></p></div>
 			   	</td>
 
 			    <td style='width:38%; font-family: police1;font-size: 12px;'>
@@ -118,7 +118,7 @@ $(window).load(function () {
 			   	</td>
 
 			   	<td style=' font-family: police1;font-size: 12px;'>
-			   		<div ><a style="text-decoration: underline;">Statut matrimonial</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['STATUT_MATRIMONIAL']?$this->listeStatutMatrimonial[$this->lesdetails['STATUT_MATRIMONIAL']]:'';?></p></div>
+			   		<div ><a style="text-decoration: underline;">R&eacute;gime matrimonial</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['REGIME_MATRIMONIAL']?$this->listeRegimeMatrimonial[$this->lesdetails['REGIME_MATRIMONIAL']]:'';?></p></div>
 			   	</td>
 
 			   	<td style=' font-family: police1;font-size: 12px;'>
@@ -142,7 +142,7 @@ $(window).load(function () {
 			   	</td>
 
 			    <td style=' font-family: police1;font-size: 12px;'>
-			   		<div ><a style="text-decoration: underline;">R&eacute;gime matrimonial</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['REGIME_MATRIMONIAL']?$this->listeRegimeMatrimonial[$this->lesdetails['REGIME_MATRIMONIAL']]:'';?></p></div>
+    		   		<?php  echo $this->departement; ?>
 			   	</td>
 
 			   	<td style=' font-family: police1;font-size: 12px;'>
@@ -159,7 +159,7 @@ $(window).load(function () {
 			   	</td>
 
 			    <td style='display:"block"; font-family: police1;font-size: 12px;'>
-			   		<div ><a style="text-decoration: underline;">Adresse</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['ADRESSE'];?></p></div>
+			   		<div ><a style="text-decoration: underline;">Adresse</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->adresse;?></p></div>
 
 			   	</td>
 			   	
@@ -485,14 +485,14 @@ $(window).load(function () {
 		                                  </label>
                      		           </td>
                      		           
-                     		           <td style="width: 36%; padding-left: 25px;">
+                     		           <td style="width: 40%; padding-left: 25px;">
                      		              <label style="width: 100%; height:30px; text-align:left; ">
 		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Ann&eacute;e de d&eacute;couverte</span> 
 		                                    <?php echo $this->formRow($form->get('annee_decouverte')); ?> 
 		                                  </label>
                      		           </td>
                      		           
-                     		           <td style="width: 30%; padding-left: 25px;">
+                     		           <td style="width: 26%; padding-left: 25px;">
                      		           </td>
                      		        
                      		        </tr>
@@ -649,7 +649,7 @@ $(window).load(function () {
 		                                  </label>
                      		           </td>
                      		           
-                     		           <td class="colDyslipidemie1" style="width: 20%; padding-right: 25px;">
+                     		           <td class="colDyslipidemie1" style="width: 22%; padding-right: 25px;">
                      		              <label style="width: 100%; height:30px; text-align:left;">
 		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Dyslipid&eacute;mie</span> 
 		                                    <?php echo $this->formRow($form->get('dyslipidemie')); ?> 
@@ -659,7 +659,7 @@ $(window).load(function () {
 		                         		  </script>
                      		           </td>
                      		           
-                     		           <td class="colTraitement2" style="width: 35%;  padding-right: 25px; display: none;">
+                     		           <td class="colTraitement2" style="width: 33%;  padding-right: 25px; display: none;">
                      		              <label style="width: 100%; height:30px; padding-right: 10px; text-align:right; font-style: italic;">
 		                           		    <span style='font-size: 11px;'>  </span><span>Traitement&nbsp;</span> 
 		                                    <?php echo $this->formRow($form->get('dyslipidemie_traitement')); ?> 
@@ -683,7 +683,7 @@ $(window).load(function () {
 		                                  </label>
                      		           </td>
                      		           
-                     		           <td class="colTabagisme" style="width: 18%; padding-right: 25px;">
+                     		           <td class="colTabagisme" style="width: 20%; padding-right: 25px;">
                      		              <label style="width: 100%; height:30px; text-align:left;">
 		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Tabagisme</span> 
 		                                    <?php echo $this->formRow($form->get('tabagisme')); ?> 
@@ -707,7 +707,7 @@ $(window).load(function () {
 		                                  </label>
                      		           </td>
                      		           
-                     		           <td style="width: 32%;"></td>
+                     		           <td style="width: 30%;"></td>
                      		           <td class="colPlusNbPaquet" style="width: 17%; padding-right: 25px;"></td>
                      		        
                      		        </tr>
@@ -1449,14 +1449,14 @@ $(window).load(function () {
                           <tr style="width: 100%" class="designStyleLabel">
                      		        
                      	     <td style="width: 35%; padding-right: 25px;">
-                     		    <label style="width: 100%; height:30px; text-align:left;">
+                     		    <label style="width: 100%; height:30px; text-align:left; font-size: 15px;">
 		                          <span style='font-size: 11px;'>&#10148; </span><span>Glyc&eacute;mie &agrave; jeun </span> 
 		                            <?php echo $this->formRow($form->get('glycemie_jeun')); ?> 
 		                        </label>
                      		 </td>
                      		 
                      		 <td style="width: 35%; padding-right: 25px;">
-                     		    <label style="width: 100%; height:30px; text-align:left;">
+                     		    <label style="width: 100%; height:30px; text-align:left; font-size: 15px;">
 		                          <span style='font-size: 11px;'>&#10148; </span><span title='H&eacute;moglobine glyqu&eacute;e'>H&eacute;mo. glyqu&eacute;e </span> 
 		                            <?php echo $this->formRow($form->get('hemoglobine_glyquee')); ?> 
 		                        </label>
@@ -1534,7 +1534,7 @@ $(window).load(function () {
                      		 </td>
                      		 
                      		 <td style="width: 35%; padding-right: 25px;">
-                     		    <label style="width: 100%; height:30px; text-align:left;">
+                     		    <label style="width: 100%; height:30px; text-align:left;font-size: 15px;">
 		                          <span style='font-size: 11px;'>&#10148; </span><span title="Microalbuminurie/PU24h">Mic. alb./PU24h</span> 
 		                            <?php echo $this->formRow($form->get('microalbuminurie_pu24h')); ?> 
 		                        </label>

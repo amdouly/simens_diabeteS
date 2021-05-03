@@ -1,0 +1,469 @@
+
+<script>
+var base_url = window.location.toString();
+var tabUrl = base_url.split("public");
+//POUR LE MENU GAUCHE dans -elementgauche.phtml
+$('#plus_menu_Export').toggle(true);
+$("#menuExport").replaceWith("<li id='menuExport' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> Export </span></a></li>");
+dep_menu_export1();
+$('#menu_admission_patient_style').css({'font-weight':'bold','color':'white','font-size':'21px'});
+
+</script>
+
+<!-- MES STYLES -->
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/consultation/styleListeConsultations.css');?>
+<!-- MES JS -->
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/jqueryCharts/jquery.canvasjs.min.js');?>
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/facturation/informationsStatistiques.js');?>
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/zingchart/zingchart.min.js');?>
+    		        
+
+
+<!-- JS & CSS de anychart -->  
+<!-- JS & CSS de anychart -->
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/anychart/js/anychart-base.min.js');?>
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/anychart/js/anychart-ui.min.js');?>
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/anychart/js/anychart-cartesian-3d.min.js');?>
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/anychart/js/anychart-exports.min.js');?>
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/anychart/css/anychart-ui.min.css');?>
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/anychart/fonts/css/anychart-font.min.css');?>
+ <style type="text/css">
+  	
+  	
+	
+	#a {
+		height: 100%;
+  		width: 100%;
+  		min-height: 530px;
+      border: 1px dashed #ccc;
+      border-top-right-radius: 10px;
+	 border-top-left-radius: 10px;
+	 border-bottom-right-radius: 10px;
+	 border-bottom-left-radius: 10px;
+	 color: blue;
+	margin: 14px;
+	font-size: 25px;
+	text-align: center;
+	text-shadow: green;
+	text-transform: capitalize;
+	vertical-align: middle;
+	padding: 10px;
+	padding-top: 40px;
+	border: 6px solid #ccc;
+	
+}
+
+  </style>
+
+
+<script type="text/javascript">
+	var donnees = new Array();
+</script>
+
+ <?php 
+ 
+ $resultTab1 = $this->result1[0];
+ $resultTab2 = $this->result1[1];
+ for ($i=0 ; $i<count($resultTab1); $i++) {
+ ?>
+
+<script type="text/javascript"> //alert("<?php //echo $res['ID_PERSONNE']; ?>") 
+   //donnees.push(<?php //echo $res['ID_PERSONNE']; ?>);
+
+  //alert("<?php echo $resultTab1[$i]; ?>");
+
+   var variable = { y: <?php echo $resultTab2[$resultTab1[$i]]; ?> , label:"<?php echo $resultTab1[$i]; ?>"};
+   donnees.push(variable);
+</script>
+ 
+<?php } ?>
+ 
+ <script>
+    var nbPatientSM   = <?php echo $this->resultSM; ?> // 
+    var nbPatientSF   = <?php echo $this->resultSF; ?> 
+    var nbPatientT1   = <?php echo $this->resulttdu; ?> 
+    var nbPatientT2   = <?php echo $this->resulttdd; ?> //
+   //  //
+
+ 
+
+
+ $(document).ready(function($) {
+
+  // anychart.theme('darkBlue');
+
+
+
+function patientsSexeAnyChart() {
+		//anychart.fontcolor("#FF0000")
+		anychart.onDocumentReady(function () {
+
+			 chart.theme('lightBlue');
+		    // create column chart pie3d
+		    var chart = anychart.column3d();
+
+		      //chart.theme('darkBlue');
+		      //chart.fontcolor("#FF0000");
+		     //anychart.theme('lightBlue');
+		     //anychart.color.lighten("#FF0000",0.2)
+		    // turn on chart animation
+		    chart.animation(true);
+
+		    // set chart title text settings
+		    chart.title('');
+
+		    // create area series with passed data
+		    chart.column(//donnees
+		    	[
+    	        ['Feminin', nbPatientSF],
+    	        ['Masculin', nbPatientSM]
+    	    ]
+		    	);
+
+		    chart.tooltip()
+		            .position('center-top')
+		            .anchor('center-bottom')
+		            .offsetX(0)
+		            .offsetY(5)
+		            .format('{%Value}');
+
+		    // set scale minimum
+		    chart.yScale().minimum(0);
+
+		    // set yAxis labels formatter
+		    chart.yAxis().labels().format('{%Value}{groupsSeparator: }');
+
+		    chart.tooltip().positionMode('point');
+		    chart.interactivity().hoverMode('by-x');
+
+		    chart.xAxis().title('');
+		    chart.yAxis().title('');
+		    chart.yScale().minimum(0);
+		    // set container id for the chart
+		    chart.container('patientsSexe');
+
+		    // initiate chart drawing
+		    chart.draw();
+
+		   
+		});
+
+	}
+
+
+
+
+
+
+function patientsComAnyChart() {
+
+		anychart.onDocumentReady(function () {
+		    // create column chart
+		    var chart = anychart.column();
+
+		    // turn on chart animation
+		    chart.animation(true);
+
+		    // set chart title text settings
+		    chart.title('');
+
+		    // create area series with passed data
+		    var com = chart.column(donnees1
+    	           	    );
+		     com.color('#ADFF2F',0.2);
+
+		    chart.tooltip()
+		            .position('center-top')
+		            .anchor('center-bottom')
+		            .offsetX(0)
+		            .offsetY(5)
+		            .format('{%Value}');
+
+		    // set scale minimum
+		    chart.yScale().minimum(0);
+
+		    // set yAxis labels formatter
+		    chart.yAxis().labels().format('{%Value}');
+
+		    //chart.tooltip().positionMode('point');
+		    chart.interactivity().hoverMode('by-x');
+		    chart.labels(true);
+		    chart.labels().fontFamily("Menlo");
+			chart.labels().fontSize(18);
+			//chart.labels().fontDecoration("underline");
+			chart.labels().fontWeight(900);
+			chart.xAxis().labels().rotation(-20);
+		    chart.xAxis().title('');
+		    chart.title('Nombre de Patients Par Commune');
+		    chart.yAxis().title('');
+		    chart.labels('y');
+
+		    // set container id for the chart
+		    chart.container('patientsCom');
+
+		    // initiate chart drawing
+		    chart.draw();
+		});
+
+	}
+
+function patientsSexpAnyChart(){
+        
+    	anychart.onDocumentReady(function () {
+        	
+    	    // create pie chart with passed data
+    	    var chart = anychart.pie([
+    	        ['Feminin', nbPatientSF],
+    	        ['Masculin', nbPatientSM]
+    	    ]);
+
+       	    // turn on chart animation
+		    chart.animation(true);
+		    
+    	    // set chart title text settings
+    	    chart.title('Nombre de Patients Par Sexe')
+    	    // set chart radius
+    	    .radius('43%');
+    	    chart.labels().fontFamily("Menlo");
+			chart.labels().fontSize(18);
+			//chart.labels().fontDecoration("underline");
+			chart.labels().fontWeight(900);
+
+    	    // set container id for the chart
+    	    chart.container('patientsSexp');
+    	    // initiate chart drawing
+    	    chart.draw();
+
+    	});
+     // function pdf() {
+		//	  chart.saveAsPdf();
+		//	};
+    }
+
+
+
+function PatientsCatAgeBarAnyChart() {
+
+    	anychart.onDocumentReady(function () {
+    	    // create bar chart
+    	    var chart = anychart.bar();
+
+    	    // turn on chart animation
+    	    chart.animation(true);
+
+    	    // set chart padding
+    	    chart.padding([10, 40, 5, 20]);
+
+    	    // set chart title text settings
+    	    chart.title('');
+    	    chart.labels(true);
+    	    chart.labels().fontFamily("Menlo");
+			chart.labels().fontSize(18);
+			//chart.labels().fontDecoration("underline");
+			chart.labels().fontWeight(900);
+
+    	    // create area series with passed data
+    	    var cat = chart.bar( donnees8 );
+    	    cat.color('#FF8C00',0.2)
+
+    	    // set tooltip settings
+    	    chart.tooltip()
+    	            .positionMode('point')
+    	            .format('{%Value}')
+    	            .position('right')
+    	            .anchor('left-center')
+    	            .offsetX(5)
+    	            .offsetY(0);
+
+    	    // set yAxis labels formatter (axeY)
+    	    chart.yAxis().labels().format('{%Value}');
+
+    	    // set titles for axises
+    	    chart.xAxis().title('');
+    	    chart.yAxis().title('');
+    	    chart.title('Nombre de Patients Par CategorieAge');
+    	    chart.interactivity().hoverMode('by-x');
+
+    	    // set scale minimum
+    	    chart.yScale().minimum(0);
+
+    	    // set container id for the chart
+    	    chart.container('PatientsCatAge');
+
+    	    // initiate chart drawing
+    	    chart.draw();
+    	});
+
+	}
+
+function patientsTDAnyChart() {
+
+		anychart.onDocumentReady(function () {
+		    // create column chart pie3d
+		    var chart = anychart.column();
+
+		    // turn on chart animation
+		    chart.animation(true);
+
+		    // set chart title text settings
+		    chart.title('');
+
+		    // create area series with passed data
+		     var td = chart.column(//donnees
+		    	[
+    	        ['Type1', nbPatientT1],
+    	        ['Type2', nbPatientT2]
+    	    ]
+		    	);
+		     td.color('#00FA9A',0.2)
+		    chart.tooltip()
+		            .position('center-top')
+		            .anchor('center-bottom')
+		            .offsetX(0)
+		            .offsetY(5)
+		            .format('{%Value}');
+
+		    // set scale minimum
+		    chart.yScale().minimum(0);
+		    chart.labels(true);
+		    chart.labels().fontFamily("Menlo");
+			chart.labels().fontSize(18);
+			//chart.labels().fontDecoration("underline");
+			chart.labels().fontWeight(900);
+		    // set yAxis labels formatter
+		    chart.yAxis().labels().format('{%Value}{groupsSeparator: }');
+
+		    chart.tooltip().positionMode('point');
+		    chart.interactivity().hoverMode('by-x');
+
+		    chart.xAxis().title('');
+		    chart.yAxis().title('');
+		    chart.title('Nombre de Patients Par Types Diabete');
+
+		    // set container id for the chart
+		    chart.container('patientsTD');
+
+		    // initiate chart drawing
+		    chart.draw();
+		});
+
+	}
+
+
+//patientsSexeAnyChart();
+patientsComAnyChart();
+patientsSexpAnyChart();
+PatientsCatAgeBarAnyChart();
+patientsTDAnyChart();
+
+ });
+</script>
+
+<script type="text/javascript">
+	var donnees1 = new Array();
+</script>
+
+ 
+
+<?php 
+ 
+ $resultTab3 = $this->result2[0];
+ $resultTab4 = $this->result2[1];
+ for ($i=0 ; $i<count($resultTab3); $i++) {
+ ?>
+
+
+<script type="text/javascript"> //alert("<?php //echo $res['ID_PERSONNE']; ?>") 
+   //donnees.push(<?php //echo $res['ID_PERSONNE']; ?>);
+
+   var variable = {y: <?php echo $resultTab4[$resultTab3[$i]]; ?>,x:"<?php echo $resultTab3[$i]; ?>" };
+   donnees1.push(variable);
+
+</script>
+ 
+<?php } ?>
+ 
+ 
+
+
+
+<script type="text/javascript">
+	var donnees5 = new Array();
+</script>
+
+ 
+
+<?php 
+ 
+ $resultTab11 = $this->result6[0];
+ $resultTab12 = $this->result6[1];
+ for ($i=0 ; $i<count($resultTab11); $i++) {
+ ?>
+
+
+<script type="text/javascript"> //alert("<?php //echo $res['ID_PERSONNE']; ?>") 
+   //donnees.push(<?php //echo $res['ID_PERSONNE']; ?>);
+
+   var variable = { y: <?php echo $resultTab12[$resultTab11[$i]]; ?> , x:"<?php echo $resultTab11[$i]; ?>"};
+   donnees5.push(variable);
+</script>
+ 
+<?php } ?>
+ 
+ 
+
+
+<script type="text/javascript">
+	var donnees8 = new Array();
+</script>
+
+ 
+
+<?php 
+ 
+ $resultTab17 = $this->result9[0];
+ $resultTab18 = $this->result9[1];
+ for ($i=0 ; $i<count($resultTab17); $i++) {
+ ?>
+
+
+<script type="text/javascript"> //alert("<?php //echo $res['ID_PERSONNE']; ?>") 
+   //donnees.push(<?php //echo $res['ID_PERSONNE']; ?>);
+
+   var variable = { y: <?php echo $resultTab18[$resultTab17[$i]]; ?> , x:"<?php echo $resultTab17[$i]; ?>"};
+   donnees8.push(variable);
+
+
+
+</script>
+ 
+<?php } ?>
+ 
+ 
+
+
+	
+
+<div id="a" style="width: 80%;">
+	
+	<table  class="table" style=" width:100%; height:90%;  border: 0px solid #cccccc;">
+		<caption> <h3 style= "background-color:MediumSeaGreen; border: 2px solid #cccccc;" >Tableau de Bord</h3></caption>
+	<tr>
+
+		<td id="patientsSexp" style="min-width: 80px; border: 2px solid #cccccc;">
+		<!--<button onclick="pdf()">PDF</button>-->
+		</td>
+		<td id="patientsCom" style="min-width: 80px; border: 2px solid #cccccc;"></td>
+
+	</tr>
+
+
+	<tr>
+		<td id="PatientsCatAge" style="min-width: 80px; border: 2px solid #cccccc;" ></td>
+		<td id="patientsTD"  style="min-width: 80px; border: 2px solid #cccccc;"></td>
+
+	</tr>
+   </table>
+
+  
+</div>

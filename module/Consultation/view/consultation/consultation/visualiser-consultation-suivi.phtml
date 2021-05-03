@@ -106,7 +106,7 @@ $(window).load(function () {
 			   	</td>
 
 			   	<td style='width:35%; font-family: police1;font-size: 12px;'>
-		   		<div ><a style="text-decoration: underline;">Origine g&eacute;ographique</a><br><p style='font-weight: bold;font-size: 19px;'><?php  echo $this->patient->origine_geographique; ?></p></div>
+			   		<div ><a style="text-decoration: underline;">Statut matrimonial</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['STATUT_MATRIMONIAL']?$this->listeStatutMatrimonial[$this->lesdetails['STATUT_MATRIMONIAL']]:'';?></p></div>
 			   	</td>
 
 			    <td style='width:38%; font-family: police1;font-size: 12px;'>
@@ -121,7 +121,7 @@ $(window).load(function () {
 			   	</td>
 
 			   	<td style=' font-family: police1;font-size: 12px;'>
-			   		<div ><a style="text-decoration: underline;">Statut matrimonial</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['STATUT_MATRIMONIAL']?$this->listeStatutMatrimonial[$this->lesdetails['STATUT_MATRIMONIAL']]:'';?></p></div>
+			   		<div ><a style="text-decoration: underline;">R&eacute;gime matrimonial</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['REGIME_MATRIMONIAL']?$this->listeRegimeMatrimonial[$this->lesdetails['REGIME_MATRIMONIAL']]:'';?></p></div>
 			   	</td>
 
 			   	<td style=' font-family: police1;font-size: 12px;'>
@@ -145,7 +145,7 @@ $(window).load(function () {
 			   	</td>
 
 			    <td style=' font-family: police1;font-size: 12px;'>
-			   		<div ><a style="text-decoration: underline;">R&eacute;gime matrimonial</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['REGIME_MATRIMONIAL']?$this->listeRegimeMatrimonial[$this->lesdetails['REGIME_MATRIMONIAL']]:'';?></p></div>
+    		   		<?php  echo $this->departement; ?>
 			   	</td>
 
 			   	<td style=' font-family: police1;font-size: 12px;'>
@@ -162,9 +162,10 @@ $(window).load(function () {
 			   	</td>
 
 			    <td style='display:"block"; font-family: police1;font-size: 12px;'>
-			   		<div ><a style="text-decoration: underline;">Adresse</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['ADRESSE'];?></p></div>
+			   		<div ><a style="text-decoration: underline;">Adresse</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->adresse;?></p></div>
 
 			   	</td>
+			   	
 			   	
 			   	<td style='display:"block";  font-family: police1;font-size: 12px; vertical-align: top;'>
 			   	    <div ><a style="text-decoration: underline;">Profession</a><br><p style='font-weight: bold;font-size: 19px;'><?php echo $this->lesdetails['PROFESSION']?$this->listeProfessions[$this->lesdetails['PROFESSION']]:'';?></p></div>

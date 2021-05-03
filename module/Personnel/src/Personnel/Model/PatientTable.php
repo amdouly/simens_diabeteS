@@ -68,11 +68,20 @@ class PatientTable {
 	        'annee' => $annee , 
 	        'race' => $donnees['RACE'] ? $donnees['RACE'] : null,
 	        'ethnie' => $donnees['ETHNIE'] ? $donnees['ETHNIE'] : null,
-	        'origine_geographique' => $donnees['ORIGINE_GEOGRAPHIQUE'] ? $donnees['ORIGINE_GEOGRAPHIQUE'] : null,
-	        'commune_saintlouis' => ($donnees['COMMUNE_SAINTLOUIS'])?$donnees['COMMUNE_SAINTLOUIS']:null,
-	        'quartier_saintlouis' => ($donnees['QUARTIER_SAINTLOUIS'])?$donnees['QUARTIER_SAINTLOUIS']:null,
+	        'departement' => $donnees['DEPARTEMENT'],
 	        'idemploye' => $idemploye,
 	    ); 
+	    
+	    /**
+	     * Vérifier l'information à enregistrer 
+	     */
+	    if($donnees['DEPARTEMENT'] == 32){ // Saint-Louis
+	        $donneesComp['commune_saintlouis'] = ($donnees['COMMUNE_SAINTLOUIS'])?$donnees['COMMUNE_SAINTLOUIS']:null;
+	        $donneesComp['quartier_saintlouis'] = ($donnees['QUARTIER_SAINTLOUIS'])?$donnees['QUARTIER_SAINTLOUIS']:null;	        
+	    }else if($donnees['DEPARTEMENT'] == 46){ // Autres pays
+	        $donneesComp['pays'] = $donnees['PAYS'] ? $donnees['PAYS'] : null;   
+	    }
+	    
 	    
 	    if($dernierPatient){
 	        $suivant = $this->numeroOrdreTroisChiffre(( (int)$dernierPatient['ordre'] )+1);
@@ -100,12 +109,23 @@ class PatientTable {
 	    $donneesPatient =  array(
 	        'race' => $donnees['RACE'] ? $donnees['RACE'] : null,
 	        'ethnie' => $donnees['ETHNIE'] ? $donnees['ETHNIE'] : null,
-	        'origine_geographique' => $donnees['ORIGINE_GEOGRAPHIQUE'] ? $donnees['ORIGINE_GEOGRAPHIQUE'] : null,
-	        'commune_saintlouis' => ($donnees['COMMUNE_SAINTLOUIS'])?$donnees['COMMUNE_SAINTLOUIS']:null,
-	        'quartier_saintlouis' => ($donnees['QUARTIER_SAINTLOUIS'])?$donnees['QUARTIER_SAINTLOUIS']:null,
+	        'departement' => $donnees['DEPARTEMENT'],
+	        'pays' => null,
+	        'commune_saintlouis' => null,
+	        'quartier_saintlouis' => null,
 	        'idemploye' => $idemploye,
 	        'numero_dossier' => $numero_dossier,
 	    );
+	    
+	    /**
+	     * Vérifier l'information à enregistrer
+	     */
+	    if($donnees['DEPARTEMENT'] == 32){ // Saint-Louis
+	        $donneesPatient['commune_saintlouis'] = ($donnees['COMMUNE_SAINTLOUIS'])?$donnees['COMMUNE_SAINTLOUIS']:null;
+	        $donneesPatient['quartier_saintlouis'] = ($donnees['QUARTIER_SAINTLOUIS'])?$donnees['QUARTIER_SAINTLOUIS']:null;
+	    }else if($donnees['DEPARTEMENT'] == 46){ // Autres pays
+	        $donneesPatient['pays'] = $donnees['PAYS'] ? $donnees['PAYS'] : null;
+	    }
 	    
 	    $this->tableGateway->update($donneesPatient, array('idpersonne' => $idpersonne));
 	}
@@ -173,6 +193,28 @@ class PatientTable {
 		$this->tableGateway->insert ( array('ID_PERSONNE' => $id_personne , 'DATE_ENREGISTREMENT' => $date_enregistrement , 'ID_EMPLOYE' => $id_employe) );
 	}
 	
+	public function getListeDesPatientsConsultes(){
+	    $db = $this->tableGateway->getAdapter();
+	    $date = (new \DateTime())->format('Y-m-d');
+	
+	    /*
+	     * SQL queries
+	     */
+	    $sql = new Sql($db);
+	    $sQuery = $sql->select()
+	    ->from(array('pat'   => 'patient'))->columns(array('*'))
+	    ->join(array('pers'  => 'personne'), 'pat.idpersonne = pers.ID_PERSONNE' , array('idpatient'=>'ID_PERSONNE'))
+	    ->join(array('admis' => 'admission'), 'admis.idpatient = pers.ID_PERSONNE' , array('*'))
+	    ->group('admis.idpatient');
+	
+	    $tab = array();
+	    $resultat = $sql->prepareStatementForSqlObject($sQuery)->execute();
+	    foreach ($resultat as $result){
+	        $tab[] = $result['idpatient'];
+	    }
+	
+	    return $tab;
+	}
 	
 	public function getListePatientsAjax(){
 	
@@ -215,6 +257,7 @@ class PatientTable {
 		$baseUrl = $_SERVER['REQUEST_URI'];
 		$tabURI  = explode('public', $baseUrl);
 	
+		$listePatientsConsultes = $this->getListeDesPatientsConsultes();
 		/*
 		 * Prï¿½parer la liste
 		*/
@@ -246,11 +289,15 @@ class PatientTable {
 						
 					else if ($aColumns[$i] == 'id') {
 						$html ="<infoBulleVue> <a href='javascript:visualiser(".$aRow[ $aColumns[$i] ].")' >";
-						$html .="<img style='display: inline; margin-right: 10%; margin-left: 5%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='d&eacute;tails'></a> </infoBulleVue>";
+						$html .="<img style='display: inline; margin-right: 8%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='d&eacute;tails'></a> </infoBulleVue>";
 	
 						$html .= "<infoBulleVue> <a href='javascript:modifierPatient(".$aRow[ $aColumns[$i] ].")' >";
 						$html .="<img style='display: inline; margin-right: 9%;' src='".$tabURI[0]."public/images_icons/pencil_16.png' title='Modifier'></a> </infoBulleVue>";
 	
+						if(!in_array($aRow['id'], $listePatientsConsultes)){
+						    $html .= "<a id='".$aRow['id']."' href='javascript:supprimerPatient(".$aRow['id'].")' >";
+						    $html .="<img style='' src='".$tabURI[0]."public/images_icons/delete_16.png' title='Modifier'></a>";
+						}
 						$row[] = $html;
 					}
 	
@@ -265,13 +312,100 @@ class PatientTable {
 		return $output;
 	}
 	
+	protected function nbJours($debut, $fin) {
+	    //60 secondes X 60 minutes X 24 heures dans une journee
+	    $nbSecondes = 60*60*24;
 	
+	    $debut_ts = strtotime($debut);
+	    $fin_ts = strtotime($fin);
+	    $diff = $fin_ts - $debut_ts;
+	    return (int)($diff / $nbSecondes);
+	}
+	
+	
+	public function getAge($age, $date_naissance){
+	    
+	    $html = '';
+	    //Gestion des AGES
+	    if($age && !$date_naissance){
+	        $html .=$age." ans";
+	    }else{
+	        $aujourdhui = (new \DateTime() ) ->format('Y-m-d');
+	        $age_jours = $this->nbJours($date_naissance, $aujourdhui);
+	        $age_annees = (int)($age_jours/365);
+	         
+	        if($age_annees == 0){
+	             
+	            if($age_jours < 31){
+	                $html .=$age_jours." j";
+	            }else if($age_jours >= 31) {
+	                 
+	                $nb_mois = (int)($age_jours/31);
+	                $nb_jours = $age_jours - ($nb_mois*31);
+	                if($nb_jours == 0){
+	                    $html .=$nb_mois."m";
+	                }else{
+	                    $html .=$nb_mois."m ".$nb_jours."j";
+	                }
+	                 
+	            }
+	             
+	        }else{
+	            $age_jours = $age_jours - ($age_annees*365);
+	             
+	            if($age_jours < 31){
+	                 
+	                if($age_annees == 1){
+	                    if($age_jours == 0){
+	                        $html .=$age_annees."an";
+	                    }else{
+	                        $html .=$age_annees."an";
+	                    }
+	                }else{
+	                    if($age_jours == 0){
+	                        $html .=$age_annees."ans";
+	                    }else{
+	                        $html .=$age_annees."ans";
+	                    }
+	                }
+	                 
+	            }else if($age_jours >= 31) {
+	                 
+	                $nb_mois = (int)($age_jours/31);
+	                $nb_jours = $age_jours - ($nb_mois*31);
+	                 
+	                if($age_annees == 1){
+	                    if($nb_jours == 0){
+	                        $html .=$age_annees."an ".$nb_mois."m";
+	                    }else{
+	                        $html .=$age_annees."an ".$nb_mois."m";
+	                    }
+	                     
+	                }else{
+	                    if($nb_jours == 0){
+	                        $html .=$age_annees."ans ".$nb_mois."m";
+	                    }else{
+	                        $html .=$age_annees."ans ".$nb_mois."m";
+	                    }
+	                }
+	                 
+	            }
+	             
+	        }
+	         
+	    }
+	     
+	    //Fin gestion des ages
+	    //Fin gestion des ages
+	    
+	    return $html;
+	}
 	
 	public function getListePatientsAAdmettre(){
 	
 		$db = $this->tableGateway->getAdapter();
 	
-		$aColumns = array('numero_dossier', 'Nom','Prenom','Datenaissance','Sexe', 'Adresse', 'id', 'id2');
+		$aColumns = array('numero_dossier', 'Nom','Prenom','Datenaissance', 'Telephone', 'Adresse', 'id', 'id2');
 	
 		$date = (new \DateTime())->format('Y-m-d');
 		
@@ -284,7 +418,7 @@ class PatientTable {
 		$sql = new Sql($db);
 		$sQuery = $sql->select()
 		->from(array('pat' => 'patient'))->columns(array('*'))
-		->join(array('p' => 'personne'), 'pat.idpersonne = p.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
+		->join(array('p' => 'personne'), 'pat.idpersonne = p.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM', 'Age'=>'AGE', 'Datenaissance'=>'DATE_NAISSANCE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE', 'Telephone'=>'TELEPHONE', 'id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
 		->where(array(new NotIn ( 'pat.idpersonne', $subselect )))
 		->order('pat.idpersonne DESC');
 	
@@ -332,9 +466,9 @@ class PatientTable {
 	
 					else if ($aColumns[$i] == 'Datenaissance') {
 						
-						$date_naissance = $aRow[ $aColumns[$i] ];
-						if($date_naissance){ $row[] = $Control->convertDate($aRow[ $aColumns[$i] ]); }else{ $row[] = null;}
-							
+						//$date_naissance = $aRow[ $aColumns[$i] ];
+						//if($date_naissance){ $row[] = $Control->convertDate($aRow[ $aColumns[$i] ]); }else{ $row[] = null;}
+						$row[] = $this->getAge($aRow['Age'], $aRow['Datenaissance']);
 					}
 	
 					else if ($aColumns[$i] == 'Adresse') {

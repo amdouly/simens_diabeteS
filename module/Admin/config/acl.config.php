@@ -154,6 +154,28 @@ return array(
 								        'liste-historique-consultations' => 'medecin',
     								    'liste-historique-consultations-ajax' => 'medecin',
 								        'visualiser-historique-consultations' => 'medecin',
+								    
+    								    'supprimer-patient' => 'medecin',
+    								    'tabl' => 'medecin',
+    								    'tab' => 'medecin',
+    								    'export' => 'medecin',
+    								    //'exportP' => 'medecin',
+    								    //'informations-statistiques' => 'medecin'
+								),
+
+								/***
+								 * ConsultationController
+								 */
+				
+								'Statistique\Controller\Statistique' => array(
+									'index' => 'medecin',
+								    'stat' => 'medecin',
+								    'stats' => 'medecin',
+								    'acc' => 'medecin',
+								    'tab' => 'medecin',
+								    'export' => 'medecin',
+								    'exportp' => 'medecin',
+								    'pred' => 'medecin',
 								),
 						),
 				),
