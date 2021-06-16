@@ -164,7 +164,7 @@ return array(
 								),
 
 								/***
-								 * ConsultationController
+								 * StatistiqueController
 								 */
 				
 								'Statistique\Controller\Statistique' => array(

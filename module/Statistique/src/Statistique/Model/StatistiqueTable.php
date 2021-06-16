@@ -342,6 +342,27 @@ public function nbPatintTdd(){
 	    }
 
 
+	    public function evoPatint(){
+
+    	  $sql = new Sql ($this->tableGateway->getAdapter());
+	    
+	    $select=$sql->select();
+	    $select->from(array('pat'   => 'patient'))
+	    ->join(array('con'  => 'consultation'), 'pat.idpersonne = con.idpatient',array('date'))->order('date ASC');;
+	    $resultat = $sql->prepareStatementForSqlObject($select)->execute();
+
+        $tab = array();
+        $tabdev = array( );
+	    foreach ($resultat as $value) {
+	    	# code...
+	    	 $tab[] = $value['date'];
+	    	 if(!in_array($value['date'], $tabdev)){
+	    	 $tabdev[] = $value['date']; }
+	    }
+
+	    return array($tabdev, array_count_values($tab));
+	    }
+
  public function exportData(){
     
  		

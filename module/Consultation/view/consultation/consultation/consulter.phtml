@@ -299,7 +299,7 @@ $(window).load(function () {
 				               </div>
 		
 				               <!--********************* BOUTON VALIDER-MODIFIER ************************-->
-		                       <!--********************* BOUTON VALIDER-MODIFIER ************************-->		            
+		                        <!--********************* BOUTON VALIDER-MODIFIER ************************-->		            
 		                       <table style="width: 80%; position: relative; top: 0px; float: right;">
 		                          <tr style="width: 80%;">
 		                             <th style="width:65%;">
@@ -1197,7 +1197,7 @@ $(window).load(function () {
 		                                  </label>
                      		           </td>
                      		           
-                     		           <td style="width: 20%; padding-right: 25px;">
+                     		           <td style="width: 20%; padding-right: 25px;" id="taille">
                      		              <label style="width: 100%; height:30px; text-align:left;">
 		                           		    <span style='font-size: 11px;'>&#10148; </span><span>Taille (cm)</span> 
 		                           		    <?php echo $this->formRow($form->get('taille')); ?>
@@ -3167,7 +3167,17 @@ $(window).load(function () {
      <!-- ******************** FIN SUIVI -- FIN SUIVI ******************-->
      <!-- ******************** FIN SUIVI -- FIN SUIVI ******************-->
      
-     
+     <div> 
+     	<table style="width: 100%; margin-top: 20px;">
+    <tr>
+     <td style="background-color: #eeeeee; height: 40px;width: 100%; ">
+         <p style="text-align: center;"> 
+            <button style="font-family: police2;font-size: 18px; font-weight: bold;" id="predit"> Prediction </button>
+         </p>
+     </td>
+    </tr>
+    </table>
+     </div>
      
      
 </div>
@@ -3208,3 +3218,15 @@ $(window).load(function () {
     $('#depliantSuiviPatient').toggle(true);
   </script>
 <?php } ?>
+
+
+<script type="text/javascript">
+	
+	$("#predit").click(function(){
+
+		var donnees =array();
+		donnees["taille"]=$("#taille").val();
+		//alert(donnees["taille"]);
+	})
+
+</script>

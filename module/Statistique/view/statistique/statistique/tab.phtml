@@ -27,33 +27,15 @@ $('#menu_admission_patient_style').css({'font-weight':'bold','color':'white','fo
 <?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/anychart/js/anychart-exports.min.js');?>
 <?php echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/anychart/css/anychart-ui.min.css');?>
 <?php echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/anychart/fonts/css/anychart-font.min.css');?>
- <style type="text/css">
-  	
-  	
-	
-	#a {
-		height: 100%;
-  		width: 100%;
-  		min-height: 530px;
-      border: 1px dashed #ccc;
-      border-top-right-radius: 10px;
-	 border-top-left-radius: 10px;
-	 border-bottom-right-radius: 10px;
-	 border-bottom-left-radius: 10px;
-	 color: blue;
-	margin: 14px;
-	font-size: 25px;
-	text-align: center;
-	text-shadow: green;
-	text-transform: capitalize;
-	vertical-align: middle;
-	padding: 10px;
-	padding-top: 40px;
-	border: 6px solid #ccc;
-	
-}
+ 
+ <!-- MES STYLES -->
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/consultation/styleListeConsultations.css');?>
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/dateTimePicker/jquery-ui-timepicker-addon.css');?>
 
-  </style>
+
+<!-- MES JS -->
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/consultation/jsListeConsultations.js');?>
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/dateTimePicker/jquery-ui-timepicker-addon.js');?>
 
 
 <script type="text/javascript">
@@ -440,14 +422,17 @@ patientsTDAnyChart();
 <?php } ?>
  
  
+<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> <span> STATISTIQUES DES PATIENTS - TABLEAU DE BORD </span></div>
 
+<div id="contenuInterface" >
+	<div id="contenu" >
 
 	
 
-<div id="a" style="width: 80%;">
+
 	
 	<table  class="table" style=" width:100%; height:90%;  border: 0px solid #cccccc;">
-		<caption> <h3 style= "background-color:MediumSeaGreen; border: 2px solid #cccccc;" >Tableau de Bord</h3></caption>
+	
 	<tr>
 
 		<td id="patientsSexp" style="min-width: 80px; border: 2px solid #cccccc;">
@@ -466,4 +451,5 @@ patientsTDAnyChart();
    </table>
 
   
+</div>
 </div>

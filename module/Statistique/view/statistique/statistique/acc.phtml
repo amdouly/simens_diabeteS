@@ -12,6 +12,7 @@
  $this->headScript()->appendFile($this->basePath().'/js/jquery.dataTables.min.js');
  $this->headScript()->appendFile($this->basePath().'/js/jquery-ui.js');
  $this->headScript()->appendFile($this->basePath().'/js/w2ui/w2ui-1.4.3.min.js');
+ $this->headScript()->appendFile($this->basePath().'/js/html2canvas.min.js');
 
   echo $this->headScript()->appendFile($this->basePath().'/js/plugins/zingchart/zingchart.min.js');
   echo $this->headScript()->appendFile($this->basePath().'/js/jquery.min.js');
@@ -24,9 +25,21 @@
 <?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/anychart/js/anychart-base.min.js');?>
 <?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/anychart/js/anychart-ui.min.js');?>
 <?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/anychart/js/anychart-cartesian-3d.min.js');?>
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/jsPDF-master/jspdf.min.js');
+  ?>
+
 <?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/anychart/js/anychart-exports.min.js');?>
 <?php echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/anychart/css/anychart-ui.min.css');?>
 <?php echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/anychart/fonts/css/anychart-font.min.css');?>
+<!-- MES STYLES -->
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/consultation/styleListeConsultations.css');?>
+<?php echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/dateTimePicker/jquery-ui-timepicker-addon.css');?>
+
+
+<!-- MES JS -->
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/consultation/jsListeConsultations.js');?>
+<?php echo $this->headScript()->appendFile($this->basePath().'/js/plugins/dateTimePicker/jquery-ui-timepicker-addon.js');?>
+
 <style type="text/css">
 
 #table{
@@ -54,13 +67,14 @@
 	
 }
 
-
-
-
 </style>
 
+<div id="titre" style='font-family: police2; text-decoration:none; color: green; font-size: 18px; font-weight: bold; padding-left: 20px;'><iS style='font-size: 25px;'>&curren;</iS> <span> STATISTIQUES DES PATIENTS  </span></div>
+
+<div id="contenuInterface" >
+	<div id="contenu" >
 <table style="width: 100%">
-	<caption><h3>STATISTIQUES </h3></caption>
+<!--	<caption><h3>STATISTIQUES </h3></caption>-->
 	<tr style="width: 100%; height: 500px;" >    
 		<td style="width: 30%; height: 500px; background-color: ;"> 
 		
@@ -73,10 +87,16 @@
 	<button id="nbprof" type="button" class="btn btn-outline-success btn-block" style="align-self: center;width: 50%; height: 40px;border: 1px dashed #ccc;font-size: 15px;text-align: center; border: 1px solid #ccc;"> Nombre Patient Par Profession</button>
 	<button id="nbtyp" type="button" class="btn btn-outline-success btn-block" style="align-self: center;width: 50%; height: 40px;border: 1px dashed #ccc;font-size: 15px;text-align: center; border: 1px solid #ccc;">Nombre Patient Par  Types Diabetes </button>
 
+	<button id="nbevo" type="button" class="btn btn-outline-success btn-block" style="align-self: center;width: 50%; height: 40px;border: 1px dashed #ccc;font-size: 15px;text-align: center; border: 1px solid #ccc;">Evolution Patient Par Date Cons </button>
+
 
  </td>
-		<td id="AffichageGraphe" style="width: 70%; height: 300px; background-color: gree;">   </td>
+
+		<td id="AffichageGraphe" style="width: 70%; height: 300px; background-color: gree;"> </td>
+		<!-- <td id="patientsSexe" style="width: 70%; height: 200px; background-color: gree;">  </td>-->
+		
 	</tr>	
+	
 
 </table>
 
@@ -145,13 +165,16 @@
 </div>
        -->
 
-<div style="float: right;">
 
 	<!--  Patient Par Sexe -->
 
 <div id="idPopupPatientParSexe" title="Patient Par Sexe" style="display:none;">
-   <!--  <button onclick="png()"></button> -->
-   <div style="width: 100%;" align="center">
+	<div style='width: 100%; height: 10px; position:left;'> 
+		<!--     <img onclick="" style=" cursor: pointer;" src='../images_icons/pdf.png' />-->
+     <!-- <a href="#" onclick="pdfGen()">PDF</a> -->
+    </div>
+   <!-- <button onclick="download()">pdf</button> -->
+   <div id="pSex" style="width: 100%;" align="center">
    	
    	<table id="table1" style="width: 70%; height: 100px; border: 1px solid #cccccc;">
    		<caption>Repartition de patients par sexe</caption>
@@ -176,7 +199,8 @@
   	</table>
    </div>
    
-   <div style="width: 100%;" align="center">
+   <div id="gsex" style="width: 100%;" align="center">
+   	
    	<table id="table2" style="width: 90%; height: 190px; border: 1px solid #cccccc; background-color: gren;">
    		<caption>Visualisation de patients par sexe</caption>
   		<tr style="width: 90%; height: 50px; border: 1px solid #cccccc; vertical-align: bottom;">
@@ -218,7 +242,7 @@ var chartPatientSexe;
 function patientsSexeAnyChart() {
 		anychart.onDocumentReady(function () {
 		    // create column chart 
-		    chartPatientSexe = anychart.column();
+		    chartPatientSexe = anychart.column3d();
 		    // turn on chart animation
 		    chartPatientSexe.animation(true);
 
@@ -241,6 +265,8 @@ function patientsSexeAnyChart() {
 		    chartPatientSexe.interactivity().hoverMode('by-x');
 		    chartPatientSexe.xAxis().title('');
 		    chartPatientSexe.yAxis().title('');
+		    chartPatientSexe.labels('y');
+
 	    // set container id for the chart
 		    chartPatientSexe.container('patientsSexe');
 		   // initiate chart drawing
@@ -265,11 +291,20 @@ function patientsSexeAnyChart() {
 
  $(document).ready(function(){
 
-	$("#nbsex").click(function(){
+	$("#nbsex").mouseover(function(){
+		$("#AffichageGraphe").html($("#idPopupPatientParSexe").html()).css("visibility", "visible");
+		
+	});	
+	});
+/*
+ $(document).ready(function(){
+
+	$("#nbsex").onclick(function(){
 		$("#AffichageGraphe").html($("#idPopupPatientParSexe").html());
 		
 	});	
 	});
+*/
 
 </script>
 
@@ -278,8 +313,12 @@ function patientsSexeAnyChart() {
 
 
 
-<!-- POP UP Patient Par CategorieAge -->
+<!--  Patient Par CategorieAge -->
 <div id="idPopupPatientParAge" title="Patient Par CategorieAge" style="display:none; overflow-x:auto;">
+	<div style='width: 100%; height: 10px; position:left;'>    
+      <!--     <img onclick="" style=" cursor: pointer;" src='../images_icons/pdf.png' />-->
+    </div>
+
     <div style="width: 100%;" align="center" >
     	
     <table id="table3" style="width: 70%; height: 100px; border: 1px solid #cccccc;">
@@ -349,7 +388,7 @@ $(document).ready(function($) {
 
     	anychart.onDocumentReady(function () {
     	    // create bar chart
-    	    var chart = anychart.bar();
+    	    var chart = anychart.bar3d();
 
     	    // turn on chart animation
     	    chart.animation(true);
@@ -379,7 +418,7 @@ $(document).ready(function($) {
     	    chart.xAxis().title('');
     	    chart.yAxis().title('Nombre de Patients Par CategorieAge');
     	    chart.interactivity().hoverMode('by-x');
-
+    	    chart.labels('y');
     	    // set scale minimum
     	    chart.yScale().minimum(0);
 
@@ -414,6 +453,8 @@ $(document).ready(function(){
 	});	
 	});
 
+
+
 </script>
 
 
@@ -421,6 +462,10 @@ $(document).ready(function(){
 
 <!-- POP UP Patient Par Commune -->
 <div id="idPopupPatientParCommune" title="Patient Par Commune" style="display:none;">
+	<div style='width: 100%; height: 10px; position:left;'>    
+      <!--     <img onclick="" style=" cursor: pointer;" src='../images_icons/pdf.png' />-->
+    </div>
+
 	<div style="width: 100%;" align="center">
 		<table id="table5" style="width: 70%; height: 100px; border: 1px solid #cccccc;">
   	<caption> Repartition de patients Par Commune </caption>
@@ -486,7 +531,7 @@ function patientsComAnyChart() {
 
 		anychart.onDocumentReady(function () {
 		    // create column chart
-		    var chart = anychart.column();
+		    var chart = anychart.column3d();
 
 		    // turn on chart animation
 		    chart.animation(true);
@@ -519,6 +564,7 @@ function patientsComAnyChart() {
 		    chart.xAxis().title('');
 		    chart.yAxis().title('Nombre de Patients Par Commune');
 		    chart.labels('label');
+		    chart.labels('y');
 
 		    // set container id for the chart
 		    chart.container('patientsCom');
@@ -559,6 +605,10 @@ function patientsComAnyChart() {
 
 <!--  Patient Par Quartier -->
 <div id="idPopupPatientParQuartier" title="Patient Par Quartier" style="display:none;">
+	<div style='width: 100%; height: 10px; position:left;'>    
+<!--     <img onclick="" style=" cursor: pointer;" src='../images_icons/pdf.png' />-->
+    </div>
+
 	<div style="width: 800px; overflow:scroll; "align="center" >
 	<table id="table7" style="width: 43%; height: 100px; border: 1px solid #cccccc;">
     <caption> Repartition de patients Par Quartier</caption>
@@ -616,7 +666,7 @@ function patientsQuaAnyChart(){
 
 		anychart.onDocumentReady(function () {
 		    // create column chart
-		    var chart = anychart.column();
+		    var chart = anychart.column3d();
 
 		    // turn on chart animation
 		    chart.animation(true);
@@ -648,6 +698,7 @@ function patientsQuaAnyChart(){
 		    chart.yAxis().title('Nombre de Patients Par Quartier');
 		    chart.labels('label');
 		    chart.xAxis().labels().rotation(-70);
+		    chart.labels('y');
 
 		    // set container id for the chart
 		    chart.container('patientsQua');
@@ -683,6 +734,10 @@ $(document).ready(function(){
 
 <!--  Patient Par StatueMatrimonial-->
 <div id="idPopupPatientParStatM" title="Patient Par StatueMatrimonial" style="display:none;">
+	<div style='width: 100%; height: 10px; position:left;'>    
+      <!--     <img onclick="" style=" cursor: pointer;" src='../images_icons/pdf.png' />-->
+    </div>
+
 	<div style="width: 100%;" align="center">
 		<table id="table9" style="width: 70%; height: 100px; border: 1px solid #cccccc;">
  	<caption> Repartition de Patients Par StatueMatrimonial </caption>
@@ -741,7 +796,7 @@ function patientsStatMAnyChart(){
 
 		anychart.onDocumentReady(function () {
 		    // create column chart
-		    var chart = anychart.column();
+		    var chart = anychart.column3d();
 
 		    // turn on chart animation
 		    chart.animation(true);
@@ -772,6 +827,7 @@ function patientsStatMAnyChart(){
 		    chart.xAxis().title('');
 		    chart.yAxis().title('Nombre de Patients Par StatueMatrimonial');
 		    chart.labels('label');
+		    chart.labels('y');
 
 		    // set container id for the chart
 		    chart.container('patientsStat');
@@ -809,6 +865,10 @@ function patientsStatMAnyChart(){
 
 <!-- POP UP Patient Par Complication-->
 <div id="idPopupPatientParCompli" title="Patient Par Complication" style="display:none;">
+	<div style='width: 100%; height: 10px; position:left;'>    
+      <!--     <img onclick="" style=" cursor: pointer;" src='../images_icons/pdf.png' />-->
+    </div>
+
 	<div style="width: 100%;" align="center">
 		
 		<table id="table11" style="width: 70%; height: 100px; border: 1px solid #cccccc;">
@@ -874,7 +934,7 @@ function patientsCompliAnyChart(){
 
 		anychart.onDocumentReady(function () {
 		    // create column chart
-		    var chart = anychart.column();
+		    var chart = anychart.column3d();
 
 		    // turn on chart animation
 		    chart.animation(true);
@@ -905,6 +965,7 @@ function patientsCompliAnyChart(){
 		    chart.xAxis().title('');
 		    chart.yAxis().title('Nombre de Patients Par  Complication');
 		    chart.labels('label');
+		    chart.labels('y');
 
 		    // set container id for the chart
 		    chart.container('patientsCompli');
@@ -925,7 +986,7 @@ function patientsCompliAnyChart(){
 </div>
 
     
-</div>
+
 
 <script type="text/javascript">
 
@@ -950,6 +1011,10 @@ function patientsCompliAnyChart(){
 
 <!--  Patient Par Types Diabete-->
 <div id="idPopupPatientParTypeD" title="Patient Par Types Diabetes" style="display:none;">
+	<div style='width: 100%; height: 10px; position:left;'>    
+     <!--     <img onclick="" style=" cursor: pointer;" src='../images_icons/pdf.png' />-->
+    </div>
+
   
   <div style="width: 100%;" align="center">
  	
@@ -1017,7 +1082,7 @@ function patientsTypeDAnyChart(){
 
 		anychart.onDocumentReady(function () {
 		    // create column chart
-		    var chart = anychart.column();
+		    var chart = anychart.column3d();
 
 		    // turn on chart animation
 		    chart.animation(true);
@@ -1048,7 +1113,7 @@ function patientsTypeDAnyChart(){
 		    chart.xAxis().title('');
 		    chart.yAxis().title('Nombre de Patients Par Types Diabetes');
 		    //chart.labels('label');
-
+		    chart.labels('y');
 		    // set container id for the chart
 		    chart.container('patientsTypes');
 
@@ -1086,6 +1151,10 @@ function patientsTypeDAnyChart(){
 
 <!--  Patient Par Profession-->
 <div id="idPatientParProf" title="Patient Par Profession" style="display:none;">
+	<div style='width: 100%; height: 10px; position:left;'>    
+      <!--     <img onclick="" style=" cursor: pointer;" src='../images_icons/pdf.png' />-->
+    </div>
+
 	<div style="width: 100%;" align="center">
 		<table id="table15" style="width: 70%; height: 100px; border: 1px solid #cccccc;">
     	<caption> Repartition de Patients Par Profession </caption>
@@ -1151,7 +1220,7 @@ function patientsProfAnyChart(){
 
 		anychart.onDocumentReady(function () {
 		    // create column chart
-		    var chart = anychart.column();
+		    var chart = anychart.column3d();
 
 		    // turn on chart animation
 		    chart.animation(true);
@@ -1183,7 +1252,7 @@ function patientsProfAnyChart(){
 		    chart.yAxis().title('Nombre de Patients Par  Profession');
 		    chart.labels('label');
 		    //chart.xAxis().labels().rotation(-50);
-
+		    chart.labels('y');
 		    // set container id for the chart
 		    chart.container('patientsProf');
 
@@ -1219,3 +1288,205 @@ function patientsProfAnyChart(){
 	
 
 </div>
+
+
+
+<!-- Evolution Patient Par Date-->
+<div id="idPatientParDate" title="Patient Par Date" style="display:none;">
+	<div style='width: 100%; height: 10px; position:left;'>    
+ <!--     <img onclick="" style=" cursor: pointer;" src='../images_icons/pdf.png' />-->
+    </div>
+
+	<div style="width: 100%; overflow:scroll; "align="center">
+		<table id="table15" style="width: 70%; height: 100px; border: 1px solid #cccccc;">
+    	<caption> Repartition de Patients Par Date du Consultation  </caption>
+ 	<tr style="width: 100%; height: 50px; border: 1px solid #cccccc;">
+ 		<?php for( $i = 0 ; $i < count($this->result10[0]) ; $i++){  ?>
+  	<td style="min-width: 80px; border: 2px solid #cccccc;">
+  		
+  		<?php echo $this->result10[0][$i]; ?>
+  	</td>
+  	<?php } ?>
+  	</tr>
+  	<tr style="width: 100%; height: 30px; border: 1px solid #cccccc;">
+
+  		<?php for( $i = 0 ; $i < count($this->result10[0]) ; $i++){  ?>
+  	<td style="min-width: 80px; border: 2px solid #cccccc;">
+  		<span style="font-weight: bold;"><?php echo $this->result10[1][$this->result10[0][$i]]; ?> </span>
+  		<?php echo ' - ('.$this->pourcentagePatientEvo[$i].'%)'; ?>
+  		<?php // echo $this->result2[0][$i]; ?>
+  	</td>
+  <?php } ?> 
+  	</tr>
+  	</table>
+	
+	</div>
+    
+    <div style="width: 100%;" align="center">
+    	
+    	<table id="table16" style="width: 90%; height: 300px; border: 1px solid #cccccc; background-color: gren;">
+  		<caption> Visualisation de Patients  Date du Consultation </caption>
+ 	<tr style="width: 100%; height: 50px; border: 1px solid #cccccc; vertical-align: bottom;">
+ 		<td id="patientsDate"> 
+ 
+ 
+	
+
+<script type="text/javascript">
+	var donneese1 = new Array();
+</script>
+
+ 
+
+<?php 
+ 
+ $resultTabe1 = $this->result10[0];
+ $resultTabe2 = $this->result10[1];
+ for ($i=0 ; $i<count($resultTabe1); $i++) {
+ ?>
+
+
+<script type="text/javascript"> //alert("<?php //echo $res['ID_PERSONNE']; ?>") 
+   //donnees.push(<?php //echo $res['ID_PERSONNE']; ?>);
+
+   var variable = { y: <?php echo $resultTabe2[$resultTabe1[$i]]; ?> , x:"<?php echo $resultTabe1[$i]; ?>"};
+   donneese1.push(variable);
+</script>
+ 
+<?php } ?>
+
+ 
+<script>//alert(donnees);
+$(document).ready(function($) {
+function patientsDateAnyChart(){
+
+		anychart.onDocumentReady(function () {
+		    // create column chart
+		    var chart = anychart.area3d();
+
+		    // turn on chart animation
+		    chart.animation(true);
+
+		    // set chart title text settings
+		    chart.title('');
+
+		    // create area series with passed data
+		    chart.area(donneese1
+    	           	    );
+
+		    chart.tooltip()
+		            .position('center-top')
+		            .anchor('center-bottom')
+		            .offsetX(0)
+		            .offsetY(5)
+		            .format('{%Value}');
+
+		    // set scale minimum
+		    chart.yScale().minimum(0);
+
+		    // set yAxis labels formatter
+		    chart.yAxis().labels().format('{%Value}');
+
+		    chart.tooltip().positionMode('point');
+		    chart.interactivity().hoverMode('by-x');
+
+		    chart.xAxis().title('');
+		    chart.yAxis().title('Nombre de Patients Par  Date');
+		    //chart.labels('label');
+		    //chart.labels('x');
+		    //chart.xAxis().labels().rotation(-50);
+
+		    // set container id for the chart
+		    chart.container('patientsDate');
+
+		    // initiate chart drawing
+		    chart.draw();
+		});
+
+	}
+
+  patientsDateAnyChart();
+});
+</script>
+</td>
+</tr>
+</table>
+	
+    </div>
+  	
+    
+</div>
+
+<script type="text/javascript">
+
+	 $(document).ready(function(){
+
+	$("#nbevo").click(function(){
+		$("#AffichageGraphe").html($("#idPatientParDate").html());
+		
+	});	
+	});
+</script>
+
+	
+
+</div>
+
+</div>
+</div>
+
+
+
+
+
+
+
+<script type="text/javascript">
+	 function download(){
+		html2canvas(document.getElementById('pSex')).then(function(canvas){
+        document.body.appendChild(canvas)
+
+        var imgdata = canvas.toDataURL('image/png')
+	 	var doc = new jsPDF()
+	 	doc.addImage(imgdata,'PNG',10,20)
+	 	doc.save("sample.pdf")
+     })
+
+	}
+
+
+/*	function pdfGen(){
+		var doc = new jsPDF();
+		doc.fromHTML($('#t').get(0),30,60,{'width':500});
+		//doc.innerHTML();
+		doc.save('patientsexe.pdf');
+
+
+	}
+
+/* function pdfGen(idPopupPatientParSexe, title) {
+ doc.fromHTML(`<html><head><title>${title}</title></head><body>` + document.getElementById(idPopupPatientParSexe).innerHTML + `</body></html>`);
+ doc.save('div.pdf');
+}
+/*
+function pdfGen(idPopupPatientParSexe,
+  title) {
+
+  let mywindow = window.open('', 'PRINT', 'height=650,width=900,top=100,left=150');
+
+  mywindow.document.write(`<html><head><title>${title}</title>`);
+  mywindow.document.write('</head><body >');
+  mywindow.document.write(document.getElementById(idPopupPatientParSexe).innerHTML);
+  mywindow.document.write('</body></html>');
+
+  mywindow.document.close(); // necessary for IE >= 10
+  //mywindow.focus(); // necessary for IE >= 10*/
+
+ //mywindow.print();
+ /// mywindow.close();
+
+// return true;
+//}
+
+	
+</script>

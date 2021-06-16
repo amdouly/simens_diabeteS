@@ -207,12 +207,16 @@ use Statistique\Form\ExportForm;       // <-- Add this import
          $totalPatientCatAge = array_sum($result9[1]);
          $tableauPatientParCatAge = array_values($result9[1]);
          $pourcentagePatientCatAge = $this->pourcentage_element_tab($tableauPatientParCatAge, $totalPatientCatAge);
+            
+         $result10 = $this->getStatitiqueTable()->evoPatint();
+         $totalPatientParEvo = array_sum($result10[1]);
+         $tableauPatientParEvo = array_values($result10[1]);
+         $pourcentagePatientEvo = $this->pourcentage_element_tab($tableauPatientParEvo, $totalPatientParEvo);
 
-
-         //echo "<pre>";
-          // var_dump($result2); exit();
+          //echo "<pre>";
+          // var_dump($result10); exit();
         
-         //  echo "</pre>";
+         // echo "</pre>";
 
          return array (
                 
@@ -226,6 +230,7 @@ use Statistique\Form\ExportForm;       // <-- Add this import
                 'pourcentagePatientComp' =>$pourcentagePatientComp,
                 'pourcentagePatientTrai' =>$pourcentagePatientTrai,
                 'pourcentagePatientCatAge' =>$pourcentagePatientCatAge,
+                'pourcentagePatientEvo' =>$pourcentagePatientEvo,
                 'resultSF' => $resultSF,
                 'resultSM' => $resultSM,
                 'result2' => $result2,
@@ -236,6 +241,7 @@ use Statistique\Form\ExportForm;       // <-- Add this import
                 'result7' => $result7,
                 'result8' => $result8,
                 'result9' => $result9,
+                'result10' => $result10,
 
                 );
 
